@@ -14,7 +14,7 @@ const webpackConfig = {
   },
   devServer: {
     contentBase: './dist',
-    openPage: 'greet-text',
+    openPage: '/',
     watchContentBase: true,
     port: 3000,
   },
@@ -48,9 +48,14 @@ const webpackConfig = {
       distDir,
     ]),
     new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'src/index.html',
+      chunks: [],
+    }),
+    new HtmlWebpackPlugin({
       filename: 'greet-text/index.html',
       template: 'src/greet-text/index.html',
-      chunks: ['greet-text']
+      chunks: ['greet-text'],
     }),
   ],
 };
