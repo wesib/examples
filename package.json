@@ -1,0 +1,36 @@
+{
+  "name": "@webcbb/examples",
+  "version": "1.0.0",
+  "description": "Web component building blocks usage examples",
+  "keywords": [
+    "web-components",
+    "examples"
+  ],
+  "homepage": "https://github.com/webcbb/examples",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webcbb/examples.git"
+  },
+  "license": "MIT",
+  "private": true,
+  "author": "Ruslan Lopatin<ruslan.lopatin@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/webcbb/examples/issues"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^0.1.19",
+    "html-webpack-plugin": "^3.2.0",
+    "ts-loader": "^4.5.0",
+    "tslib": "^1.9.3",
+    "tslint": "^5.11.0",
+    "typescript": "^3.0.1",
+    "webpack": "^4.17.1",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.6"
+  },
+  "scripts": {
+    "build": "webpack -p",
+    "lint": "tslint -p .",
+    "start": "webpack-dev-server -p --open"
+  }
+}
