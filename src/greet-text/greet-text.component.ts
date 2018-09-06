@@ -1,6 +1,6 @@
-import { WebComponent, ComponentContext, AttributeChanged } from '@wesib/wesib';
+import { AttributeChanged, ComponentContext, WesComponent } from '@wesib/wesib';
 
-@WebComponent({ name: 'greet-text' })
+@WesComponent({ name: 'greet-text' })
 export class GreetTextComponent {
 
   constructor(private readonly _context: ComponentContext) {
