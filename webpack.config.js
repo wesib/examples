@@ -41,7 +41,7 @@ const webpackConfig = {
     path: path.resolve(distDir),
     filename: '[name]/index.[chunkhash].js',
     libraryTarget: 'umd',
-    library: 'webcbb.examples',
+    library: 'wesib.examples',
   },
   plugins: [
     new CleanWebpackPlugin([

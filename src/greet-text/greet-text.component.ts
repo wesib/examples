@@ -1,4 +1,4 @@
-import { WebComponent, ComponentContext, AttributeChanged } from '@webcbb/webcbb';
+import { WebComponent, ComponentContext, AttributeChanged } from '@wesib/wesib';
 
 @WebComponent({ name: 'greet-text' })
 export class GreetTextComponent {

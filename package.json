@@ -1,21 +1,21 @@
 {
-  "name": "@webcbb/examples",
+  "name": "@wesib/examples",
   "version": "1.0.0",
   "description": "Web component building blocks usage examples",
   "keywords": [
     "web-components",
     "examples"
   ],
-  "homepage": "https://github.com/webcbb/examples",
+  "homepage": "https://github.com/wesib/examples",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/webcbb/examples.git"
+    "url": "git+https://github.com/wesib/examples.git"
   },
   "license": "MIT",
   "private": true,
   "author": "Ruslan Lopatin<ruslan.lopatin@gmail.com>",
   "bugs": {
-    "url": "https://github.com/webcbb/examples/issues"
+    "url": "https://github.com/wesib/examples/issues"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^0.1.19",
