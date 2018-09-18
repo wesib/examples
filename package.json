@@ -1,6 +1,6 @@
 {
   "name": "@wesib/examples",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.0",
   "description": "Web component building blocks usage examples",
   "keywords": [
     "web-components",
