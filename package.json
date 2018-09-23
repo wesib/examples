@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^5.0.4",
+    "@wesib/wesib": "=1.0.0-alpha.0",
     "clean-webpack-plugin": "^0.1.19",
     "fs-extra": "^7.0.0",
     "html-webpack-plugin": "^3.2.0",
