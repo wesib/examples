@@ -2,14 +2,13 @@
   "compilerOptions": {
     "moduleResolution": "node",
     "module": "es2015",
-    "target": "es2015",
+    "target": "es5",
     "strict": true,
     "experimentalDecorators": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "forceConsistentCasingInFileNames": true,
-    "importHelpers": true,
-    "noEmitHelpers": true,
+    "downlevelIteration": true,
     "lib": [
       "dom",
       "es2015"
