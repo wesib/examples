@@ -1,5 +1,7 @@
 import fs from 'fs-extra';
+import glob from 'glob';
 import handlebars from 'handlebars';
+import rimraf from 'rimraf';
 import nodeResolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import hash from 'rollup-plugin-hash';
@@ -23,13 +25,13 @@ function exampleConfigs(example) {
       this._js = {};
     }
 
-    js(format, name) {
+    async js(format, name) {
       this._js[format] = name.replace(/(?:.+\/)([^\/]+\.js)$/, '$1');
 
       const { umd, esm } = this._js;
 
       if (umd && esm) {
-        this._generateHtml();
+        await this._generateHtml();
       }
     }
 
@@ -68,6 +70,7 @@ function exampleConfigs(example) {
               result.js(format, name);
             }
           }),
+          cleanup(`${destDir}/*.esm2015.{js,js.map}`),
       );
     } else {
       plugins.push(
@@ -86,6 +89,7 @@ function exampleConfigs(example) {
               result.js(format, name);
             }
           }),
+          cleanup(`${destDir}/!(*.esm2015).{js,js.map}`),
       );
     }
 
@@ -120,6 +124,32 @@ function exampleConfigs(example) {
     exampleConfig(example, 'esm'),
     exampleConfig(example, 'umd'),
   ]
+}
+
+function cleanup(what) {
+
+  function clear() {
+    return new Promise((resolve, reject) => glob(what, (err, files) => {
+      if (err) {
+        reject(err);
+      } else {
+        rimraf(what, (err) => {
+          if (err) {
+            reject(err);
+          } else {
+            console.log('Removed files', files.join(', '));
+            resolve();
+          }
+        })
+      }
+    }));
+  }
+
+  return {
+    name: 'cleanup',
+    buildStart: clear,
+    load: clear,
+  };
 }
 
 const configs = examples.reduce((prev, example) => [...prev, ...exampleConfigs(example)], []);
