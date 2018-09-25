@@ -1,7 +1,5 @@
 import fs from 'fs-extra';
-import glob from 'glob';
 import handlebars from 'handlebars';
-import rimraf from 'rimraf';
 import nodeResolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import hash from 'rollup-plugin-hash';
@@ -9,6 +7,8 @@ import sourcemaps from 'rollup-plugin-sourcemaps';
 import { terser } from 'rollup-plugin-terser';
 import typescript from 'rollup-plugin-typescript2';
 import { uglify } from 'rollup-plugin-uglify';
+
+import cleanup from './build/rollup-plugin-cleanup';
 
 const examples = [
   'greet-text',
@@ -124,32 +124,6 @@ function exampleConfigs(example) {
     exampleConfig(example, 'esm'),
     exampleConfig(example, 'umd'),
   ]
-}
-
-function cleanup(what) {
-
-  function clear() {
-    return new Promise((resolve, reject) => glob(what, (err, files) => {
-      if (err) {
-        reject(err);
-      } else {
-        rimraf(what, (err) => {
-          if (err) {
-            reject(err);
-          } else {
-            console.log('Removed files', files.join(', '));
-            resolve();
-          }
-        })
-      }
-    }));
-  }
-
-  return {
-    name: 'cleanup',
-    buildStart: clear,
-    load: clear,
-  };
 }
 
 const configs = examples.reduce((prev, example) => [...prev, ...exampleConfigs(example)], []);
