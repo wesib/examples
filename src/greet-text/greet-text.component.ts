@@ -1,14 +1,17 @@
-import { AttributeChanged, ComponentContext, WesComponent } from '@wesib/wesib';
+import { Attribute, ComponentContext, Render, WesComponent } from '@wesib/wesib';
 
 @WesComponent('greet-text')
 export class GreetTextComponent {
 
+  @Attribute()
+  name!: string;
+
   constructor(private readonly _context: ComponentContext) {
   }
 
-  @AttributeChanged()
-  name(newValue: string) {
-    this._context.element.innerText = `Hello, ${newValue}!`;
+  @Render()
+  render() {
+    this._context.element.innerText = `Hello, ${this.name}!`;
   }
 
 }
