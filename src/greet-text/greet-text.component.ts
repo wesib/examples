@@ -1,17 +1,26 @@
-import { Attribute, ComponentContext, Render, WesComponent } from '@wesib/wesib';
+import { Attribute, ComponentContext, Render, WesComponent, BootstrapContext } from '@wesib/wesib';
+import { AttachShadow } from '@wesib/wesib';
 
 @WesComponent('greet-text')
+@AttachShadow()
 export class GreetTextComponent {
 
   @Attribute()
   name!: string;
 
-  constructor(private readonly _context: ComponentContext) {
+  private readonly _content: HTMLSpanElement;
+
+  constructor(context: ComponentContext) {
+
+    const document = context.get(BootstrapContext.windowKey).document;
+
+    this._content = document.createElement('span');
+    context.contentRoot.append(this._content);
   }
 
   @Render()
   render() {
-    this._context.element.innerText = `Hello, ${this.name}!`;
+    this._content.innerText = `Hello, ${this.name}!`;
   }
 
 }
