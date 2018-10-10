@@ -1,5 +1,4 @@
-import { Attribute, ComponentContext, Render, WesComponent, BootstrapContext } from '@wesib/wesib';
-import { AttachShadow } from '@wesib/wesib';
+import { AttachShadow, Attribute, BootstrapWindow, ComponentContext, Render, WesComponent } from '@wesib/wesib';
 
 @WesComponent('greet-text')
 @AttachShadow()
@@ -12,7 +11,7 @@ export class GreetTextComponent {
 
   constructor(context: ComponentContext) {
 
-    const document = context.get(BootstrapContext.windowKey).document;
+    const document = context.get(BootstrapWindow).document;
 
     this._content = document.createElement('span');
     context.contentRoot.append(this._content);
