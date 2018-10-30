@@ -1,6 +1,6 @@
-import { AttachShadow, Attribute, BootstrapWindow, ComponentContext, Render, WesComponent } from '@wesib/wesib';
+import { AttachShadow, Attribute, BootstrapWindow, Component, ComponentContext, Render } from '@wesib/wesib';
 
-@WesComponent('greet-text')
+@Component('greet-text')
 @AttachShadow()
 export class GreetTextComponent {
 
