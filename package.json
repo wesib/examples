@@ -39,5 +39,8 @@
     "build": "rollup --config ./rollup.config.js",
     "clean": "node ./build/clean",
     "lint": "tslint -p ."
+  },
+  "dependencies": {
+    "a-iterable": "^1.0.1"
   }
 }
