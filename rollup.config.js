@@ -1,3 +1,4 @@
+import alias from 'rollup-plugin-alias';
 import fs from 'fs-extra';
 import handlebars from 'handlebars';
 import nodeResolve from 'rollup-plugin-node-resolve';
@@ -16,6 +17,7 @@ const examples = [
 
 function exampleConfigs(example) {
 
+  const modulesDir = `${__dirname}/node_modules`;
   const srcDir = `./src/${example}`;
   const destDir = `./dist/${example}`;
 
@@ -53,27 +55,28 @@ function exampleConfigs(example) {
 
   function exampleConfig(example, format) {
 
-    const tsconfig = format === 'esm' ? 'tsconfig.esm2015.json' : 'tsconfig.json';
-    const file = format === 'esm' ? `${destDir}/index.esm2015.js` : `${destDir}/index.js`;
-    const plugins = [];
+    const umd = format === 'umd';
+    const plugins = [
+      typescript({
+        typescript: require('typescript'),
+        tsconfig: `tsconfig.${format}.json`,
+        cacheRoot: 'target/.rts2_cache',
+      }),
+      commonjs(),
+      sourcemaps(),
+      hash({
+        dest: `${destDir}/index.[hash].${format}.js`,
+        replace: true,
+        callback(name) {
+          result.js(format, name);
+        }
+      }),
+      cleanup(`${destDir}/*.${format}.{js,js.map}`),
+    ];
 
-    if (format === 'esm') {
+    if (umd) {
       plugins.push(
-          terser({
-            module: true,
-            keep_classnames: true,
-          }),
-          hash({
-            dest: `${destDir}/index.[hash].esm2015.js`,
-            replace: true,
-            callback(name) {
-              result.js(format, name);
-            }
-          }),
-          cleanup(`${destDir}/*.esm2015.{js,js.map}`),
-      );
-    } else {
-      plugins.push(
+          nodeResolve(),
           uglify({
             compress: {
               typeofs: false,
@@ -82,40 +85,35 @@ function exampleConfigs(example) {
               ascii_only: true,
             },
           }),
-          hash({
-            dest: `${destDir}/index.[hash].js`,
-            replace: true,
-            callback(name) {
-              result.js(format, name);
-            }
+      );
+    } else {
+      plugins.push(
+          // Use es2015 module variants
+          nodeResolve({
+            only: [
+              'tslib'
+            ],
           }),
-          cleanup(`${destDir}/!(*.esm2015).{js,js.map}`),
+          alias({
+            '@wesib/wesib': `${modulesDir}/@wesib/wesib/dist/wesib.esm2015`,
+            'a-iterable': `${modulesDir}/a-iterable/dist/a-iterable.esm2015`,
+            'fun-events': `${modulesDir}/fun-events/dist/fun-events.esm2015`,
+          }),
+          terser({
+            module: true,
+            keep_classnames: true,
+          }),
       );
     }
 
     return {
-      plugins: [
-        commonjs(),
-        typescript({
-          typescript: require('typescript'),
-          tsconfig,
-          cacheRoot: 'target/.rts2_cache',
-        }),
-        nodeResolve({
-          module: format !== 'esm',
-          jsnext: format === 'esm',
-          main: false,
-          preferBuiltins: false,
-        }),
-        sourcemaps(),
-        ...plugins,
-      ],
+      plugins,
       input: `${srcDir}/index.ts`,
       output: {
         format,
         sourcemap: true,
         name: `wesib.examples.${example.replace(/\//, '.')}`,
-        file,
+        file: `${destDir}/index.${format}.js`,
       },
     };
   }
