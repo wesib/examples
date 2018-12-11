@@ -97,6 +97,8 @@ function exampleConfigs(example) {
           alias({
             '@wesib/wesib': `${modulesDir}/@wesib/wesib/dist/wesib.esm2015`,
             'a-iterable': `${modulesDir}/a-iterable/dist/a-iterable.esm2015`,
+            'call-thru': `${modulesDir}/call-thru/dist/call-thru.esm2015`,
+            'context-values': `${modulesDir}/context-values/dist/context-values.esm2015`,
             'fun-events': `${modulesDir}/fun-events/dist/fun-events.esm2015`,
           }),
           terser({
