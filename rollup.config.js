@@ -15,20 +15,16 @@ const examples = [
   'greet-text',
 ];
 
+function pkg(module) {
+  return require(`${module}/package.json`);
+}
+
 function esm5(module) {
-
-  const pkg = require(`${module}/package.json`);
-
-  return require.resolve(`${module}/${pkg.esm5}`);
+  return require.resolve(`${module}/${pkg(module).esm5}`);
 }
 
 function esm5aliases(...modules) {
-
-  const aliases = {};
-
-  modules.forEach(module => aliases[module] = esm5(module));
-
-  return alias(aliases);
+  return alias(modules.reduce((aliases, module) => ({ ...aliases, [module]: esm5(module) }), {}));
 }
 
 function exampleConfigs(example) {
@@ -90,6 +86,7 @@ function exampleConfigs(example) {
     ];
 
     if (umd) {
+      // Use esm5 module variants
       plugins.push(
           nodeResolve({
             only: [
@@ -114,7 +111,6 @@ function exampleConfigs(example) {
       );
     } else {
       plugins.push(
-          // Use es2015 module variants
           nodeResolve(),
           terser({
             module: true,
