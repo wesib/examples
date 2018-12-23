@@ -1,6 +1,5 @@
 import alias from 'rollup-plugin-alias';
 import fs from 'fs-extra';
-import path from 'path';
 import handlebars from 'handlebars';
 import nodeResolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
@@ -18,10 +17,9 @@ const examples = [
 
 function esm5(module) {
 
-  const dir = require.resolve(module);
-  const esm5 = require(`${module}/package.json`).esm5;
+  const pkg = require(`${module}/package.json`);
 
-  return path.resolve(dir, '..', '..', esm5);
+  return require.resolve(`${module}/${pkg.esm5}`);
 }
 
 function esm5aliases(...modules) {
@@ -35,7 +33,6 @@ function esm5aliases(...modules) {
 
 function exampleConfigs(example) {
 
-  const modulesDir = `${__dirname}/node_modules`;
   const srcDir = `./src/${example}`;
   const destDir = `./dist/${example}`;
 
