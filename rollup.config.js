@@ -1,5 +1,6 @@
 import alias from 'rollup-plugin-alias';
 import fs from 'fs-extra';
+import path from 'path';
 import handlebars from 'handlebars';
 import nodeResolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
@@ -14,6 +15,23 @@ import cleanup from './build/rollup-plugin-cleanup';
 const examples = [
   'greet-text',
 ];
+
+function esm5(module) {
+
+  const dir = require.resolve(module);
+  const esm5 = require(`${module}/package.json`).esm5;
+
+  return path.resolve(dir, '..', '..', esm5);
+}
+
+function esm5aliases(...modules) {
+
+  const aliases = {};
+
+  modules.forEach(module => aliases[module] = esm5(module));
+
+  return alias(aliases);
+}
 
 function exampleConfigs(example) {
 
@@ -76,7 +94,18 @@ function exampleConfigs(example) {
 
     if (umd) {
       plugins.push(
-          nodeResolve(),
+          nodeResolve({
+            only: [
+              'tslib'
+            ],
+          }),
+          esm5aliases(
+              '@wesib/wesib',
+              'a-iterable',
+              'call-thru',
+              'context-values',
+              'fun-events',
+          ),
           uglify({
             compress: {
               typeofs: false,
@@ -89,18 +118,7 @@ function exampleConfigs(example) {
     } else {
       plugins.push(
           // Use es2015 module variants
-          nodeResolve({
-            only: [
-              'tslib'
-            ],
-          }),
-          alias({
-            '@wesib/wesib': `${modulesDir}/@wesib/wesib/dist/wesib.esm2015`,
-            'a-iterable': `${modulesDir}/a-iterable/dist/a-iterable.esm2015`,
-            'call-thru': `${modulesDir}/call-thru/dist/call-thru.esm2015`,
-            'context-values': `${modulesDir}/context-values/dist/context-values.esm2015`,
-            'fun-events': `${modulesDir}/fun-events/dist/fun-events.esm2015`,
-          }),
+          nodeResolve(),
           terser({
             module: true,
             keep_classnames: true,
