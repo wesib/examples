@@ -22,7 +22,7 @@
     "@wesib/wesib": "^1.0.0-alpha.9",
     "a-iterable": "^2.1.0",
     "call-thru": "^2.1.0",
-    "context-values": "^1.1.1",
+    "context-values": "^1.1.2",
     "fs-extra": "^7.0.1",
     "fun-events": "^3.0.2",
     "glob": "^7.1.3",

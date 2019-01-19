@@ -207,10 +207,10 @@ concat-map@0.0.1:
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
   integrity sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
 
-context-values@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/context-values/-/context-values-1.1.1.tgz#1f2c0fe750d6707284372945072f8586fbf85091"
-  integrity sha512-KHESjQ41SGaRPP//icd7V4bk4GKaOZEUOYltKdxizN4AnLQO2TJEpQw1KYQs4n/uG0iK5VkWGYViN8+4InWG0w==
+context-values@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/context-values/-/context-values-1.1.2.tgz#d0751f196068fc6e938808feade70ad8c548f170"
+  integrity sha512-p6xk50kCSgt4go5vbnu28+PeNw3MKHTCC73zI1lApZ4ioJDFf6I6v+xHWGI+AyQAAXJ3/sHxffqqkcspCMe+IA==
   dependencies:
     tslib "^1.9.0"
 
