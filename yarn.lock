@@ -35,10 +35,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-11.9.4.tgz#ceb0048a546db453f6248f2d1d95e937a6f00a14"
   integrity sha512-Zl8dGvAcEmadgs1tmSPcvwzO1YRsz38bVJQvH1RvRqSR9/5n61Q1ktcDL0ht3FXWR+ZpVmXVwN1LuH4Ax23NsA==
 
-"@wesib/wesib@^1.0.0-alpha.10":
-  version "1.0.0-alpha.10"
-  resolved "https://registry.yarnpkg.com/@wesib/wesib/-/wesib-1.0.0-alpha.10.tgz#d17b20ed6709d99998a3fc7d5ae7cbb153a98343"
-  integrity sha512-prwYuXeZthqlIawmR8aH6xIEnN06Z8yY26PqKk+DXAN6AY0x1lJNu8MmlzaRCcZHVZqdHIS6ZBEbMZxQMX+aWA==
+"@wesib/wesib@^1.0.0-alpha.11":
+  version "1.0.0-alpha.11"
+  resolved "https://registry.yarnpkg.com/@wesib/wesib/-/wesib-1.0.0-alpha.11.tgz#e3eb9fda3177a3c831ca1f1dd4695c271448a17c"
+  integrity sha512-vtPO6iwwXY2xOCfSVd83t+F++rXv5/Lddc+7CNwSOSUCStpJv+SDd2VVBlvrr78KPP9JRKQjdzRiL6QwM4HPkg==
   dependencies:
     tslib "^1.9.0"
 

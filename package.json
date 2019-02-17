@@ -1,6 +1,6 @@
 {
   "name": "@wesib/examples",
-  "version": "1.0.0-alpha.9",
+  "version": "1.0.0-alpha.11",
   "description": "Web component building blocks usage examples",
   "keywords": [
     "web-components",
@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^5.0.4",
-    "@wesib/wesib": "^1.0.0-alpha.10",
+    "@wesib/wesib": "^1.0.0-alpha.11",
     "a-iterable": "^2.2.0",
     "call-thru": "^2.2.0",
     "context-values": "^1.2.0",
