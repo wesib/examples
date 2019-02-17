@@ -101,9 +101,6 @@ function exampleConfigs(example) {
               'fun-events',
           ),
           uglify({
-            compress: {
-              typeofs: false,
-            },
             output: {
               ascii_only: true,
             },
@@ -113,8 +110,13 @@ function exampleConfigs(example) {
       plugins.push(
           nodeResolve(),
           terser({
-            module: true,
+            ecma: 6,
             keep_classnames: true,
+            module: true,
+            toplevel: true,
+            output: {
+              ascii_only: true,
+            },
           }),
       );
     }
