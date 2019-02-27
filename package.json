@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^5.0.4",
+    "@wesib/generic": "^1.0.0-alpha.12",
     "@wesib/wesib": "^1.0.0-alpha.12",
     "a-iterable": "^2.2.0",
     "call-thru": "^2.2.0",
@@ -27,6 +28,7 @@
     "fun-events": "^3.2.1",
     "glob": "^7.1.3",
     "handlebars": "^4.1.0",
+    "http-server": "^0.11.1",
     "rollup": "^1.2.4",
     "rollup-plugin-alias": "^1.5.1",
     "rollup-plugin-commonjs": "^9.2.1",
@@ -43,6 +45,7 @@
   "scripts": {
     "build": "rollup --config ./rollup.config.js",
     "clean": "node ./build/clean",
-    "lint": "tslint -p ."
+    "lint": "tslint -p .",
+    "start": "http-server ./dist -p4200"
   }
 }

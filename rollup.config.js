@@ -95,6 +95,7 @@ function exampleConfigs(example) {
           }),
           esm5aliases(
               '@wesib/wesib',
+              '@wesib/generic',
               'a-iterable',
               'call-thru',
               'context-values',
