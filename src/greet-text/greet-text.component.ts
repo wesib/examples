@@ -1,7 +1,6 @@
 import { Component, ComponentContext, Feature } from '@wesib/wesib';
-import { ComponentNode, ComponentTreeSupport, ElementNode } from '@wesib/generic';
-import { itsFirst } from 'a-iterable';
-import { CachedEventProducer, ValueSync } from 'fun-events';
+import { ComponentNode, ComponentTreeSupport } from '@wesib/generic';
+import { ValueSync } from 'fun-events';
 import { GreetOutComponent } from './greet-out.component';
 
 @Component('greet-text')
@@ -17,22 +16,11 @@ export class GreetTextComponent {
 
     const value = new ValueSync<String | null>(null);
     const node = context.get(ComponentNode);
-    const ins = node.select('input', { all: true });
+    const input = node.select('input', { all: true }).first;
+    const output = node.select('greet-out').first;
 
-    value.sync(
-        'in',
-        CachedEventProducer.from<[ElementNode?]>(
-            ins.onUpdate.thru(itsFirst),
-            [itsFirst(ins)]),
-        input => input && input.property<string>('value'));
-
-    const outs = node.select('greet-out');
-
-    value.sync(
-        CachedEventProducer.from<[ComponentNode?]>(
-            outs.onUpdate.thru(itsFirst),
-            [itsFirst(outs)]),
-        output => output && output.attribute('name'));
+    value.sync('in', input, i => i && i.property<string>('value'));
+    value.sync(output, o => o && o.attribute('name'));
 
     context.on('input')(event => value.it = (event.target as HTMLInputElement).value);
   }
