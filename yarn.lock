@@ -35,17 +35,17 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-11.10.4.tgz#3f5fc4f0f322805f009e00ab35a2ff3d6b778e42"
   integrity sha512-wa09itaLE8L705aXd8F80jnFpxz3Y1/KRHfKsYL2bPc0XF+wEWu8sR9n5bmeu8Ba1N9z2GRNzm/YdHcghLkLKg==
 
-"@wesib/generic@^1.0.0-alpha.13":
-  version "1.0.0-alpha.13"
-  resolved "https://registry.yarnpkg.com/@wesib/generic/-/generic-1.0.0-alpha.13.tgz#86ca25e2d9081e26f8120de22c12f20760b9a0ed"
-  integrity sha512-KXjhgexo0eV59MMraxYEPCkMrSAmNwxftC50qQVW2Ihvq+nuDMPbn1I/+fjQrWZXt+LWA8jSaIVwEooHeUOfVw==
+"@wesib/generic@^1.0.0-alpha.14":
+  version "1.0.0-alpha.14"
+  resolved "https://registry.yarnpkg.com/@wesib/generic/-/generic-1.0.0-alpha.14.tgz#681445ef1a26e76b8bd2199401d8bba2d1ea79bb"
+  integrity sha512-do62Gi5D6XVwe4I8XSdwNh++fjnbZz4xaymivd559ZN/O8BJbns5UqIGnIi90jDTSvRqmwdlmXg6ZkXmb1KOdA==
   dependencies:
     tslib "^1.9.0"
 
-"@wesib/wesib@^1.0.0-alpha.13":
-  version "1.0.0-alpha.13"
-  resolved "https://registry.yarnpkg.com/@wesib/wesib/-/wesib-1.0.0-alpha.13.tgz#18dc67c019acc9f69ea5fad73ebf96ad65463878"
-  integrity sha512-G1g+Sl9/bqfKygv2GYzXEJFFrw9i1VcdnJO55iDoKENQFC4fS+VDMTBMy2K2usj+T+dU25DIUzGbqqr1BykjGA==
+"@wesib/wesib@^1.0.0-alpha.14":
+  version "1.0.0-alpha.14"
+  resolved "https://registry.yarnpkg.com/@wesib/wesib/-/wesib-1.0.0-alpha.14.tgz#e617cfd3afbc82be2c9fbef8d31f74e1d018710c"
+  integrity sha512-uN0K4WN0kbS5+VsuMDQJpRoV2HxaoYc8K4/5zSpOLx0gCVPlQRAdwz8d5wM5kvt75Fk4njJe/SYezfPzop4i1A==
   dependencies:
     tslib "^1.9.0"
 

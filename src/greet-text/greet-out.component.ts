@@ -7,19 +7,18 @@ export class GreetOutComponent {
   @Attribute()
   name!: string;
 
-  private readonly _content: HTMLSpanElement;
-
-  constructor(context: ComponentContext) {
-
-    const document = context.get(BootstrapWindow).document;
-
-    this._content = document.createElement('span');
-    context.contentRoot.append(this._content);
+  constructor(private readonly _context: ComponentContext) {
   }
 
   @Render()
   render() {
-    this._content.innerText = `Hello, ${this.name}!`;
+
+    const document = this._context.get(BootstrapWindow).document;
+    const content = document.createElement('span');
+
+    this._context.contentRoot.append(content);
+
+    return () => content.innerText = `Hello, ${this.name}!`;
   }
 
 }
