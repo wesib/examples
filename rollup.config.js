@@ -41,9 +41,9 @@ function exampleConfigs(example) {
     async js(format, name) {
       this._js[format] = name.replace(/(?:.+\/)([^\/]+\.js)$/, '$1');
 
-      const { umd, esm } = this._js;
+      const { iife, esm } = this._js;
 
-      if (umd && esm) {
+      if (iife && esm) {
         await this._generateHtml();
       }
     }
@@ -66,7 +66,7 @@ function exampleConfigs(example) {
 
   function exampleConfig(example, format) {
 
-    const umd = format === 'umd';
+    const iife = format === 'iife';
     const plugins = [
       typescript({
         typescript: require('typescript'),
@@ -85,7 +85,7 @@ function exampleConfigs(example) {
       cleanup(`${destDir}/*.${format}.{js,js.map}`),
     ];
 
-    if (umd) {
+    if (iife) {
       // Use esm5 module variants
       plugins.push(
           nodeResolve({
@@ -136,7 +136,7 @@ function exampleConfigs(example) {
 
   return [
     exampleConfig(example, 'esm'),
-    exampleConfig(example, 'umd'),
+    exampleConfig(example, 'iife'),
   ]
 }
 
