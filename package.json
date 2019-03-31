@@ -1,6 +1,6 @@
 {
   "name": "@wesib/examples",
-  "version": "1.0.0-alpha.17",
+  "version": "1.0.0-alpha.18",
   "description": "Web component building blocks usage examples",
   "keywords": [
     "web-components",
@@ -19,8 +19,8 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^5.0.4",
-    "@wesib/generic": "^1.0.0-alpha.17",
-    "@wesib/wesib": "^1.0.0-alpha.17",
+    "@wesib/generic": "^1.0.0-alpha.18",
+    "@wesib/wesib": "^1.0.0-alpha.18",
     "fs-extra": "^7.0.1",
     "glob": "^7.1.3",
     "handlebars": "^4.1.1",
