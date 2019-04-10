@@ -1,4 +1,3 @@
-import alias from 'rollup-plugin-alias';
 import fs from 'fs-extra';
 import handlebars from 'handlebars';
 import nodeResolve from 'rollup-plugin-node-resolve';
@@ -15,17 +14,9 @@ const examples = [
   'greet-text',
 ];
 
-function pkg(module) {
-  return require(`${module}/package.json`);
-}
+const configs = examples.reduce((prev, example) => prev.concat(exampleConfigs(example)), []);
 
-function esm5(module) {
-  return require.resolve(`${module}/${pkg(module).esm5}`);
-}
-
-function esm5aliases(...modules) {
-  return alias(modules.reduce((aliases, module) => ({ ...aliases, [module]: esm5(module) }), {}));
-}
+export default configs;
 
 function exampleConfigs(example) {
 
@@ -89,18 +80,8 @@ function exampleConfigs(example) {
       // Use esm5 module variants
       plugins.push(
           nodeResolve({
-            only: [
-              'tslib'
-            ],
+            mainFields: ['esm5', 'module', 'main'],
           }),
-          esm5aliases(
-              '@wesib/wesib',
-              '@wesib/generic',
-              'a-iterable',
-              'call-thru',
-              'context-values',
-              'fun-events',
-          ),
           uglify({
             output: {
               ascii_only: true,
@@ -112,7 +93,6 @@ function exampleConfigs(example) {
           nodeResolve(),
           terser({
             ecma: 6,
-            keep_classnames: true,
             module: true,
             toplevel: true,
             output: {
@@ -139,7 +119,3 @@ function exampleConfigs(example) {
     exampleConfig(example, 'iife'),
   ]
 }
-
-const configs = examples.reduce((prev, example) => [...prev, ...exampleConfigs(example)], []);
-
-export default configs;
