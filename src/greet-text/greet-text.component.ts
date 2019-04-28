@@ -5,7 +5,7 @@ import { GreetOutComponent } from './greet-out.component';
 
 @Component('greet-text')
 @Feature({
-  need: [
+  needs: [
     GreetOutComponent,
     ComponentTreeSupport,
   ]
