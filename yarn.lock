@@ -42,10 +42,10 @@
   dependencies:
     "@types/node" "*"
 
-"@wesib/generic@^1.0.0-alpha.19":
-  version "1.0.0-alpha.19"
-  resolved "https://registry.yarnpkg.com/@wesib/generic/-/generic-1.0.0-alpha.19.tgz#ca655c7d465fc4e566acc9621ba7752591a08bb8"
-  integrity sha512-O72+bWvF0kp2k9jN7KL+YkHzWSdUBijlXzvqZGAExJffzf/rW+fQx7jrCM5JoD4POBka78e++WalYbKKesh3Kg==
+"@wesib/generic@^1.0.0-alpha.20":
+  version "1.0.0-alpha.20"
+  resolved "https://registry.yarnpkg.com/@wesib/generic/-/generic-1.0.0-alpha.20.tgz#d762e7bcbb386012dfc9216531fe754ad7197769"
+  integrity sha512-FF0caUbjS1IejVP97/26g6dQk//2F2HL6sgo7J73ZWlgwnB6+ruIzxgKiPqfeBeRhBoQrxFTnMwL0Eoo1rP/cw==
   dependencies:
     a-iterable "^2.3.1"
     call-thru "^2.4.0"
@@ -55,10 +55,10 @@
   optionalDependencies:
     style-producer "^1.0.0"
 
-"@wesib/wesib@^1.0.0-alpha.19":
-  version "1.0.0-alpha.19"
-  resolved "https://registry.yarnpkg.com/@wesib/wesib/-/wesib-1.0.0-alpha.19.tgz#62720e8645a60b5accd5104bbc77f1d6e9b1912b"
-  integrity sha512-FhSkS3Eg5U54Gd/9a3j7WUJJinwrrMINJA5Rijw6j3a4xH5JiGLVimwqHjFKTDeNeS85eQaAU/lwBJicp1HMjQ==
+"@wesib/wesib@^1.0.0-alpha.20":
+  version "1.0.0-alpha.20"
+  resolved "https://registry.yarnpkg.com/@wesib/wesib/-/wesib-1.0.0-alpha.20.tgz#b5df35104a4786745afb1852c364f6b17035cdee"
+  integrity sha512-Op+YhjtBcb4YqVxC4JSmD94m5vZlarme6xi86Iaul6SJzmE4ZVrS0m75KtmYML3TsJtRuegXMtsEqfr0HTjP/g==
   dependencies:
     a-iterable "^2.3.1"
     call-thru "^2.4.0"
