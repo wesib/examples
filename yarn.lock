@@ -372,9 +372,9 @@ esutils@^2.0.2:
   integrity sha1-Cr9PHKpbyx96nYrMbepPqqBLrJs=
 
 eventemitter3@^3.0.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-3.1.0.tgz#090b4d6cdbd645ed10bf750d4b5407942d7ba163"
-  integrity sha512-ivIvhpq/Y0uSjcHDcOIccjmYjGLcP09MFGE7ysAwkAvkXfpZlC985pH2/ui64DKazbTW/4kN3yqozUxlXzI6cA==
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-3.1.2.tgz#2d3d48f9c346698fce83a85d7d664e98535df6e7"
+  integrity sha512-tvtQIeLVHjDkJYnzf2dgVMxfuSGJeM/7UCG17TT4EumTfNtF+0nebF/4zWOIkCreAbtNqhGEboB6BWrwqNaw4Q==
 
 expand-brackets@^2.1.4:
   version "2.1.4"
@@ -1254,10 +1254,10 @@ string_decoder@~1.1.1:
   dependencies:
     safe-buffer "~5.1.0"
 
-style-producer@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/style-producer/-/style-producer-1.0.0.tgz#5cc63630ed220b0afd5313c52469adc9340c157d"
-  integrity sha512-QLFvdMO8rSIwzY+aPBzKWfDwd0aooozFOucHm+bMAEwIibXwBCbCkfAg9ccjvwys5afGiNvT2UEc9mN4cU2G3w==
+style-producer@^1.0.0, style-producer@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/style-producer/-/style-producer-1.0.1.tgz#86987090bea04dbec494258e0e84892b87f3bc7f"
+  integrity sha512-fE9F91h23zZbo6Z7sVabmEaW0FzzY1SN4zggMc/mAE8dA5VuMLl5g8oRtWb78EsX7zfoBnBmkztB1+I9G2yVTA==
   dependencies:
     a-iterable "^2.3.1"
     call-thru "^2.4.0"
