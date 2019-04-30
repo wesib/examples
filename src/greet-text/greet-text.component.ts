@@ -2,31 +2,32 @@ import { Component, ComponentContext, Feature } from '@wesib/wesib';
 import { ComponentNode, ComponentTreeSupport, ProduceStyle } from '@wesib/generic';
 import { ValueSync } from 'fun-events';
 import { GreetOutComponent } from './greet-out.component';
-import { stypRoot } from 'style-producer';
-
-const root = stypRoot();
-
-root.rules.add(
-    {
-      e: 'input',
-    }, {
-      border: '1px solid gray',
-      padding: '0.25em 0.5em',
-    });
+import { FormThemeSupport, Theme } from '../common/theme';
+import { StypRules, stypSelectorText } from 'style-producer';
 
 @Component('greet-text')
 @Feature({
   needs: [
     GreetOutComponent,
     ComponentTreeSupport,
+    FormThemeSupport,
   ]
 })
 export class GreetTextComponent {
 
-  @ProduceStyle()
-  readonly style = root.rules;
+  @ProduceStyle({
+    render: {
+      order: -0x1000000,
+      render(producer, properties) {
+        console.log(stypSelectorText(producer.selector), [...producer.rule.root.rules].length);
+        producer.render(properties);
+      },
+    },
+  })
+  readonly style: StypRules;
 
   constructor(context: ComponentContext) {
+    this.style = context.get(Theme).root.rules;
 
     const value = new ValueSync<String | null>(null);
     const node = context.get(ComponentNode);

@@ -42,10 +42,10 @@
   dependencies:
     "@types/node" "*"
 
-"@wesib/generic@^1.0.0-alpha.20":
-  version "1.0.0-alpha.20"
-  resolved "https://registry.yarnpkg.com/@wesib/generic/-/generic-1.0.0-alpha.20.tgz#d762e7bcbb386012dfc9216531fe754ad7197769"
-  integrity sha512-FF0caUbjS1IejVP97/26g6dQk//2F2HL6sgo7J73ZWlgwnB6+ruIzxgKiPqfeBeRhBoQrxFTnMwL0Eoo1rP/cw==
+"@wesib/generic@^1.0.0-alpha.22":
+  version "1.0.0-alpha.22"
+  resolved "https://registry.yarnpkg.com/@wesib/generic/-/generic-1.0.0-alpha.22.tgz#f8bb5de89c13f2dc3fdd6c4963ec45f34ea67277"
+  integrity sha512-5mOGgq25ql7fMDAQgJMia4KOcHJ6Efo+IU0LWh+FFPQ+QOFlFVv86nBo8noMoyRjfxWgBt9ZJMJVWw5K1WhcSg==
   dependencies:
     a-iterable "^2.3.1"
     call-thru "^2.4.0"
@@ -53,12 +53,12 @@
     fun-events "^4.3.0"
     tslib "^1.9.0"
   optionalDependencies:
-    style-producer "^1.0.0"
+    style-producer "^1.0.2"
 
-"@wesib/wesib@^1.0.0-alpha.20":
-  version "1.0.0-alpha.20"
-  resolved "https://registry.yarnpkg.com/@wesib/wesib/-/wesib-1.0.0-alpha.20.tgz#b5df35104a4786745afb1852c364f6b17035cdee"
-  integrity sha512-Op+YhjtBcb4YqVxC4JSmD94m5vZlarme6xi86Iaul6SJzmE4ZVrS0m75KtmYML3TsJtRuegXMtsEqfr0HTjP/g==
+"@wesib/wesib@^1.0.0-alpha.21":
+  version "1.0.0-alpha.21"
+  resolved "https://registry.yarnpkg.com/@wesib/wesib/-/wesib-1.0.0-alpha.21.tgz#bb3752399581185956bdca50ce90a5c7faa77458"
+  integrity sha512-Fm/C/JKy+hr960xULNDxtGQWVXrInID885UAN3WC7/ZMFNOBZkaf0N7AN/SFByOp7EY996FVzK6XBYHnDMM0pg==
   dependencies:
     a-iterable "^2.3.1"
     call-thru "^2.4.0"
@@ -1254,10 +1254,10 @@ string_decoder@~1.1.1:
   dependencies:
     safe-buffer "~5.1.0"
 
-style-producer@^1.0.0, style-producer@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/style-producer/-/style-producer-1.0.1.tgz#86987090bea04dbec494258e0e84892b87f3bc7f"
-  integrity sha512-fE9F91h23zZbo6Z7sVabmEaW0FzzY1SN4zggMc/mAE8dA5VuMLl5g8oRtWb78EsX7zfoBnBmkztB1+I9G2yVTA==
+style-producer@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/style-producer/-/style-producer-1.0.2.tgz#c2ad19084b59978bcaa3bb5dc4dafc4476b2b769"
+  integrity sha512-DiPM6v2C4+Oono/bck2FocPmeu0yp8rkfts0kUZUHwPLkGlLll8GJQY7lAKEEDR7PUFllDt77nqa1qrl0SAT2Q==
   dependencies:
     a-iterable "^2.3.1"
     call-thru "^2.4.0"
