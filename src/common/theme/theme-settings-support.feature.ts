@@ -20,7 +20,7 @@ export class ThemeSettingsSupport {
 export const settingsSelector: StypSelector = { $: 'settings' };
 
 function declareSettings(theme: Theme) {
-  theme.root.rules.add(
+  theme.rules.add(
       settingsSelector,
       {
         $lBorderW: 6,

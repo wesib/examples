@@ -23,7 +23,7 @@ export class FormThemeSupport {
 export const formSettingsSelector: StypSelector = { $: 'settings:form' };
 
 function declareFormSettings(theme: Theme) {
-  theme.root.rules.add(
+  theme.rules.add(
       formSettingsSelector,
       theme.watch(settingsSelector).thru((settings: StypProperties) => {
 
@@ -50,7 +50,7 @@ function declareFormSettings(theme: Theme) {
 }
 
 function declareInputStyle(theme: Theme) {
-  theme.root.rules.add(
+  theme.rules.add(
       { e: 'input' },
       theme.watch(formSettingsSelector).thru((settings: StypProperties) => {
 
@@ -99,7 +99,7 @@ function declareInputStyle(theme: Theme) {
           `,
         };
       }));
-  theme.root.rules.add(
+  theme.rules.add(
       { e: 'input', s: ':focus' },
       theme.watch(formSettingsSelector).thru((settings: StypProperties) => {
 

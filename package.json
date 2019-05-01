@@ -1,6 +1,6 @@
 {
   "name": "@wesib/examples",
-  "version": "1.0.0-alpha.22",
+  "version": "1.0.0-alpha.23",
   "description": "Web component building blocks usage examples",
   "keywords": [
     "web-components",
@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^5.0.4",
-    "@wesib/generic": "^1.0.0-alpha.22",
+    "@wesib/generic": "^1.0.0-alpha.23",
     "@wesib/wesib": "^1.0.0-alpha.21",
     "a-iterable": "^2.3.1",
     "call-thru": "^2.4.0",
@@ -37,7 +37,7 @@
     "rollup-plugin-terser": "^4.0.4",
     "rollup-plugin-typescript2": "^0.21.0",
     "rollup-plugin-uglify": "^6.0.2",
-    "style-producer": "^1.0.2",
+    "style-producer": "^1.1.0",
     "tslib": "^1.9.3",
     "tslint": "^5.16.0",
     "typescript": "^3.4.5"
