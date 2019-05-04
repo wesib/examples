@@ -30,10 +30,15 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node@*", "@types/node@^11.13.5":
-  version "11.13.8"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.13.8.tgz#e5d71173c95533be9842b2c798978f095f912aab"
-  integrity sha512-szA3x/3miL90ZJxUCzx9haNbK5/zmPieGraZEe4WI+3srN0eGLiT22NXeMHmyhNEopn+IrxqMc7wdVwvPl8meg==
+"@types/node@*":
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.0.0.tgz#d11813b9c0ff8aaca29f04cbc12817f4c7d656e5"
+  integrity sha512-Jrb/x3HT4PTJp6a4avhmJCDEVrPdqLfl3e8GGMbpkGGdwAV5UGlIs4vVEfsHHfylZVOKZWpOqmqFH8CbfOZ6kg==
+
+"@types/node@^11.13.9":
+  version "11.13.10"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.13.10.tgz#4df59e5966b56f512bac98898bcbee5067411f0f"
+  integrity sha512-leUNzbFTMX94TWaIKz8N15Chu55F9QSH+INKayQr5xpkasBQBRF3qQXfo3/dOnMU/dEIit+Y/SU8HyOjq++GwA==
 
 "@types/resolve@0.0.8":
   version "0.0.8"
@@ -461,10 +466,10 @@ fs.realpath@^1.0.0:
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
   integrity sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
 
-fun-events@^4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/fun-events/-/fun-events-4.3.0.tgz#5e6a638743230bd1ab894d862e6d0d8a7021d4a2"
-  integrity sha512-a3X7ULH6wGCp21DOW6xdY+FZfusa89CphTCML3jOd2/lx63WfeRxL17s0lGJFvkeE5t/fo6kwdExfWWOP6kAXQ==
+fun-events@^4.3.0, fun-events@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/fun-events/-/fun-events-4.4.0.tgz#b8f0cea6bd5c978d603a389738adcb8376156516"
+  integrity sha512-nOd2T/mY7LFGA+8/CwU9wa1UBwCSRyQZVEAaQHmEDosAIcpxGUKjyXFK+2XgNn64cQ6P9veDOvk5CzoXQzG+dQ==
   dependencies:
     call-thru "^2.4.0"
     tslib "^1.9.0"
@@ -1107,13 +1112,13 @@ rollup-pluginutils@^2.0.1, rollup-pluginutils@^2.6.0:
     estree-walker "^0.6.0"
     micromatch "^3.1.10"
 
-rollup@^1.10.1:
-  version "1.10.1"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.10.1.tgz#aeb763bbe98f707dc6496708db88372fa66687e7"
-  integrity sha512-pW353tmBE7QP622ITkGxtqF0d5gSRCVPD9xqM+fcPjudeZfoXMFW2sCzsTe2TU/zU1xamIjiS9xuFCPVT9fESw==
+rollup@^1.11.2:
+  version "1.11.2"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.11.2.tgz#bc5169a85592a45ef3bc4c0ee94e1f931a7fa4b5"
+  integrity sha512-H5sS7GZ/Rn0t119Et8mw0QXtg5HTOI/1FL57EKHk5oduRmGaraOf3KcEt6j+dXJ9tXxWQkG+/FBjPS4dzxo6EA==
   dependencies:
     "@types/estree" "0.0.39"
-    "@types/node" "^11.13.5"
+    "@types/node" "^11.13.9"
     acorn "^6.1.1"
 
 safe-buffer@~5.1.0, safe-buffer@~5.1.1:
@@ -1254,15 +1259,15 @@ string_decoder@~1.1.1:
   dependencies:
     safe-buffer "~5.1.0"
 
-style-producer@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/style-producer/-/style-producer-1.1.0.tgz#77fb7d1ea70778ba0068588884c3c1e6fbaeb37a"
-  integrity sha512-sqCQDy9qnBIRrTYxGH7AwO4x/7Lhe5KrqgMwW36GA+gbTthECozIjQG6yB+Uka3Io/SlB3o2BpnbwfssacKeaw==
+style-producer@^1.1.0, style-producer@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/style-producer/-/style-producer-1.1.1.tgz#dbba1a318bf01546400080a87ba9fc731844074d"
+  integrity sha512-otL38ZPdsA15SP3mnqagdmoJ9nUXCIJxEtsgUHb2QfOMd271r1gtRbtcq9hFyThQj0pT1OJeQdgqx6mn8BAALQ==
   dependencies:
     a-iterable "^2.3.1"
     call-thru "^2.4.0"
     cssesc "^3.0.0"
-    fun-events "^4.3.0"
+    fun-events "^4.4.0"
     hyphenate-style-name "^1.0.3"
     tslib "^1.9.3"
 
@@ -1351,9 +1356,9 @@ typescript@^3.4.5:
   integrity sha512-YycBxUb49UUhdNMU5aJ7z5Ej2XGmaIBL0x34vZ82fn3hGvD+bgrMrVDpatgz2f7YxUMJxMkbWxJZeAvDxVe7Vw==
 
 uglify-js@^3.1.4, uglify-js@^3.4.9:
-  version "3.5.9"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.5.9.tgz#372fbf95939555b1f460b1777d33a67d4a994ac9"
-  integrity sha512-WpT0RqsDtAWPNJK955DEnb6xjymR8Fn0OlK4TT4pS0ASYsVPqr5ELhgwOwLCP5J5vHeJ4xmMmz3DEgdqC10JeQ==
+  version "3.5.10"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.5.10.tgz#652bef39f86d9dbfd6674407ee05a5e2d372cf2d"
+  integrity sha512-/GTF0nosyPLbdJBd+AwYiZ+Hu5z8KXWnO0WCGt1BQ/u9Iamhejykqmz5o1OHJ53+VAk6xVxychonnApDjuqGsw==
   dependencies:
     commander "~2.20.0"
     source-map "~0.6.1"
