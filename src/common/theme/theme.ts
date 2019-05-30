@@ -1,5 +1,13 @@
 import { ContextKey, SingleContextKey } from 'context-values';
-import { StypProperties, stypRoot, StypRule, StypRuleHierarchy, StypRuleList, StypSelector } from 'style-producer';
+import {
+  RefStypRule,
+  StypProperties,
+  stypRoot,
+  StypRule,
+  StypRuleHierarchy,
+  StypRuleRef,
+  StypSelector
+} from 'style-producer';
 import { BootstrapContext } from '@wesib/wesib';
 import { StyleProvider } from './style-provider';
 import { AfterEvent } from 'fun-events';
@@ -31,6 +39,10 @@ export class Theme {
 
   watch(selector: StypSelector): AfterEvent<[StypProperties]> {
     return this.root.rules.watch(selector);
+  }
+
+  ref<T extends StypProperties<T>>(ref: RefStypRule<T>): StypRuleRef<T> {
+    return ref(this.root);
   }
 
 }

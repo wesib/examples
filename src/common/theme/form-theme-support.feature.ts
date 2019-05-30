@@ -3,13 +3,12 @@ import { Theme } from './theme';
 import { StyleProvider } from './style-provider';
 import { ThemeSupport } from './theme-support.feature';
 import { FormThemeSettings } from './form-theme-settings';
-import { AfterEvent } from 'fun-events';
 import { StypProperties } from 'style-producer';
 
 const FormThemeSupport__feature: FeatureDef = {
   needs: ThemeSupport,
   set: [
-    { a: StyleProvider, by: declareInputStyle, with: [FormThemeSettings] }
+    { a: StyleProvider, by: declareInputStyle }
   ],
 };
 
@@ -21,8 +20,11 @@ export class FormThemeSupport {
 
 }
 
-function declareInputStyle(formSettings: AfterEvent<[FormThemeSettings]>) {
+function declareInputStyle() {
   return (theme: Theme) => {
+
+    const formSettings = theme.ref(FormThemeSettings).read.keep;
+
     theme.rules.add(
         { e: 'input' },
         formSettings.thru(inStyle));

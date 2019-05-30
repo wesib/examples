@@ -1,8 +1,6 @@
-import { StypLength, StypMapper, StypProperties, StypSelector } from 'style-producer';
-import { Theme } from './theme';
-import { ContextRequest, ContextTarget, SingleContextKey } from 'context-values';
-import { AfterEvent, afterEventFrom, afterEventFromAll } from 'fun-events';
+import { RefStypRule, StypLength, StypRuleRefs } from 'style-producer';
 import { ThemeSettings } from './theme-settings';
+import { StypMapper } from 'style-producer/d.ts/value/mapper';
 
 export interface FormThemeSettings {
   $inColor: string;
@@ -16,40 +14,36 @@ export interface FormThemeSettings {
   $inFocusHBorderLen: StypLength;
 }
 
-const FormThemeSettings__selector: StypSelector = { $: 'settings:form' };
-
 const $inColor = 'black';
-export const FormThemeSettings:
-    ContextTarget<AfterEvent<[FormThemeSettings]>> & ContextRequest<AfterEvent<[FormThemeSettings]>> =
-    /*#__PURE__*/ new SingleContextKey(
-    'form-theme-settings',
-    context => afterEventFrom<[FormThemeSettings]>(
-        afterEventFromAll({
-          global: context.get(ThemeSettings),
-          form: context.get(Theme).watch(FormThemeSettings__selector),
-        }).thru(buildFormThemeSettings)
-    ));
+export const FormThemeSettings: RefStypRule<FormThemeSettings> = RefStypRule.by(
+    { $: 'settings:form' },
+    root => StypRuleRefs.by<{ global: ThemeSettings }>(
+        {
+          global: ThemeSettings,
+        },
+        root,
+    ).read.keep.thru(formMappings));
 
-function buildFormThemeSettings(
+function formMappings(
     {
-      global: [{
+      global: {
         $lBorderW,
         $hBorderPlace,
         $vBorderPlace,
-      }],
-      form: [form]
-    }: { global: [ThemeSettings], form: [StypProperties] }): FormThemeSettings {
-  return StypMapper.map<FormThemeSettings>(
-      {
-        $inColor,
-        $inBgColor: 'white',
-        $inBorderColor: $inColor,
-        $inPadding: StypLength.of(3, 'px'),
-        $inBorderWidth: `${$vBorderPlace} ${$hBorderPlace} ${$vBorderPlace} ${$lBorderW}`,
-        $inBorderW: StypLength.of(1, 'px'),
-        $inLBorderW: $lBorderW.add(StypLength.of(1, 'px')),
-        $inHBorderLen: $lBorderW.mul(1.5),
-        $inFocusHBorderLen: $lBorderW.mul(3),
-      },
-      form);
+      }
+    }: {
+      global: ThemeSettings,
+    }
+): StypMapper.Mappings<FormThemeSettings> {
+  return {
+    $inColor,
+    $inBgColor: 'white',
+    $inBorderColor: $inColor,
+    $inPadding: StypLength.of(3, 'px'),
+    $inBorderWidth: `${$vBorderPlace} ${$hBorderPlace} ${$vBorderPlace} ${$lBorderW}`,
+    $inBorderW: StypLength.of(1, 'px'),
+    $inLBorderW: $lBorderW.add(StypLength.of(1, 'px')),
+    $inHBorderLen: $lBorderW.mul(1.5),
+    $inFocusHBorderLen: $lBorderW.mul(3),
+  };
 }
