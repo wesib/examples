@@ -1,14 +1,12 @@
+import { Theme, ThemeStyle, ThemeSupport } from '@wesib/generic';
 import { FeatureDef, FeatureDef__symbol } from '@wesib/wesib';
-import { Theme } from './theme';
-import { StyleProvider } from './style-provider';
-import { ThemeSupport } from './theme-support.feature';
+import { StypProperties, StypRules } from 'style-producer';
 import { FormThemeSettings } from './form-theme-settings';
-import { StypProperties } from 'style-producer';
 
 const FormThemeSupport__feature: FeatureDef = {
   needs: ThemeSupport,
   set: [
-    { a: StyleProvider, by: declareInputStyle }
+    { a: ThemeStyle, is: InputStyle }
   ],
 };
 
@@ -20,18 +18,18 @@ export class FormThemeSupport {
 
 }
 
-function declareInputStyle() {
-  return (theme: Theme) => {
+export function InputStyle(theme: Theme): StypRules {
 
     const formSettings = theme.ref(FormThemeSettings).read.keep;
 
-    theme.rules.add(
+    theme.root.rules.add(
         { e: 'input' },
         formSettings.thru(inStyle));
-    theme.rules.add(
+    theme.root.rules.add(
         { e: 'input', s: ':focus' },
         formSettings.thru(inFocusStyle));
-  };
+
+    return theme.root.rules.grab({ e: 'input' });
 }
 
 function inStyle(

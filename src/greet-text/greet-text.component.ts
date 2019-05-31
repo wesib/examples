@@ -1,9 +1,9 @@
+import { ComponentNode, ComponentTreeSupport, ProduceStyle, Theme } from '@wesib/generic';
 import { Component, ComponentContext, Feature } from '@wesib/wesib';
-import { ComponentNode, ComponentTreeSupport, ProduceStyle } from '@wesib/generic';
 import { ValueSync } from 'fun-events';
-import { GreetOutComponent } from './greet-out.component';
-import { FormThemeSupport, Theme } from '../common/theme';
 import { StypRules } from 'style-producer';
+import { FormThemeSupport, InputStyle } from '../common/theme';
+import { GreetOutComponent } from './greet-out.component';
 
 @Component('greet-text')
 @Feature({
@@ -15,11 +15,9 @@ import { StypRules } from 'style-producer';
 })
 export class GreetTextComponent {
 
-  private _style?: StypRules;
-
   @ProduceStyle()
   get style(): StypRules {
-    return this._style || (this._style = this._context.get(Theme).root.rules.grab({ e: 'input' }));
+    return this._context.get(Theme).style(InputStyle);
   }
 
   constructor(private readonly _context: ComponentContext) {

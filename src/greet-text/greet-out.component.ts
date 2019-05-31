@@ -13,12 +13,20 @@ export class GreetOutComponent {
   @Render()
   render() {
 
+    const self = this;
     const document = this._context.get(BootstrapWindow).document;
     const content = document.createElement('span');
 
     this._context.contentRoot.append(content);
 
-    return () => content.innerText = `Hello, ${this.name}!`;
+    return () => content.innerText = greetings();
+
+    function greetings() {
+
+      const name = self.name.trim();
+
+      return name ? `Hello, ${name}!` : 'Hello!';
+    }
   }
 
 }

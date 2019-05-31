@@ -1,6 +1,5 @@
-import { RefStypRule, StypLength, StypRuleRefs } from 'style-producer';
+import { RefStypRule, StypLength, StypMapper, StypRuleRefs } from 'style-producer';
 import { ThemeSettings } from './theme-settings';
-import { StypMapper } from 'style-producer/d.ts/value/mapper';
 
 export interface FormThemeSettings {
   $inColor: string;
