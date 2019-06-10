@@ -1,7 +1,7 @@
 import { ProduceStyle, Theme } from '@wesib/generic';
 import { AttachShadow, Attribute, BootstrapWindow, Component, ComponentContext, Render } from '@wesib/wesib';
 import { StypRules } from 'style-producer';
-import { DefaultStyle } from '../common/theme';
+import { DefaultStyle } from '../common';
 
 @Component('greet-out')
 @AttachShadow()

@@ -1,8 +1,8 @@
-import { ComponentNode, ComponentTreeSupport, ProduceStyle, Theme, ThemeSupport } from '@wesib/generic';
-import { Component, ComponentContext, Feature, Render } from '@wesib/wesib';
+import { ComponentNode, ComponentTreeSupport, ProduceStyle, Theme } from '@wesib/generic';
+import { Component, ComponentContext, Feature } from '@wesib/wesib';
 import { ValueSync } from 'fun-events';
-import { produceBasicStyle, StypRules } from 'style-producer';
-import { BodyStyle, InputStyle } from '../common/theme';
+import { StypRules } from 'style-producer';
+import { AppFeature, InputStyle } from '../common';
 import { GreetOutComponent } from './greet-out.component';
 
 @Component('greet-text')
@@ -10,7 +10,7 @@ import { GreetOutComponent } from './greet-out.component';
   needs: [
     GreetOutComponent,
     ComponentTreeSupport,
-    ThemeSupport,
+    AppFeature,
   ]
 })
 export class GreetTextComponent {
@@ -31,14 +31,6 @@ export class GreetTextComponent {
     value.sync(output, o => o && o.attribute('name'));
 
     _context.on('input')(event => value.it = (event.target as HTMLInputElement).value);
-  }
-
-  @Render()
-  renderBodyStyle() {
-
-    const interest = produceBasicStyle(this._context.get(Theme).style(BodyStyle));
-
-    this._context.whenDestroyed(() => interest.off());
   }
 
 }
