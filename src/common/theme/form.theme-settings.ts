@@ -22,11 +22,11 @@ export const FormThemeSettings: RefStypRule<FormThemeSettings> = RefStypRule.by(
         root,
     ).read.keep.thru(formMappings));
 
-const inColor = new StypRGB({ r: 0, g: 0, b: 0 });
-
 function formMappings(
     {
       global: {
+        $color,
+        $bgColor,
         $lBorderW,
         $hBorderPlace,
         $vBorderPlace,
@@ -36,9 +36,9 @@ function formMappings(
     }
 ): StypMapper.Mappings<FormThemeSettings> {
   return {
-    $color: inColor,
-    $bgColor: new StypRGB({ r: 255, g: 255, b: 255 }),
-    $borderColor: inColor,
+    $color,
+    $bgColor,
+    $borderColor: $color,
     $padding: StypLength.of(3, 'px'),
     $borderWidth: `${$vBorderPlace} ${$hBorderPlace} ${$vBorderPlace} ${$lBorderW}`,
     $borderW: StypLength.of(1, 'px'),

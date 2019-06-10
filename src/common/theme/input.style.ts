@@ -1,19 +1,19 @@
 import { Theme } from '@wesib/generic';
-import { StypProperties, StypRules } from 'style-producer';
+import { StypColor, StypLength, StypProperties, StypRules } from 'style-producer';
 import { FormThemeSettings } from './form.theme-settings';
 
 export function InputStyle(theme: Theme): StypRules {
 
-    const formSettings = theme.ref(FormThemeSettings).read.keep;
+  const formSettings = theme.ref(FormThemeSettings).read.keep;
 
-    theme.root.rules.add(
-        { e: 'input' },
-        formSettings.thru(inStyle));
-    theme.root.rules.add(
-        { e: 'input', s: ':focus' },
-        formSettings.thru(inFocusStyle));
+  theme.root.rules.add(
+      { e: 'input' },
+      formSettings.thru(inStyle));
+  theme.root.rules.add(
+      { e: 'input', s: ':focus' },
+      formSettings.thru(inFocusStyle));
 
-    return theme.root.rules.grab({ e: 'input' });
+  return theme.root.rules.grab({ e: 'input' });
 }
 
 function inStyle(
@@ -35,14 +35,7 @@ function inStyle(
     borderWidth: $borderWidth,
     backgroundOrigin: 'border-box',
     backgroundRepeat: 'no-repeat',
-    backgroundImage: `
-       linear-gradient(to right, ${$borderColor}, transparent), /* top left */
-       linear-gradient(to right, ${$borderColor}, transparent), /* bottom left */
-       linear-gradient(to left, ${$borderColor}, transparent), /* top right */
-       linear-gradient(to left, ${$borderColor}, transparent), /* bottom right */
-       linear-gradient(to bottom, ${$borderColor}, ${$borderColor}), /* left */
-       linear-gradient(to bottom, ${$borderColor}, ${$borderColor}) /* right */
-     `,
+    backgroundImage: borderImage($borderColor),
     backgroundPosition: `
         left top,
         left bottom,
@@ -51,32 +44,44 @@ function inStyle(
         left top,
         right top
       `,
-    backgroundSize: `
-        ${$hBorderLen} ${$borderW},
-        ${$hBorderLen} ${$borderW},
-        ${$hBorderLen} ${$borderW},
-        ${$hBorderLen} ${$borderW},
-        ${$borderW} 100%,
-        ${$borderW} 100%
-      `,
+    backgroundSize: borderSize($borderW, $hBorderLen),
   };
 }
 
 function inFocusStyle(
     {
+      $color,
       $focusHBorderLen,
       $borderW,
       $hBorderLen,
     }: FormThemeSettings): StypProperties {
 
+  const hsl = $color.hsl;
+
   return {
-    backgroundSize: `
-        ${$focusHBorderLen} ${$borderW},
-        ${$hBorderLen} ${$borderW},
-        ${$hBorderLen} ${$borderW},
-        ${$focusHBorderLen} ${$borderW},
-        ${$borderW} 100%,
-        ${$borderW} 100%
-      `,
+    backgroundImage: borderImage(hsl.set({ l: hsl.l * 1.25 })),
+    backgroundSize: borderSize($borderW, $hBorderLen, $focusHBorderLen),
   };
+}
+
+function borderImage(color: StypColor): string {
+  return `
+    linear-gradient(to right, ${color}, transparent), /* top left */
+    linear-gradient(to right, ${color}, transparent), /* bottom left */
+    linear-gradient(to left, ${color}, transparent), /* top right */
+    linear-gradient(to left, ${color}, transparent), /* bottom right */
+    linear-gradient(to bottom, ${color}, ${color}), /* left */
+    linear-gradient(to bottom, ${color}, ${color}) /* right */
+  `;
+}
+
+function borderSize(borderW: StypLength, hBorderLen: StypLength, tlhBorderLen = hBorderLen) {
+  return `
+    ${tlhBorderLen} ${borderW},
+    ${hBorderLen} ${borderW},
+    ${hBorderLen} ${borderW},
+    ${tlhBorderLen} ${borderW},
+    ${borderW} 100%,
+    ${borderW} 100%
+  `;
 }
