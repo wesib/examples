@@ -1,5 +1,5 @@
 import { Theme, ThemeSupport } from '@wesib/generic';
-import { BootstrapContext, Feature, FeatureDef, FeatureDef__symbol } from '@wesib/wesib';
+import { BootstrapContext, Feature } from '@wesib/wesib';
 import { produceBasicStyle } from 'style-producer';
 import { BodyStyle } from './body.style';
 
