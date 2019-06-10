@@ -1,8 +1,8 @@
-import { ComponentNode, ComponentTreeSupport, ProduceStyle, Theme } from '@wesib/generic';
+import { ComponentNode, ComponentTreeSupport, ProduceStyle, Theme, ThemeSupport } from '@wesib/generic';
 import { Component, ComponentContext, Feature } from '@wesib/wesib';
 import { ValueSync } from 'fun-events';
 import { StypRules } from 'style-producer';
-import { FormThemeSupport, InputStyle } from '../common/theme';
+import { InputStyle } from '../common/theme';
 import { GreetOutComponent } from './greet-out.component';
 
 @Component('greet-text')
@@ -10,7 +10,7 @@ import { GreetOutComponent } from './greet-out.component';
   needs: [
     GreetOutComponent,
     ComponentTreeSupport,
-    FormThemeSupport,
+    ThemeSupport,
   ]
 })
 export class GreetTextComponent {
