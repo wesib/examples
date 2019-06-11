@@ -55,11 +55,8 @@ function inFocusStyle(
       $borderW,
       $hBorderLen,
     }: FormThemeSettings): StypProperties {
-
-  const hsl = $color.hsl;
-
   return {
-    backgroundImage: borderImage(hsl.set({ l: hsl.l * 1.25 })),
+    backgroundImage: borderImage($color.hsl.set(hsl => ({ l: hsl.l * 1.25 }))),
     backgroundSize: borderSize($borderW, $hBorderLen, $focusHBorderLen),
   };
 }

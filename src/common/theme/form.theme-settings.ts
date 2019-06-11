@@ -1,4 +1,4 @@
-import { RefStypRule, StypColor, StypLength, StypMapper, StypRGB, StypRuleRefs } from 'style-producer';
+import { RefStypRule, StypColor, StypLength, StypMapper, StypRuleRefs } from 'style-producer';
 import { ThemeSettings } from './theme-settings';
 
 export interface FormThemeSettings {
@@ -42,7 +42,7 @@ function formMappings(
     $padding: StypLength.of(3, 'px'),
     $borderWidth: `${$vBorderPlace} ${$hBorderPlace} ${$vBorderPlace} ${$lBorderW}`,
     $borderW: StypLength.of(1, 'px'),
-    $lBorderW: $lBorderW.add(StypLength.of(1, 'px')),
+    $lBorderW: $lBorderW.add(1, 'px'),
     $hBorderLen: $lBorderW.mul(1.5),
     $focusHBorderLen: $lBorderW.mul(3),
   };
