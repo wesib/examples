@@ -1,7 +1,7 @@
 import { ComponentNode, ComponentTreeSupport, ProduceStyle, Theme } from '@wesib/generic';
 import { Component, ComponentContext, Feature } from '@wesib/wesib';
-import { afterEventFromAll } from 'fun-events';
-import { InCssClasses, inCssInfo, inGroup, inText, InValidation, requirePresent } from 'input-aspects';
+import { ValueSync } from 'fun-events';
+import { InCssClasses, inCssInfo, InGroup, inGroup, inText, InValidation, requirePresent } from 'input-aspects';
 import { StypRules } from 'style-producer';
 import { AppFeature, InputStyle } from '../common';
 import { GreetOutComponent } from './greet-out.component';
@@ -24,6 +24,7 @@ export class GreetTextComponent {
   constructor(private readonly _context: ComponentContext) {
 
     const node = _context.get(ComponentNode);
+    const output = node.select('greet-out').first;
     const group = inGroup<GreetData>({ name: '' });
 
     node.select('input', { all: true }).first(name => {
@@ -35,17 +36,10 @@ export class GreetTextComponent {
       );
     });
 
-    afterEventFromAll({
-      input: group,
-      output: node.select('greet-out').first,
-    })(({
-      input: [input],
-      output: [output],
-    }) => {
-      if (output) {
-        output.attribute('name').it = input.name;
-      }
-    });
+    const nameSync = new ValueSync<string | null>('');
+
+    nameSync.sync(output, o => o && o.attribute('name'));
+    nameSync.sync('in', group.controls, (controls: InGroup.Snapshot<GreetData>) => controls.get('name'));
   }
 
 }
