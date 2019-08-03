@@ -1,6 +1,7 @@
 import { ComponentNode, ComponentTreeSupport, ProduceStyle, Theme } from '@wesib/generic';
 import { Component, ComponentContext, Feature } from '@wesib/wesib';
-import { ValueSync } from 'fun-events';
+import { afterEventFromAll } from 'fun-events';
+import { InCssClasses, inCssInfo, inGroup, inText, InValidation, requirePresent } from 'input-aspects';
 import { StypRules } from 'style-producer';
 import { AppFeature, InputStyle } from '../common';
 import { GreetOutComponent } from './greet-out.component';
@@ -22,15 +23,33 @@ export class GreetTextComponent {
 
   constructor(private readonly _context: ComponentContext) {
 
-    const value = new ValueSync<String | null>(null);
     const node = _context.get(ComponentNode);
-    const input = node.select('input', { all: true }).first;
-    const output = node.select('greet-out').first;
+    const group = inGroup<GreetData>({ name: '' });
 
-    value.sync('in', input, i => i && i.property<string>('value'));
-    value.sync(output, o => o && o.attribute('name'));
+    node.select('input', { all: true }).first(name => {
+      group.controls.set(
+          'name',
+          name && inText(name.element)
+          .setup(InValidation, validation => validation.by(requirePresent))
+          .setup(InCssClasses, classes => classes.add(inCssInfo()))
+      );
+    });
 
-    _context.on('input')(event => value.it = (event.target as HTMLInputElement).value);
+    afterEventFromAll({
+      input: group,
+      output: node.select('greet-out').first,
+    })(({
+      input: [input],
+      output: [output],
+    }) => {
+      if (output) {
+        output.attribute('name').it = input.name;
+      }
+    });
   }
 
+}
+
+interface GreetData {
+  name: string;
 }
