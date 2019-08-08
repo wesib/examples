@@ -2,7 +2,6 @@ import fs from 'fs-extra';
 import handlebars from 'handlebars';
 import nodeResolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
-import hash from 'rollup-plugin-hash';
 import sourcemaps from 'rollup-plugin-sourcemaps';
 import { terser } from 'rollup-plugin-terser';
 import typescript from 'rollup-plugin-typescript2';
@@ -58,22 +57,24 @@ function exampleConfigs(example) {
   function exampleConfig(example, format) {
 
     const iife = format === 'iife';
+    const generateHtml = {
+      name: 'generate-html',
+      writeBundle(bundle) {
+        for (const name of Object.keys(bundle)) {
+          result.js(format, name);
+        }
+      },
+    };
     const plugins = [
       typescript({
         typescript: require('typescript'),
         tsconfig: `tsconfig.${format}.json`,
         cacheRoot: 'target/.rts2_cache',
       }),
+      cleanup(`${destDir}/*.${format}.{js,js.map}`),
       commonjs(),
       sourcemaps(),
-      hash({
-        dest: `${destDir}/index.[hash].${format}.js`,
-        replace: true,
-        callback(name) {
-          result.js(format, name);
-        }
-      }),
-      cleanup(`${destDir}/*.${format}.{js,js.map}`),
+      generateHtml,
     ];
 
     if (iife) {
@@ -107,9 +108,10 @@ function exampleConfigs(example) {
       input: `${srcDir}/index.ts`,
       output: {
         format,
+        dir: destDir,
         sourcemap: true,
         name: `wesib.examples.${example.replace(/\//, '.')}`,
-        file: `${destDir}/index.${format}.js`,
+        entryFileNames: `[name].[hash].${format}.js`,
       },
     };
   }
