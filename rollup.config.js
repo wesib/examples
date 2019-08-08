@@ -71,7 +71,7 @@ function exampleConfig(format) {
       format,
       dir: './dist',
       sourcemap: true,
-      entryFileNames: `[name]/index.[hash].${format}.js`,
+      entryFileNames: `[name]/main.[hash].${format}.js`,
       name: `wesib.examples`,
       extends: true,
     },
