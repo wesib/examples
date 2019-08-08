@@ -9,115 +9,117 @@ import { uglify } from 'rollup-plugin-uglify';
 
 import cleanup from './build/rollup-plugin-cleanup';
 
+const namePattern = /([^\/]+)\/([^\/]+\.js)$/;
 const examples = [
   'greet-text',
 ];
 
-const configs = examples.reduce((prev, example) => prev.concat(exampleConfigs(example)), []);
+class Result {
 
-export default configs;
+  constructor() {
+    this._examples = {};
+  }
 
-function exampleConfigs(example) {
+  async js(part, name) {
 
-  const srcDir = `./src/${example}`;
-  const destDir = `./dist/${example}`;
+    const [_, example, file] = namePattern.exec(name);
+    const parts = this._examples[example] || (this._examples[example] = {});
 
-  class Result {
+    parts[part] = file;
 
-    constructor() {
-      this._js = {};
+    const { iife, esm } = parts;
+
+    if (iife && esm) {
+      await generateExampleHtml(example, parts);
     }
+  }
 
-    async js(format, name) {
-      this._js[format] = name.replace(/(?:.+\/)([^\/]+\.js)$/, '$1');
+}
 
-      const { iife, esm } = this._js;
+const result = new Result();
 
-      if (iife && esm) {
-        await this._generateHtml();
+export default [
+  exampleConfig('esm'),
+  exampleConfig('iife'),
+];
+
+function exampleConfig(format) {
+
+  const iife = format === 'iife';
+  const generateHtml = {
+    name: 'generate-html',
+    writeBundle(bundle) {
+      for (const name of Object.keys(bundle)) {
+        result.js(format, name);
       }
-    }
+    },
+  };
+  const plugins = [
+    typescript({
+      typescript: require('typescript'),
+      tsconfig: `tsconfig.${format}.json`,
+      cacheRoot: 'target/.rts2_cache',
+    }),
+    cleanup(`./dist/**/*.${format}.{js,js.map}`),
+    commonjs(),
+    sourcemaps(),
+    generateHtml,
+  ];
 
-    async _generateHtml() {
-
-      const input =`${srcDir}/index.html`;
-      const output = `${destDir}/index.html`;
-
-      console.log('Generating HTML', input, '->', output);
-
-      const template = handlebars.compile(await fs.readFile(input, 'utf8'));
-
-      await fs.outputFile(output, template(this._js), { encoding: 'utf8' });
-    }
-
+  if (iife) {
+    // Use esm5 module variants
+    plugins.push(
+        nodeResolve({
+          mainFields: ['esm5', 'module', 'main'],
+        }),
+        uglify({
+          output: {
+            ascii_only: true,
+          },
+        }),
+    );
+  } else {
+    plugins.push(
+        nodeResolve(),
+        terser({
+          ecma: 6,
+          module: true,
+          toplevel: true,
+          output: {
+            ascii_only: true,
+          },
+        }),
+    );
   }
 
-  const result = new Result();
+  return {
+    plugins,
+    input: examples.reduce(
+        (prev, example) => ({
+          ...prev,
+          [example]: `./src/${example}/index.ts`,
+        }),
+        {},
+    ),
+    output: {
+      format,
+      dir: './dist',
+      sourcemap: true,
+      entryFileNames: `[name]/index.[hash].${format}.js`,
+      name: `wesib.examples`,
+      extends: true,
+    },
+  };
+}
 
-  function exampleConfig(example, format) {
+async function generateExampleHtml(example, parts) {
 
-    const iife = format === 'iife';
-    const generateHtml = {
-      name: 'generate-html',
-      writeBundle(bundle) {
-        for (const name of Object.keys(bundle)) {
-          result.js(format, name);
-        }
-      },
-    };
-    const plugins = [
-      typescript({
-        typescript: require('typescript'),
-        tsconfig: `tsconfig.${format}.json`,
-        cacheRoot: 'target/.rts2_cache',
-      }),
-      cleanup(`${destDir}/*.${format}.{js,js.map}`),
-      commonjs(),
-      sourcemaps(),
-      generateHtml,
-    ];
+  const input =`./src/${example}/index.html`;
+  const output = `./dist/${example}/index.html`;
 
-    if (iife) {
-      // Use esm5 module variants
-      plugins.push(
-          nodeResolve({
-            mainFields: ['esm5', 'module', 'main'],
-          }),
-          uglify({
-            output: {
-              ascii_only: true,
-            },
-          }),
-      );
-    } else {
-      plugins.push(
-          nodeResolve(),
-          terser({
-            ecma: 6,
-            module: true,
-            toplevel: true,
-            output: {
-              ascii_only: true,
-            },
-          }),
-      );
-    }
+  console.log('Generating HTML', input, '->', output);
 
-    return {
-      plugins,
-      input: `${srcDir}/index.ts`,
-      output: {
-        format,
-        dir: destDir,
-        sourcemap: true,
-        name: `wesib.examples.${example.replace(/\//, '.')}`,
-        entryFileNames: `[name].[hash].${format}.js`,
-      },
-    };
-  }
+  const template = handlebars.compile(await fs.readFile(input, 'utf8'));
 
-  return [
-    exampleConfig(example, 'esm'),
-    exampleConfig(example, 'iife'),
-  ]
+  await fs.outputFile(output, template(parts), { encoding: 'utf8' });
 }
