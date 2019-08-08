@@ -1,6 +1,7 @@
-import nodeResolve from 'rollup-plugin-node-resolve';
+import babel from 'rollup-plugin-babel';
 import commonjs from 'rollup-plugin-commonjs';
 import sourcemaps from 'rollup-plugin-sourcemaps';
+import nodeResolve from 'rollup-plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 import typescript from 'rollup-plugin-typescript2';
 import { uglify } from 'rollup-plugin-uglify';
@@ -35,9 +36,8 @@ function exampleConfig(format) {
   if (iife) {
     // Use esm5 module variants
     plugins.push(
-        nodeResolve({
-          mainFields: ['esm5', 'module', 'main'],
-        }),
+        nodeResolve(),
+        babel(),
         uglify({
           output: {
             ascii_only: true,
