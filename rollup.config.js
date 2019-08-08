@@ -1,5 +1,3 @@
-import fs from 'fs-extra';
-import handlebars from 'handlebars';
 import nodeResolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import sourcemaps from 'rollup-plugin-sourcemaps';
@@ -8,52 +6,20 @@ import typescript from 'rollup-plugin-typescript2';
 import { uglify } from 'rollup-plugin-uglify';
 
 import cleanup from './build/rollup-plugin-cleanup';
+import exampleHtml from './build/rollup-plugin-example-html';
 
-const namePattern = /([^\/]+)\/([^\/]+\.js)$/;
 const examples = [
   'greet-text',
 ];
 
-class Result {
-
-  constructor() {
-    this._examples = {};
-  }
-
-  async js(part, name) {
-
-    const [_, example, file] = namePattern.exec(name);
-    const parts = this._examples[example] || (this._examples[example] = {});
-
-    parts[part] = file;
-
-    const { iife, esm } = parts;
-
-    if (iife && esm) {
-      await generateExampleHtml(example, parts);
-    }
-  }
-
-}
-
-const result = new Result();
-
 export default [
-  exampleConfig('esm'),
+  exampleConfig('es'),
   exampleConfig('iife'),
 ];
 
 function exampleConfig(format) {
 
   const iife = format === 'iife';
-  const generateHtml = {
-    name: 'generate-html',
-    writeBundle(bundle) {
-      for (const name of Object.keys(bundle)) {
-        result.js(format, name);
-      }
-    },
-  };
   const plugins = [
     typescript({
       typescript: require('typescript'),
@@ -63,7 +29,7 @@ function exampleConfig(format) {
     cleanup(`./dist/**/*.${format}.{js,js.map}`),
     commonjs(),
     sourcemaps(),
-    generateHtml,
+    exampleHtml,
   ];
 
   if (iife) {
@@ -110,16 +76,4 @@ function exampleConfig(format) {
       extends: true,
     },
   };
-}
-
-async function generateExampleHtml(example, parts) {
-
-  const input =`./src/${example}/index.html`;
-  const output = `./dist/${example}/index.html`;
-
-  console.log('Generating HTML', input, '->', output);
-
-  const template = handlebars.compile(await fs.readFile(input, 'utf8'));
-
-  await fs.outputFile(output, template(parts), { encoding: 'utf8' });
 }
