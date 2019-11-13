@@ -9,16 +9,17 @@ class Result {
     this._examples = {};
   }
 
-  async partGenerated(part, name) {
+  async partGenerated(format, name) {
 
     const [_, example, file] = namePattern.exec(name);
     const parts = this._examples[example] || (this._examples[example] = {});
+    const part = format === 'es' || format === 'esm' ? 'module' : 'es5';
 
     parts[part] = file;
 
-    const { iife, es } = parts;
+    const { module, es5 } = parts;
 
-    if (iife && es) {
+    if (module && es5) {
       await generateExampleHtml(example, parts);
     }
   }

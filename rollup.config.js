@@ -14,17 +14,17 @@ const examples = [
 ];
 
 export default [
-  exampleConfig('es'),
-  exampleConfig('iife'),
+  exampleConfig('module'),
+  exampleConfig('es5'),
 ];
 
 function exampleConfig(format) {
 
-  const iife = format === 'iife';
+  const es5 = format === 'es5';
   const plugins = [
     typescript({
       typescript: require('typescript'),
-      tsconfig: `tsconfig.${format}.json`,
+      tsconfig: es5 ? `tsconfig.es5.json` : "tsconfig.json",
       cacheRoot: 'target/.rts2_cache',
     }),
     cleanup(`./dist/**/*.${format}.{js,js.map}`),
@@ -33,7 +33,7 @@ function exampleConfig(format) {
     exampleHtml,
   ];
 
-  if (iife) {
+  if (es5) {
     // Use esm5 module variants
     plugins.push(
         nodeResolve(),
@@ -68,7 +68,7 @@ function exampleConfig(format) {
         {},
     ),
     output: {
-      format,
+      format: es5 ? 'iife' : 'esm',
       dir: './dist',
       sourcemap: true,
       entryFileNames: `[name]/main.[hash].${format}.js`,
