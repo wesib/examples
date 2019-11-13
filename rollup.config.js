@@ -30,29 +30,30 @@ function exampleConfig(format) {
     cleanup(`./dist/**/*.${format}.{js,js.map}`),
     commonjs(),
     sourcemaps(),
+    nodeResolve(),
     exampleHtml,
   ];
 
   if (es5) {
     // Use esm5 module variants
     plugins.push(
-        nodeResolve(),
         babel(),
         uglify({
           output: {
             ascii_only: true,
+            comments: false,
           },
         }),
     );
   } else {
     plugins.push(
-        nodeResolve(),
         terser({
           ecma: 6,
           module: true,
           toplevel: true,
           output: {
             ascii_only: true,
+            comments: false,
           },
         }),
     );
@@ -67,13 +68,23 @@ function exampleConfig(format) {
         }),
         {},
     ),
+    manualChunks(id) {
+      if (id.startsWith(`${__dirname}/node_modules/@wesib/`)) {
+        return 'wesib';
+      }
+      if (id.startsWith('\0') || id.startsWith(`${__dirname}/node_modules/`)) {
+        return 'lib';
+      }
+      if (id.startsWith(`${__dirname}/src/common/`)) {
+        return 'common';
+      }
+    },
     output: {
-      format: es5 ? 'iife' : 'esm',
+      format: es5 ? 'system' : 'esm',
       dir: './dist',
       sourcemap: true,
       entryFileNames: `[name]/main.[hash].${format}.js`,
-      name: `wesib.examples`,
-      extend: true,
+      chunkFileNames: `js/[name].[hash].${format}.js`
     },
   };
 }

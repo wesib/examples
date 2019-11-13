@@ -10,7 +10,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "forceConsistentCasingInFileNames": true,
-    "downlevelIteration": true,
+    "importHelpers": true,
+    "noEmitHelpers": true,
     "lib": [
       "dom",
       "es2015"

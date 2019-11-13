@@ -12,6 +12,11 @@ class Result {
   async partGenerated(format, name) {
 
     const [_, example, file] = namePattern.exec(name);
+
+    if (example === 'js') {
+      return; // Common chunk
+    }
+
     const parts = this._examples[example] || (this._examples[example] = {});
     const part = format === 'es' || format === 'esm' ? 'module' : 'es5';
 
