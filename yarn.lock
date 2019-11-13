@@ -667,17 +667,17 @@
   dependencies:
     "@types/node" "*"
 
-"@wesib/generic@^1.0.0-alpha.40":
-  version "1.0.0-alpha.40"
-  resolved "https://registry.yarnpkg.com/@wesib/generic/-/generic-1.0.0-alpha.40.tgz#ec9750c8aa6a6b7e092048054820dfeeccf1d54a"
-  integrity sha512-obZx3ec/YdovEKU5fJ41Zo744eG2sOMGTaDDqY+APtDkimt+AxWhztsXDreDzCy4h4MxVGNzR9mYc79tD3uskw==
+"@wesib/generic@^1.0.0-alpha.41":
+  version "1.0.0-alpha.41"
+  resolved "https://registry.yarnpkg.com/@wesib/generic/-/generic-1.0.0-alpha.41.tgz#99be92f35e3940cbe98cf7a2a64fafb7683871c1"
+  integrity sha512-DmCRZZ2PkcJv9VJwxMoN1G/QtUiepjHax2Q42l0kR0fgVaDzDb1LdK3PsmKhBfHO3twJtlO7lpVd4eXikkuLZA==
   dependencies:
-    http-header-value "^1.0.0"
+    http-header-value "^2.0.1"
 
-"@wesib/wesib@^1.0.0-alpha.40":
-  version "1.0.0-alpha.40"
-  resolved "https://registry.yarnpkg.com/@wesib/wesib/-/wesib-1.0.0-alpha.40.tgz#452ee3181811f7d2b78c14552185ad2d15985620"
-  integrity sha512-QMyg2DkxAtLBNLQay3DvzvnEGmkPsphGDY21B92oJpdf3VimARdv6i988a7z86cp1QBo9lenvP0BwmzW3eQ4YQ==
+"@wesib/wesib@^1.0.0-alpha.41":
+  version "1.0.0-alpha.41"
+  resolved "https://registry.yarnpkg.com/@wesib/wesib/-/wesib-1.0.0-alpha.41.tgz#47e9b581984d7d421f5604abfd8ecfc29066d047"
+  integrity sha512-E5OEL3Gb8F60Ps+zzqH9cQMNdt4adRM3ISvXzqI5PwEo3S4K8tYCIdOuCenseFg9tQa5AIPvilXeMuvz63dZCA==
 
 a-iterable@^2.4.4:
   version "2.4.4"
@@ -1007,10 +1007,10 @@ he@^1.1.1:
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
-http-header-value@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/http-header-value/-/http-header-value-1.0.0.tgz#8468c5167cf017ea97a90a21374d0172cff6ae76"
-  integrity sha512-hb0R8IQL5q37MYCg7reTe3YPqgDtO/bTcIKoq91BvjpE3ADkPPW4oh3RWHZSX95hm85mPhLMf+UaDdHxQkc/6Q==
+http-header-value@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/http-header-value/-/http-header-value-2.0.1.tgz#cd254d267d84e191306f9dacc58bbc6378e6f27c"
+  integrity sha512-QXJq8Ay5NS7inPzzlgudU6C+oZ3m4qOIl1mu3Pc/afiwZEUC29fnKykZjXP3XqiMXEMz0apmPFHdZ/8J+AunzA==
 
 http-proxy@^1.8.1:
   version "1.18.0"
