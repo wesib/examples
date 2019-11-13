@@ -1,4 +1,8 @@
-import { bootstrapComponents } from '@wesib/wesib';
+import { examplesContext } from '../common';
 import { GreetTextComponent } from './greet-text.component';
 
-bootstrapComponents(GreetTextComponent);
+examplesContext.load(GreetTextComponent)(loaded => {
+  console.log(loaded);
+}).whenOff(reason => {
+  console.error('Failed to load greet-text example', reason);
+});
