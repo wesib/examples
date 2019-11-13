@@ -18,7 +18,7 @@
     "url": "https://github.com/wesib/wesib/issues"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.0",
+    "@babel/core": "^7.7.2",
     "@babel/preset-env": "^7.7.1",
     "@wesib/generic": "^1.0.0-alpha.40",
     "@wesib/wesib": "^1.0.0-alpha.40",
@@ -27,12 +27,12 @@
     "context-values": "^2.1.0",
     "fs-extra": "^8.1.0",
     "fun-events": "^7.0.0",
-    "glob": "^7.1.5",
+    "glob": "^7.1.6",
     "handlebars": "^4.5.1",
     "http-server": "^0.11.1",
     "input-aspects": "^1.1.0",
     "namespace-aliaser": "^2.0.2",
-    "rollup": "^1.26.3",
+    "rollup": "^1.27.0",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
