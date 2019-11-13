@@ -73,7 +73,7 @@ function exampleConfig(format) {
       sourcemap: true,
       entryFileNames: `[name]/main.[hash].${format}.js`,
       name: `wesib.examples`,
-      extends: true,
+      extend: true,
     },
   };
 }
