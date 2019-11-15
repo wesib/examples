@@ -1,5 +1,6 @@
-import handlebars from "handlebars";
-import fs from "fs-extra";
+import handlebars from 'handlebars';
+import fs from 'fs-extra';
+import '../src/template/index.ts';
 
 const namePattern = /([^\/]+)\/([^\/]+\.js)$/;
 
@@ -17,15 +18,16 @@ class Result {
       return; // Common chunk
     }
 
+    const isTitle = example === 'title';
     const parts = this._examples[example] || (this._examples[example] = {});
     const part = format === 'es' || format === 'esm' ? 'module' : 'es5';
 
-    parts[part] = file;
+    parts[part] = `${example}/${file}`;
 
     const { module, es5 } = parts;
 
     if (module && es5) {
-      await generateExampleHtml(example, parts);
+      await generateExampleHtml(example, parts, isTitle ? { output: './dist/index.html' } : {});
     }
   }
 
@@ -40,14 +42,13 @@ export default {
   },
 }
 
-async function generateExampleHtml(example, parts) {
+async function generateExampleHtml(example, parts, { output = `./dist/${example}/index.html` } = {}) {
 
   const input =`./src/${example}/index.html`;
-  const output = `./dist/${example}/index.html`;
 
   console.log('Generating HTML', input, '->', output);
 
   const template = handlebars.compile(await fs.readFile(input, 'utf8'));
 
-  await fs.outputFile(output, template(parts), { encoding: 'utf8' });
+  await fs.outputFile(output, template({ ...parts, base: '..' }), { encoding: 'utf8' });
 }

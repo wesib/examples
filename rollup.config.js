@@ -1,3 +1,4 @@
+import 'ts-node/register';
 import babel from 'rollup-plugin-babel';
 import commonjs from 'rollup-plugin-commonjs';
 import sourcemaps from 'rollup-plugin-sourcemaps';
@@ -11,6 +12,7 @@ import exampleHtml from './build/rollup-plugin-example-html';
 
 const examples = [
   'greet-text',
+  'title',
 ];
 
 export default [

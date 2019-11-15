@@ -1,18 +1,20 @@
 import { ComponentNode, ComponentTreeSupport, ProduceStyle, Theme } from '@wesib/generic';
-import { Component, ComponentContext, Feature } from '@wesib/wesib';
+import { Component, ComponentContext } from '@wesib/wesib';
 import { ValueSync } from 'fun-events';
 import { InCssClasses, inCssInfo, InGroup, inGroup, inText, InValidation, requirePresent } from 'input-aspects';
 import { StypRules } from 'style-producer';
 import { AppFeature, InputStyle } from '../common';
 import { GreetOutComponent } from './greet-out.component';
 
-@Component('greet-text')
-@Feature({
-  needs: [
-    GreetOutComponent,
-    ComponentTreeSupport,
-    AppFeature,
-  ]
+@Component({
+  name: 'greet-text',
+  feature: {
+    needs: [
+      GreetOutComponent,
+      ComponentTreeSupport,
+      AppFeature,
+    ]
+  },
 })
 export class GreetTextComponent {
 
@@ -31,8 +33,8 @@ export class GreetTextComponent {
       group.controls.set(
           'name',
           name && inText(name.element)
-          .setup(InValidation, validation => validation.by(requirePresent))
-          .setup(InCssClasses, classes => classes.add(inCssInfo()))
+              .setup(InValidation, validation => validation.by(requirePresent))
+              .setup(InCssClasses, classes => classes.add(inCssInfo()))
       );
     });
 
