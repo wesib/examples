@@ -6,6 +6,7 @@ Handlebars.registerPartial(
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>{{title}}</title>
-<base href="{{base}}"/>
+<meta name="wesib-app-rev" content="{{{rev}}}">
+<base href="{{{base}}}"/>
     `.trim(),
 );

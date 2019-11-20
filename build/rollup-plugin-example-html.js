@@ -3,6 +3,7 @@ import fs from 'fs-extra';
 import '../src/template/index.ts';
 
 const namePattern = /([^\/]+)\/([^\/]+\.js)$/;
+const rev = Date.now().toString(32);
 
 class Result {
 
@@ -50,5 +51,5 @@ async function generateExampleHtml(example, parts, { output = `./dist/${example}
 
   const template = handlebars.compile(await fs.readFile(input, 'utf8'));
 
-  await fs.outputFile(output, template({ ...parts, base: '..' }), { encoding: 'utf8' });
+  await fs.outputFile(output, template({ ...parts, rev, base: '..' }), { encoding: 'utf8' });
 }

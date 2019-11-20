@@ -1,13 +1,8 @@
-import { ProduceStyle, ThemeSupport } from '@wesib/generic';
+import { ProduceStyle } from '@wesib/generic';
 import { Component } from '@wesib/wesib';
 import { stypRoot } from 'style-producer';
 
-@Component({
-  name: 'bex-container',
-  feature: {
-    needs: ThemeSupport,
-  },
-})
+@Component('bex-container')
 export class BexContainerComponent {
 
   @ProduceStyle()
