@@ -1,6 +1,6 @@
 import { ComponentNode, Navigation } from '@wesib/generic';
 import { Component, ComponentContext } from '@wesib/wesib';
-import { afterSupplied, DomEventDispatcher } from 'fun-events';
+import { DomEventDispatcher } from 'fun-events';
 
 @Component('bex-nav')
 export class BexNavComponent {
@@ -10,7 +10,7 @@ export class BexNavComponent {
     const node = context.get(ComponentNode);
     const navigation = context.get(Navigation);
 
-    afterSupplied(node.select('a', { all: true }))(links => {
+    node.select('a', { all: true }).read(links => {
       links.forEach(link => {
         new DomEventDispatcher(link.element)
             .on('click')
