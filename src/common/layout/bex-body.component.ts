@@ -1,5 +1,5 @@
 import { importNodeContent, Navigation, pageLoadParam } from '@wesib/generic';
-import { BootstrapWindow, Component, ComponentContext } from '@wesib/wesib';
+import { BootstrapWindow, Component, ComponentContext, ElementDef } from '@wesib/wesib';
 import { eventSupply } from 'fun-events';
 
 @Component('bex-body')
@@ -22,7 +22,7 @@ export class BexBodyComponent {
         page.put(
             pageLoadParam,
             {
-              fragment: { tag: 'bex-body' },
+              fragment: { tag: element.tagName },
               receiver: {
                 supply,
                 receive(_ctx, response) {
