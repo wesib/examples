@@ -22,7 +22,7 @@ export class BexBodyComponent {
         page.put(
             pageLoadParam,
             {
-              fragment: { id: 'bex-body' },
+              fragment: { tag: 'bex-body' },
               receiver: {
                 supply,
                 receive(_ctx, response) {
