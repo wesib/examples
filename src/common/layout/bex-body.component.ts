@@ -1,5 +1,5 @@
 import { importNodeContent, Navigation, pageLoadParam } from '@wesib/generic';
-import { BootstrapWindow, Component, ComponentContext, ElementDef } from '@wesib/wesib';
+import { BootstrapWindow, Component, ComponentContext } from '@wesib/wesib';
 import { eventSupply } from 'fun-events';
 
 @Component('bex-body')
