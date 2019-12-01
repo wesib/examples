@@ -17,10 +17,14 @@ export class BexBodyComponent {
 
     context.whenOn(() => {
 
+      const supply = eventSupply();
+
+      context.whenOff(() => supply.off());
+
       const element: Element = context.element;
-      const supply = eventSupply(() => element.innerHTML = '');
       const range = document.createRange();
 
+      supply.whenOff(() => range.deleteContents());
       range.selectNodeContents(element);
 
       navigation.read.once(page => {
@@ -53,11 +57,7 @@ export class BexBodyComponent {
               },
             },
         );
-
-        return supply;
       });
-
-      context.whenOff(() => supply.off());
     });
   }
 

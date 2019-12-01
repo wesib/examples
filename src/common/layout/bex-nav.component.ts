@@ -19,39 +19,46 @@ export class BexNavComponent {
 
     context.whenOn(() => {
 
+      const supply = eventSupply();
+
+      context.whenOff(() => supply.off());
+
       const navLinks = node.select('a', { all: true });
 
-      const clicksSupply = navLinks.read.consume(links =>
-          links.reduce(
-              (prev, link) => new DomEventDispatcher(link.element)
+      navLinks.read({
+        supply,
+        receive(_, links) {
+          links.forEach(
+              link => new DomEventDispatcher(link.element)
                   .on('click')
                   .instead(() => navigation.open(link.attribute('href').it || ''))
-                  .needs(prev),
-              eventSupply(),
-          ),
-      );
-      const cssSupply = afterAll({
+                  .needs(supply),
+          );
+        },
+      });
+      afterAll({
         links: navLinks,
         page: navigation,
-      })(({
-        links: [links],
-        page: [page],
-      }) => {
-        links.forEach(link => {
+      })({
+        supply,
+        receive(
+            _ctx,
+            {
+              links: [links],
+              page: [page],
+            },
+        ) {
+          links.forEach(link => {
 
-          const element: HTMLAnchorElement = link.element;
+            const element: HTMLAnchorElement = link.element;
 
-          if (dirName(page.url).startsWith(dirName(new URL(element.href)))) {
-            element.classList.add(activeNavLinkClass);
-          } else {
-            element.classList.remove(activeNavLinkClass);
-          }
-        });
-      });
-
-      context.whenOff(() => {
-        clicksSupply.off();
-        cssSupply.off();
+            if (dirName(page.url).startsWith(dirName(new URL(element.href)))) {
+              element.classList.add(activeNavLinkClass);
+            } else {
+              element.classList.remove(activeNavLinkClass);
+            }
+          });
+        },
       });
     });
   }
