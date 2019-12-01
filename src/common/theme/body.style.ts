@@ -1,5 +1,6 @@
 import { Theme } from '@wesib/generic';
 import { StypProperties, stypRules, StypRules } from 'style-producer';
+import { DefaultStyle } from './default.style';
 import { ThemeSettings } from './theme-settings';
 
 export function BodyStyle(theme: Theme): StypRules {
@@ -10,7 +11,7 @@ export function BodyStyle(theme: Theme): StypRules {
   theme.root.rules.add(selector, settings.thru(bodyStyle));
 
   return stypRules(
-      theme.root.rules.self,
+      theme.style(DefaultStyle),
       theme.root.rules.grab(selector),
   );
 }
@@ -18,9 +19,11 @@ export function BodyStyle(theme: Theme): StypRules {
 function bodyStyle(
     {
       $bgColor,
+      $fontSize,
     }: ThemeSettings
 ): StypProperties {
   return {
     backgroundColor: $bgColor,
+    padding: $fontSize,
   };
 }

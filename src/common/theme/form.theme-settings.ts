@@ -1,16 +1,16 @@
-import { RefStypRule, StypColor, StypLength, StypMapper, StypRuleRefs } from 'style-producer';
+import { RefStypRule, StypColor, StypLength, StypLengthPt, StypMapper, StypRuleRefs } from 'style-producer';
 import { ThemeSettings } from './theme-settings';
 
 export interface FormThemeSettings {
   $color: StypColor;
   $bgColor: StypColor;
+  $roBgColor: StypColor;
   $borderColor: StypColor;
-  $padding: StypLength;
-  $borderWidth: string;
+  $marginV: StypLengthPt;
+  $marginH: StypLengthPt;
+  $paddingV: StypLengthPt;
+  $paddingH: StypLengthPt;
   $borderW: StypLength;
-  $lBorderW: StypLength;
-  $hBorderLen: StypLength;
-  $focusHBorderLen: StypLength;
 }
 
 export const FormThemeSettings: RefStypRule<FormThemeSettings> = RefStypRule.by(
@@ -27,23 +27,21 @@ function formMappings(
       global: {
         $color,
         $bgColor,
-        $lBorderW,
-        $hBorderPlace,
-        $vBorderPlace,
+        $fontSize,
       }
     }: {
       global: ThemeSettings,
-    }
+    },
 ): StypMapper.Mappings<FormThemeSettings> {
   return {
     $color,
-    $bgColor,
-    $borderColor: $color,
-    $padding: StypLength.of(3, 'px'),
-    $borderWidth: `${$vBorderPlace} ${$hBorderPlace} ${$vBorderPlace} ${$lBorderW}`,
+    $bgColor: $bgColor.hsl.set(({ l }) => ({ l: l * 0.8 })),
+    $roBgColor: $bgColor.hsl.set(({ l }) => ({ l: l * 0.94 })),
+    $borderColor: $bgColor,
+    $marginV: $fontSize.div(4),
+    $marginH: $fontSize.div(4),
+    $paddingV: $fontSize.div(2),
+    $paddingH: $fontSize,
     $borderW: StypLength.of(1, 'px'),
-    $lBorderW: $lBorderW.add(1, 'px'),
-    $hBorderLen: $lBorderW.mul(1.5),
-    $focusHBorderLen: $lBorderW.mul(3),
   };
 }

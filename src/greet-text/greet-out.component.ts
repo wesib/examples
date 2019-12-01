@@ -10,12 +10,12 @@ export class GreetOutComponent {
   @Attribute()
   name!: string;
 
-  @ProduceStyle()
-  get style(): StypRules {
-    return this._context.get(Theme).style(DefaultStyle);
+  constructor(private readonly _context: ComponentContext) {
   }
 
-  constructor(private readonly _context: ComponentContext) {
+  @ProduceStyle()
+  style(): StypRules {
+    return this._context.get(Theme).style(DefaultStyle);
   }
 
   @Render()
