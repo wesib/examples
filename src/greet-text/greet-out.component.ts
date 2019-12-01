@@ -8,7 +8,7 @@ import { DefaultStyle } from '../common';
 export class GreetOutComponent {
 
   @Attribute()
-  name!: string;
+  name?: string;
 
   constructor(private readonly _context: ComponentContext) {
   }
@@ -31,7 +31,7 @@ export class GreetOutComponent {
 
     function greetings() {
 
-      const name = self.name.trim();
+      const name = self.name?.trim();
 
       return name ? `Hello, ${name}!` : 'Hello!';
     }

@@ -24,23 +24,30 @@ export class GreetTextComponent {
   constructor(context: ComponentContext) {
     this._theme = context.get(Theme);
 
-    const node = context.get(ComponentNode);
-    const output = node.select('greet-out', { deep: true }).first;
-    const group = inGroup<GreetData>({ name: '' });
+    context.whenOn(() => {
 
-    node.select('input', { all: true, deep: true }).first(name => {
-      group.controls.set(
-          'name',
-          name && inText(name.element)
-              .setup(InValidation, validation => validation.by(requirePresent))
-              .setup(InCssClasses, classes => classes.add(inCssInfo()))
-      );
+      const node = context.get(ComponentNode);
+      const output = node.select('greet-out', { deep: true }).first;
+      const group = inGroup<GreetData>({ name: '' });
+      const nameSupply = node.select('input', { all: true, deep: true }).first(name => {
+        group.controls.set(
+            'name',
+            name && inText(name.element)
+                .setup(InValidation, validation => validation.by(requirePresent))
+                .setup(InCssClasses, classes => classes.add(inCssInfo()))
+        );
+      });
+
+      const nameSync = new ValueSync<string | null>('');
+
+      nameSync.sync(output, o => o?.attribute('name'));
+      nameSync.sync('in', group.controls, (controls: InGroup.Snapshot<GreetData>) => controls.get('name'));
+
+      context.whenOff(() => {
+        nameSync.done();
+        nameSupply.off();
+      });
     });
-
-    const nameSync = new ValueSync<string | null>('');
-
-    nameSync.sync(output, o => o && o.attribute('name'));
-    nameSync.sync('in', group.controls, (controls: InGroup.Snapshot<GreetData>) => controls.get('name'));
   }
 
   @ProduceStyle()
