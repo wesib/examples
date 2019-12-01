@@ -8,10 +8,10 @@ export function InputStyle(theme: Theme): StypRules {
   const { root: { rules } } = theme;
 
   rules.add({ e: 'input' }, formSettings.thru(inStyle));
-  rules.add({ e: 'input', s: '[readonly]' }, formSettings.thru(roInStyle));
-  rules.add({ e: 'input', s: '[disabled]' }, formSettings.thru(roInStyle));
-  rules.add({ e: 'input', s: ':focus' }, formSettings.thru(inFocusStyle));
-  rules.add({ e: 'input', c: ['inap-invalid', 'inap-touched'] }, formSettings.thru(inInvalidStyle));
+  rules.add({ e: 'input', s: '[readonly]' }, formSettings.thru(readonlyInStyle));
+  rules.add({ e: 'input', s: '[disabled]' }, formSettings.thru(readonlyInStyle));
+  rules.add({ e: 'input', s: ':focus' }, formSettings.thru(focusedInStyle));
+  rules.add({ e: 'input', c: ['inap-invalid', 'inap-touched'] }, formSettings.thru(invalidInStyle));
   rules.add({ e: 'input', c: ['inap-missing', 'inap-touched'] }, { outlineStyle: 'dotted' });
   rules.add({ e: 'input', c: ['inap-incomplete', 'inap-touched'] }, { outlineStyle: 'dotted' });
 
@@ -43,7 +43,7 @@ export function inStyle(
   };
 }
 
-export function roInStyle(
+export function readonlyInStyle(
     {
       $roBgColor,
     }: FormThemeSettings,
@@ -53,7 +53,7 @@ export function roInStyle(
   };
 }
 
-function inFocusStyle(
+function focusedInStyle(
     {
       $color,
       $borderColor,
@@ -64,7 +64,7 @@ function inFocusStyle(
   };
 }
 
-function inInvalidStyle(
+function invalidInStyle(
     {
       $color,
       $borderW,

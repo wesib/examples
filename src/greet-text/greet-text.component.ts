@@ -3,7 +3,7 @@ import { Component, ComponentContext } from '@wesib/wesib';
 import { ValueSync } from 'fun-events';
 import { InCssClasses, inCssInfo, InGroup, inGroup, inText, InValidation, requirePresent } from 'input-aspects';
 import { StypProperties, stypRoot, stypRules, StypRules } from 'style-producer';
-import { AppFeature, InputStyle, inStyle, roInStyle, ThemeSettings } from '../common';
+import { AppFeature, InputStyle, inStyle, readonlyInStyle, ThemeSettings } from '../common';
 import { FormThemeSettings } from '../common/theme';
 import { GreetOutComponent } from './greet-out.component';
 
@@ -60,8 +60,8 @@ export class GreetTextComponent {
 
     label.rules.add({ e: 'input' }, settings.thru(greetFieldStyle));
     label.rules.add({ e: 'greet-out' }, formSettings.thru(inStyle))
-        .add(settings.thru(greetFieldStyle))
-        .add(formSettings.thru(roInStyle));
+        .add(formSettings.thru(readonlyInStyle))
+        .add(settings.thru(greetFieldStyle));
 
     return stypRules(
         this._theme.style(InputStyle),

@@ -20,7 +20,7 @@ function bodyStyle(
     {
       $bgColor,
       $fontSize,
-    }: ThemeSettings
+    }: ThemeSettings,
 ): StypProperties {
   return {
     backgroundColor: $bgColor,
