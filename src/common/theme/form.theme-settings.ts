@@ -28,7 +28,7 @@ function formMappings(
         $color,
         $bgColor,
         $fontSize,
-      }
+      },
     }: {
       global: ThemeSettings,
     },

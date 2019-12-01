@@ -14,7 +14,7 @@ import { GreetOutComponent } from './greet-out.component';
       GreetOutComponent,
       ComponentTreeSupport,
       AppFeature,
-    ]
+    ],
   },
 })
 export class GreetTextComponent {
@@ -34,7 +34,7 @@ export class GreetTextComponent {
             'name',
             name && inText(name.element)
                 .setup(InValidation, validation => validation.by(requirePresent))
-                .setup(InCssClasses, classes => classes.add(inCssInfo()))
+                .setup(InCssClasses, classes => classes.add(inCssInfo())),
         );
       });
 
@@ -77,7 +77,7 @@ interface GreetData {
 
 function greetLabelStyle(
     {
-      $fontSize
+      $fontSize,
     }: ThemeSettings,
 ): StypProperties {
   return {

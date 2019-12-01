@@ -49,7 +49,7 @@ export function readonlyInStyle(
     }: FormThemeSettings,
 ): StypProperties {
   return {
-    backgroundColor: $roBgColor
+    backgroundColor: $roBgColor,
   };
 }
 
