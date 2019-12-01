@@ -1,5 +1,5 @@
 import { ComponentTreeSupport, PageLoadSupport, ThemeSupport } from '@wesib/generic';
-import { Feature, RenderSupport } from '@wesib/wesib';
+import { Feature } from '@wesib/wesib';
 import { BexBodyComponent } from './bex-body.component';
 import { BexContainerComponent } from './bex-container.component';
 import { BexNavComponent } from './bex-nav.component';
@@ -11,7 +11,6 @@ import { BexNavComponent } from './bex-nav.component';
     BexNavComponent,
     ComponentTreeSupport,
     PageLoadSupport,
-    RenderSupport,
     ThemeSupport,
   ],
 })
