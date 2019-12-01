@@ -8,8 +8,8 @@ export function InputStyle(theme: Theme): StypRules {
   const { root: { rules } } = theme;
 
   rules.add({ e: 'input' }, formSettings.thru(inStyle));
-  rules.add({ e: 'input', s: ':read-only' }, formSettings.thru(roInStyle));
-  rules.add({ e: 'input', s: ':disabled' }, formSettings.thru(roInStyle));
+  rules.add({ e: 'input', s: '[readonly]' }, formSettings.thru(roInStyle));
+  rules.add({ e: 'input', s: '[disabled]' }, formSettings.thru(roInStyle));
   rules.add({ e: 'input', s: ':focus' }, formSettings.thru(inFocusStyle));
   rules.add({ e: 'input', c: ['inap-invalid', 'inap-touched'] }, formSettings.thru(inInvalidStyle));
   rules.add({ e: 'input', c: ['inap-missing', 'inap-touched'] }, { outlineStyle: 'dotted' });
