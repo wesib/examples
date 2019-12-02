@@ -28,6 +28,7 @@
     "context-values": "^2.1.0",
     "fs-extra": "^8.1.0",
     "fun-events": "^7.0.0",
+    "gh-pages": "^2.1.1",
     "glob": "^7.1.6",
     "handlebars": "^4.5.3",
     "http-server": "^0.12.0",
@@ -59,6 +60,8 @@
     "clean": "node ./build/clean",
     "lint": "tslint -p .",
     "rebuild": "run-s clean build",
+    "site:gh-pages": "gh-pages --dist dist --dotfiles",
+    "site:publish": "run-s rebuild \"site:gh-pages {@}\" --",
     "start": "http-server ./dist -d0 -p4200"
   }
 }

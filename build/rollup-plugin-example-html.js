@@ -28,7 +28,15 @@ class Result {
     const { module, es5 } = parts;
 
     if (module && es5) {
-      await generateExampleHtml(example, parts, isTitle ? { output: './dist/index.html' } : {});
+      await generateExampleHtml(
+          example,
+          parts,
+          isTitle
+              ? {
+                output: './dist/index.html',
+                base: '.',
+              }
+              : {});
     }
   }
 
@@ -43,7 +51,13 @@ export default {
   },
 }
 
-async function generateExampleHtml(example, parts, { output = `./dist/${example}/index.html` } = {}) {
+async function generateExampleHtml(
+    example,
+    parts,
+    {
+      output = `./dist/${example}/index.html`,
+      base = '..'
+    } = {}) {
 
   const input =`./src/${example}/index.html`;
 
@@ -51,5 +65,5 @@ async function generateExampleHtml(example, parts, { output = `./dist/${example}
 
   const template = handlebars.compile(await fs.readFile(input, 'utf8'));
 
-  await fs.outputFile(output, template({ ...parts, rev, base: '..' }), { encoding: 'utf8' });
+  await fs.outputFile(output, template({ ...parts, rev, base }), { encoding: 'utf8' });
 }
