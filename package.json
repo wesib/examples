@@ -50,7 +50,7 @@
     "typescript": "^3.7.2"
   },
   "resolutions": {
-    "terser": "4.1.x"
+    "terser": "4.4.0"
   },
   "scripts": {
     "build:bundle": "rollup --config ./rollup.config.js",
