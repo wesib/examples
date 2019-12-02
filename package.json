@@ -1,6 +1,6 @@
 {
   "name": "@wesib/examples",
-  "version": "1.0.0-alpha.48",
+  "version": "1.0.0-alpha.50",
   "description": "Web component building blocks usage examples",
   "keywords": [
     "web-components",
@@ -21,7 +21,7 @@
     "@babel/core": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
     "@types/node": "^12.12.14",
-    "@wesib/generic": "^1.0.0-alpha.48",
+    "@wesib/generic": "^1.0.0-alpha.50",
     "@wesib/wesib": "^1.0.0-alpha.47",
     "a-iterable": "^2.4.4",
     "call-thru": "^2.5.3",
@@ -62,6 +62,6 @@
     "rebuild": "run-s clean build",
     "site:gh-pages": "gh-pages --dist dist --dotfiles",
     "site:publish": "run-s rebuild \"site:gh-pages {@}\" --",
-    "start": "http-server ./dist -d0 -p4200"
+    "start": "http-server ./dist -d false -p 4200"
   }
 }

@@ -672,10 +672,10 @@
   dependencies:
     "@types/node" "*"
 
-"@wesib/generic@^1.0.0-alpha.48":
-  version "1.0.0-alpha.48"
-  resolved "https://registry.yarnpkg.com/@wesib/generic/-/generic-1.0.0-alpha.48.tgz#4ecdc16dcb7592ae1e4c09a929d14f4492453abb"
-  integrity sha512-fa/VUnUeeneGvvD7N//X5X9AqBY58AdvfBY/WlpjTtU4t6FJqutmWXogalewWn3Yc5arK8DGFCiSJI1cG/0law==
+"@wesib/generic@^1.0.0-alpha.50":
+  version "1.0.0-alpha.50"
+  resolved "https://registry.yarnpkg.com/@wesib/generic/-/generic-1.0.0-alpha.50.tgz#0f5c040732faf8d33da2411b8fc69c690f4b071d"
+  integrity sha512-KhZXW+tr+v5k3oj9I+VUu963ZGHXz7z9ETNLozht587ZTO+JJ4m3XNoC5vaU1Kero97JlenS280/MK583kuFwg==
   dependencies:
     http-header-value "^2.0.1"
 

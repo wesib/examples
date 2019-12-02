@@ -4,6 +4,7 @@ import '../src/template/index.ts';
 
 const namePattern = /([^\/]+)\/([^\/]+\.js)$/;
 const rev = Date.now().toString(32);
+const dist = './dist';
 
 class Result {
 
@@ -33,7 +34,7 @@ class Result {
           parts,
           isTitle
               ? {
-                output: './dist/index.html',
+                output: `${dist}/index.html`,
                 base: '.',
               }
               : {});
@@ -55,7 +56,7 @@ async function generateExampleHtml(
     example,
     parts,
     {
-      output = `./dist/${example}/index.html`,
+      output = `${dist}/${example}/index.html`,
       base = '..'
     } = {}) {
 
