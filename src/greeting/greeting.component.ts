@@ -1,33 +1,41 @@
 import { ComponentNode, ComponentTreeSupport, ProduceStyle, Theme } from '@wesib/generic';
-import { Component, ComponentContext } from '@wesib/wesib';
+import { Component, ComponentContext, ComponentDef, DefaultNamespaceAliaser } from '@wesib/wesib';
 import { ValueSync } from 'fun-events';
 import { InCssClasses, inCssInfo, InGroup, inGroup, inText, InValidation, requirePresent } from 'input-aspects';
+import { html__naming, QualifiedName } from 'namespace-aliaser';
 import { StypProperties, stypRoot, stypRules, StypRules } from 'style-producer';
-import { AppFeature, InputStyle, inStyle, readonlyInStyle, ThemeSettings } from '../common';
+import { AppFeature, BEX__NS, InputStyle, inStyle, readonlyInStyle, ThemeSettings } from '../common';
 import { FormThemeSettings } from '../common/theme';
-import { GreetOutComponent } from './greet-out.component';
+import { GreetingOutComponent } from './greeting-out.component';
 
 @Component({
-  name: 'greet-text',
+  name: ['greeting', BEX__NS],
   feature: {
     needs: [
-      GreetOutComponent,
+      GreetingOutComponent,
       ComponentTreeSupport,
       AppFeature,
     ],
   },
 })
-export class GreetTextComponent {
+export class GreetingComponent {
 
   private readonly _theme: Theme;
+  private readonly _outName: QualifiedName;
 
   constructor(context: ComponentContext) {
     this._theme = context.get(Theme);
 
+    const nsAlias = context.get(DefaultNamespaceAliaser);
+
+    this._outName = ComponentDef.of(GreetingOutComponent).name!;
+
+    const outSelector = html__naming.name(this._outName, nsAlias);
+
     context.whenOn(supply => {
 
       const node = context.get(ComponentNode);
-      const output = node.select('greet-out', { deep: true }).first;
+      const output = node.select(outSelector, { deep: true }).first;
       const group = inGroup<GreetData>({ name: '' });
 
       node.select('input', { all: true, deep: true }).first({
@@ -61,7 +69,7 @@ export class GreetTextComponent {
     const label = root.rules.add({ e: 'label' }, settings.thru(greetLabelStyle));
 
     label.rules.add({ e: 'input' }, settings.thru(greetFieldStyle));
-    label.rules.add({ e: 'greet-out' }, formSettings.thru(inStyle))
+    label.rules.add({ e: this._outName }, formSettings.thru(inStyle))
         .add(formSettings.thru(readonlyInStyle))
         .add(settings.thru(greetFieldStyle));
 

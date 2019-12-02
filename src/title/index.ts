@@ -1,7 +1,7 @@
 import { noop } from 'call-thru';
 import { examplesContext } from '../common';
-import { BexTitleComponent } from './bex-title.component';
+import { TitleComponent } from './title.component';
 
-examplesContext.load(BexTitleComponent)(noop).whenOff(reason => {
+examplesContext.load(TitleComponent)(noop).whenOff(reason => {
   console.error('Failed to load title component', reason);
 });

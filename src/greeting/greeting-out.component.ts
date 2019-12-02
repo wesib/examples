@@ -1,11 +1,13 @@
 import { ProduceStyle, Theme } from '@wesib/generic';
 import { AttachShadow, Attribute, BootstrapWindow, Component, ComponentContext, Render } from '@wesib/wesib';
 import { StypRules } from 'style-producer';
-import { DefaultStyle } from '../common';
+import { BEX__NS, DefaultStyle } from '../common';
 
-@Component('greet-out')
+@Component({
+  name: ['greeting-out', BEX__NS],
+})
 @AttachShadow()
-export class GreetOutComponent {
+export class GreetingOutComponent {
 
   @Attribute()
   name?: string;

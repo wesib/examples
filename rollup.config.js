@@ -11,7 +11,7 @@ import cleanup from './build/rollup-plugin-cleanup';
 import exampleHtml from './build/rollup-plugin-example-html';
 
 const examples = [
-  'greet-text',
+  'greeting',
   'title',
 ];
 

@@ -1,7 +1,7 @@
 import { noop } from 'call-thru';
 import { examplesContext } from '../common';
-import { GreetTextComponent } from './greet-text.component';
+import { GreetingComponent } from './greeting.component';
 
-examplesContext.load(GreetTextComponent)(noop).whenOff(reason => {
+examplesContext.load(GreetingComponent)(noop).whenOff(reason => {
   console.error('Failed to load greet-text example', reason);
 });
