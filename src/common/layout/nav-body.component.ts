@@ -7,7 +7,7 @@ import { ThemeSettings } from '../theme';
 @Component({
   name: ['body', BEX__NS],
 })
-export class BexBodyComponent {
+export class NavBodyComponent {
 
   private readonly _theme: Theme;
 

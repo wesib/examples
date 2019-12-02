@@ -6,24 +6,35 @@ import { ThemeSettings } from './theme-settings';
 export function BodyStyle(theme: Theme): StypRules {
 
   const settings = theme.ref(ThemeSettings).read.keep;
-  const selector = { e: 'body' };
+  const bodySelector = { e: 'body' };
+  const htmlSelector = { e: 'html' };
 
-  theme.root.rules.add(selector, settings.thru(bodyStyle));
+  theme.root.rules.add(bodySelector, settings.thru(bodyStyle));
+  theme.root.rules.add(
+      htmlSelector,
+      {
+        height: '100%',
+        margin: 0,
+        padding: 0,
+      },
+  );
 
   return stypRules(
+      theme.root.rules.grab(htmlSelector),
+      theme.root.rules.grab(bodySelector),
       theme.style(DefaultStyle),
-      theme.root.rules.grab(selector),
   );
 }
 
 function bodyStyle(
     {
       $bgColor,
-      $fontSize,
     }: ThemeSettings,
 ): StypProperties {
   return {
     backgroundColor: $bgColor,
-    padding: $fontSize,
+    height: '100%',
+    margin: 0,
+    padding: 0,
   };
 }

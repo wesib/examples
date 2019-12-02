@@ -2,7 +2,7 @@ import { ComponentNode, Navigation, ProduceStyle, Theme } from '@wesib/generic';
 import { Component, ComponentContext, DefaultNamespaceAliaser } from '@wesib/wesib';
 import { afterAll, DomEventDispatcher } from 'fun-events';
 import { css__naming, QualifiedName } from 'namespace-aliaser';
-import { StypLengthPt, StypProperties, stypRoot } from 'style-producer';
+import { StypColor, StypLengthPt, StypProperties, stypRoot } from 'style-producer';
 import { BEX__NS } from '../bex.ns';
 import { ThemeSettings } from '../theme';
 
@@ -11,7 +11,7 @@ const activeNavLinkClass: QualifiedName = ['nav-active', BEX__NS];
 @Component({
   name: ['nav', BEX__NS],
 })
-export class BexNavComponent {
+export class NavComponent {
 
   private readonly _theme: Theme;
 
@@ -59,16 +59,27 @@ export class BexNavComponent {
               page: [page],
             },
         ) {
+
+          const pageDir = dirName(page.url);
+          let activeElement: Element | undefined;
+          let activeDir = '';
+
           links.forEach(link => {
 
             const element: HTMLAnchorElement = link.element;
+            const linkDir = dirName(new URL(element.href));
 
-            if (dirName(page.url).startsWith(dirName(new URL(element.href)))) {
-              element.classList.add(activeClass);
-            } else {
-              element.classList.remove(activeClass);
+            element.classList.remove(activeClass);
+
+            if (pageDir.startsWith(linkDir) && activeDir.length < linkDir.length) {
+              activeElement = element;
+              activeDir = linkDir;
             }
           });
+
+          if (activeElement) {
+            activeElement.classList.add(activeClass);
+          }
         },
       });
     });
@@ -110,19 +121,23 @@ function navStyle(
   };
 }
 
+export function navLinkBackground({ $bgColor }: ThemeSettings): StypColor {
+  return $bgColor.hsl.set(({ l }) => ({ l: l * 0.8 }));
+}
+
 function navLinkStyle(
-    {
-      $fontSize,
-      $bgColor,
-    }: ThemeSettings,
+    settings: ThemeSettings,
 ): StypProperties {
+
+  const { $fontSize } = settings;
+
   return {
     display: 'block',
     margin: 0,
     padding: `${$fontSize.div(2)} ${$fontSize}`,
     border: 0,
     outline: 0,
-    background: $bgColor.hsl.set(({ l }) => ({ l: l * 0.8 })),
+    background: navLinkBackground(settings),
   };
 }
 
@@ -130,13 +145,14 @@ function activeNavLinkStyle(
     {
       $fontSize,
       $color,
+      $bgColor,
     }: ThemeSettings,
 ): StypProperties {
 
   const borderW = StypLengthPt.of(4, 'px');
 
   return {
-    background: 'transparent',
+    background: $bgColor,
     borderLeft: `${borderW} solid ${$color}`,
     paddingLeft: $fontSize.sub(borderW),
   };
