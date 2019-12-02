@@ -31,10 +31,19 @@ export class BexNavComponent {
         supply,
         receive(_, links) {
           links.forEach(
-              link => new DomEventDispatcher(link.element)
-                  .on('click')
-                  .instead(() => navigation.open(link.attribute('href').it || ''))
-                  .needs(supply),
+              link => {
+
+                const element: Element = link.element;
+
+                new DomEventDispatcher(element)
+                    .on('click')
+                    .instead(() => {
+                      if (!element.classList.contains(activeClass)) {
+                        navigation.open(element.getAttribute('href') || '');
+                      }
+                    })
+                    .needs(supply);
+              },
           );
         },
       });
