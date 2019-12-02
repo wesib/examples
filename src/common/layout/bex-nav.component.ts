@@ -1,6 +1,6 @@
 import { ComponentNode, Navigation, ProduceStyle, Theme } from '@wesib/generic';
 import { Component, ComponentContext } from '@wesib/wesib';
-import { afterAll, DomEventDispatcher, eventSupply } from 'fun-events';
+import { afterAll, DomEventDispatcher } from 'fun-events';
 import { StypLengthPt, StypProperties, stypRoot } from 'style-producer';
 import { ThemeSettings } from '../theme';
 
@@ -17,11 +17,7 @@ export class BexNavComponent {
     const node = context.get(ComponentNode);
     const navigation = context.get(Navigation);
 
-    context.whenOn(() => {
-
-      const supply = eventSupply();
-
-      context.whenOff(() => supply.off());
+    context.whenOn(supply => {
 
       const navLinks = node.select('a', { all: true });
 

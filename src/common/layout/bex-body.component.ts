@@ -1,6 +1,5 @@
 import { importNodeContent, Navigation, pageLoadParam, ProduceStyle, Theme } from '@wesib/generic';
 import { BootstrapWindow, Component, ComponentContext } from '@wesib/wesib';
-import { eventSupply } from 'fun-events';
 import { StypProperties, stypRoot } from 'style-producer';
 import { ThemeSettings } from '../theme';
 
@@ -15,11 +14,7 @@ export class BexBodyComponent {
     const document = context.get(BootstrapWindow).document;
     const navigation = context.get(Navigation);
 
-    context.whenOn(() => {
-
-      const supply = eventSupply();
-
-      context.whenOff(() => supply.off());
+    context.whenOn(supply => {
 
       const element: Element = context.element;
       const range = document.createRange();
@@ -35,7 +30,6 @@ export class BexBodyComponent {
               receiver: {
                 supply,
                 receive(_ctx, response) {
-                  console.log(response);
                   if (response.ok) {
                     range.deleteContents();
 
