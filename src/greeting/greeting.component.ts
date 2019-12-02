@@ -2,8 +2,7 @@ import { ComponentNode, ComponentTreeSupport, ProduceStyle, Theme } from '@wesib
 import { Component, ComponentContext, ComponentDef, DefaultNamespaceAliaser } from '@wesib/wesib';
 import { ValueSync } from 'fun-events';
 import { InCssClasses, inCssInfo, InGroup, inGroup, inText, InValidation, requirePresent } from 'input-aspects';
-import { html__naming, QualifiedName } from 'namespace-aliaser';
-import { StypProperties, stypRoot, stypRules, StypRules } from 'style-producer';
+import { StypProperties, stypRoot, stypRules, StypRules, StypSelector, stypSelectorText } from 'style-producer';
 import { AppFeature, BEX__NS, InputStyle, inStyle, readonlyInStyle, ThemeSettings } from '../common';
 import { FormThemeSettings } from '../common/theme';
 import { GreetingOutComponent } from './greeting-out.component';
@@ -21,16 +20,16 @@ import { GreetingOutComponent } from './greeting-out.component';
 export class GreetingComponent {
 
   private readonly _theme: Theme;
-  private readonly _outName: QualifiedName;
+  private readonly _outSelector: StypSelector;
 
   constructor(context: ComponentContext) {
     this._theme = context.get(Theme);
 
     const nsAlias = context.get(DefaultNamespaceAliaser);
 
-    this._outName = ComponentDef.of(GreetingOutComponent).name!;
+    this._outSelector = { e: ComponentDef.of(GreetingOutComponent).name };
 
-    const outSelector = html__naming.name(this._outName, nsAlias);
+    const outSelector = stypSelectorText(this._outSelector, { nsAlias });
 
     context.whenOn(supply => {
 
@@ -69,7 +68,7 @@ export class GreetingComponent {
     const label = root.rules.add({ e: 'label' }, settings.thru(greetLabelStyle));
 
     label.rules.add({ e: 'input' }, settings.thru(greetFieldStyle));
-    label.rules.add({ e: this._outName }, formSettings.thru(inStyle))
+    label.rules.add(this._outSelector, formSettings.thru(inStyle))
         .add(formSettings.thru(readonlyInStyle))
         .add(settings.thru(greetFieldStyle));
 
