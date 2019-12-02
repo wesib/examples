@@ -1,0 +1,2 @@
+System.register(["../js/lib.552ff275.es5.js","../js/wesib.55539ce8.es5.js","../js/common.04c97616.es5.js"],function(){"use strict";var t,s,o,c,i,f;return{setters:[function(e){t=e.ag,s=e.n},function(e){o=e.C},function(e){c=e.B,i=e.A,f=e.e}],execute:function(){var e=n=t([o({name:["title",c],feature:{needs:[i]}})],n);function n(){}f.load(e)(s).whenOff(function(e){console.error("Failed to load title component",e)})}}});
+//# sourceMappingURL=main.0d874125.es5.js.map
