@@ -672,10 +672,10 @@
   dependencies:
     "@types/node" "*"
 
-"@wesib/generic@^1.0.0-alpha.47":
-  version "1.0.0-alpha.47"
-  resolved "https://registry.yarnpkg.com/@wesib/generic/-/generic-1.0.0-alpha.47.tgz#98961c6a24ccf432bc25915765334619eb13229d"
-  integrity sha512-HRfuLu7DqI/4DAUJkDR9i6KNtOL0ENTgLq3cUHP7QuSi84fAzBq43HSTzJ0HoibSaUxRq2+iU5JtayZ3agIngw==
+"@wesib/generic@^1.0.0-alpha.48":
+  version "1.0.0-alpha.48"
+  resolved "https://registry.yarnpkg.com/@wesib/generic/-/generic-1.0.0-alpha.48.tgz#4ecdc16dcb7592ae1e4c09a929d14f4492453abb"
+  integrity sha512-fa/VUnUeeneGvvD7N//X5X9AqBY58AdvfBY/WlpjTtU4t6FJqutmWXogalewWn3Yc5arK8DGFCiSJI1cG/0law==
   dependencies:
     http-header-value "^2.0.1"
 
@@ -1672,10 +1672,10 @@ rollup-pluginutils@^2.0.1, rollup-pluginutils@^2.8.1:
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@^1.27.7:
-  version "1.27.7"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.27.7.tgz#ee49603c33edb6968b6582e1c3a6a0731b9e3944"
-  integrity sha512-4BEpoLwMpiCHxRobDzi6rM1/DbTsflfPw2g6l1ctWYnUvdyCTEEWfSgpykwNzZ5nHRr4pyET+aPwKVhbJBAPAg==
+rollup@^1.27.8:
+  version "1.27.8"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.27.8.tgz#94288a957af9f4c2380b73a17494d87705997d0f"
+  integrity sha512-EVoEV5rAWl+5clnGznt1KY8PeVkzVQh/R0d2s3gHEkN7gfoyC4JmvIVuCtPbYE8NM5Ep/g+nAmvKXBjzaqTsHA==
   dependencies:
     "@types/estree" "*"
     "@types/node" "*"
