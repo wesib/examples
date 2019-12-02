@@ -1,8 +1,11 @@
 import { ProduceStyle } from '@wesib/generic';
 import { Component } from '@wesib/wesib';
 import { stypRoot } from 'style-producer';
+import { BEX__NS } from '../bex.ns';
 
-@Component('bex-container')
+@Component({
+  name: ['container', BEX__NS],
+})
 export class BexContainerComponent {
 
   @ProduceStyle()

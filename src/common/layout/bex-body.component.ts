@@ -1,9 +1,12 @@
 import { importNodeContent, Navigation, pageLoadParam, ProduceStyle, Theme } from '@wesib/generic';
 import { BootstrapWindow, Component, ComponentContext } from '@wesib/wesib';
 import { StypProperties, stypRoot } from 'style-producer';
+import { BEX__NS } from '../bex.ns';
 import { ThemeSettings } from '../theme';
 
-@Component('bex-body')
+@Component({
+  name: ['body', BEX__NS],
+})
 export class BexBodyComponent {
 
   private readonly _theme: Theme;

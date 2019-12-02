@@ -1,12 +1,16 @@
 import { ComponentNode, Navigation, ProduceStyle, Theme } from '@wesib/generic';
-import { Component, ComponentContext } from '@wesib/wesib';
+import { Component, ComponentContext, DefaultNamespaceAliaser } from '@wesib/wesib';
 import { afterAll, DomEventDispatcher } from 'fun-events';
+import { css__naming, QualifiedName } from 'namespace-aliaser';
 import { StypLengthPt, StypProperties, stypRoot } from 'style-producer';
+import { BEX__NS } from '../bex.ns';
 import { ThemeSettings } from '../theme';
 
-const activeNavLinkClass = 'bex-nav-active';
+const activeNavLinkClass: QualifiedName = ['nav-active', BEX__NS];
 
-@Component('bex-nav')
+@Component({
+  name: ['nav', BEX__NS],
+})
 export class BexNavComponent {
 
   private readonly _theme: Theme;
@@ -14,6 +18,8 @@ export class BexNavComponent {
   constructor(context: ComponentContext) {
     this._theme = context.get(Theme);
 
+    const nsAlias = context.get(DefaultNamespaceAliaser);
+    const activeClass = css__naming.name(activeNavLinkClass, nsAlias);
     const node = context.get(ComponentNode);
     const navigation = context.get(Navigation);
 
@@ -49,9 +55,9 @@ export class BexNavComponent {
             const element: HTMLAnchorElement = link.element;
 
             if (dirName(page.url).startsWith(dirName(new URL(element.href)))) {
-              element.classList.add(activeNavLinkClass);
+              element.classList.add(activeClass);
             } else {
-              element.classList.remove(activeNavLinkClass);
+              element.classList.remove(activeClass);
             }
           });
         },
