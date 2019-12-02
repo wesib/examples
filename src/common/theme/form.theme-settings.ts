@@ -5,6 +5,10 @@ export interface FormThemeSettings {
   $color: StypColor;
   $bgColor: StypColor;
   $roBgColor: StypColor;
+  $fontFace: string;
+  $fontSize: StypLengthPt;
+  $lineHeight: number;
+  $fontWeight: string;
   $borderColor: StypColor;
   $marginV: StypLengthPt;
   $marginH: StypLengthPt;
@@ -27,7 +31,10 @@ function formMappings(
       global: {
         $color,
         $bgColor,
+        $fontFace,
         $fontSize,
+        $lineHeight,
+        $fontWeight,
       },
     }: {
       global: ThemeSettings,
@@ -37,6 +44,10 @@ function formMappings(
     $color,
     $bgColor: $bgColor.hsl.set(({ l }) => ({ l: l * 0.8 })),
     $roBgColor: $bgColor.hsl.set(({ l }) => ({ l: l * 0.94 })),
+    $fontFace,
+    $fontSize,
+    $lineHeight,
+    $fontWeight,
     $borderColor: $bgColor,
     $marginV: $fontSize.div(4),
     $marginH: $fontSize.div(4),

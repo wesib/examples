@@ -21,6 +21,10 @@ export function InputStyle(theme: Theme): StypRules {
 export function inStyle(
     {
       $color,
+      $fontFace,
+      $fontSize,
+      $lineHeight,
+      $fontWeight,
       $marginV,
       $marginH,
       $paddingV,
@@ -32,6 +36,7 @@ export function inStyle(
 ): StypProperties {
   return {
     color: $color,
+    font: `normal ${$fontWeight} ${$fontSize}/${$lineHeight} ${$fontFace}`,
     padding: `${$paddingV} ${$paddingH}`,
     margin: `${$marginV} ${$marginH}`,
     backgroundColor: $bgColor,
