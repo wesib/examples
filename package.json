@@ -1,6 +1,6 @@
 {
   "name": "@wesib/examples",
-  "version": "1.0.0-alpha.50",
+  "version": "1.0.0-alpha.51",
   "description": "Web component building blocks usage examples",
   "keywords": [
     "web-components",
@@ -21,7 +21,7 @@
     "@babel/core": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
     "@types/node": "^12.12.14",
-    "@wesib/generic": "^1.0.0-alpha.50",
+    "@wesib/generic": "^1.0.0-alpha.51",
     "@wesib/wesib": "^1.0.0-alpha.47",
     "a-iterable": "^2.4.4",
     "call-thru": "^2.5.3",
@@ -49,9 +49,6 @@
     "tslib": "^1.10.0",
     "tslint": "^5.20.1",
     "typescript": "^3.7.2"
-  },
-  "resolutions": {
-    "terser": "4.4.0"
   },
   "scripts": {
     "build:bundle": "rollup --config ./rollup.config.js",
