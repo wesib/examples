@@ -1,6 +1,6 @@
 import { ProduceStyle, Theme } from '@wesib/generic';
-import { Component, ComponentContext, ComponentDef } from '@wesib/wesib';
-import { stypRoot } from 'style-producer';
+import { BootstrapContext, Component, ComponentContext } from '@wesib/wesib';
+import { stypRoot, StypRules } from 'style-producer';
 import { BEX__NS } from '../bex.ns';
 import { ThemeSettings } from '../theme';
 import { NavBodyComponent } from './nav-body.component';
@@ -8,17 +8,26 @@ import { NavComponent, navLinkBackground } from './nav.component';
 
 @Component({
   name: ['container', BEX__NS],
+  feature: {
+    needs: [
+      NavBodyComponent,
+      NavComponent,
+    ],
+  },
 })
 export class ContainerComponent {
 
-  private readonly _theme: Theme;
-
-  constructor(context: ComponentContext) {
-    this._theme = context.get(Theme);
+  constructor(private readonly _context: ComponentContext) {
   }
 
   @ProduceStyle()
-  style() {
+  async style(): Promise<StypRules> {
+
+    const bsContext = this._context.get(BootstrapContext);
+    const { elementDef: { name: navName } } = await bsContext.whenDefined(NavComponent);
+    const { elementDef: { name: navBodyName } } = await bsContext.whenDefined(NavBodyComponent);
+    const theme = this._context.get(Theme);
+    const settings = theme.ref(ThemeSettings).read.keep;
 
     const root = stypRoot({
       height: '100%',
@@ -28,10 +37,8 @@ export class ContainerComponent {
       alignContent: 'flex-start',
     });
 
-    const settings = this._theme.ref(ThemeSettings).read.keep;
-
     root.rules.add(
-        { e: ComponentDef.of(NavComponent).name! },
+        { e: navName },
         settings.thru(sts => ({
           flex: '0 1 200px',
           height: '100%',
@@ -39,7 +46,7 @@ export class ContainerComponent {
         })),
     );
     root.rules.add(
-        { e: ComponentDef.of(NavBodyComponent).name! },
+        { e: navBodyName },
         settings.thru(({ $fontSize }) => ({
           flex: '1 1 auto',
           margin: $fontSize,

@@ -27,7 +27,7 @@ export class NavComponent {
 
       const navLinks = node.select('a', { all: true });
 
-      navLinks.read({
+      navLinks.track({
         supply,
         receive(_, links) {
           links.forEach(
