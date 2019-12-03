@@ -1,8 +1,8 @@
 import { ComponentNode, ComponentTreeSupport, ProduceStyle, Theme } from '@wesib/generic';
-import { Component, ComponentContext, ComponentDef, DefaultNamespaceAliaser } from '@wesib/wesib';
+import { BootstrapContext, Component, ComponentContext } from '@wesib/wesib';
 import { ValueSync } from 'fun-events';
 import { InCssClasses, inCssInfo, InGroup, inGroup, inText, InValidation, requirePresent } from 'input-aspects';
-import { StypProperties, stypRoot, stypRules, StypRules, StypSelector, stypSelectorText } from 'style-producer';
+import { StypProperties, stypRoot, stypRules, StypRules } from 'style-producer';
 import { AppFeature, BEX__NS, InputStyle, inStyle, readonlyInStyle, ThemeSettings } from '../common';
 import { FormThemeSettings } from '../common/theme';
 import { GreetingOutComponent } from './greeting-out.component';
@@ -19,22 +19,11 @@ import { GreetingOutComponent } from './greeting-out.component';
 })
 export class GreetingComponent {
 
-  private readonly _theme: Theme;
-  private readonly _outSelector: StypSelector;
+  constructor(private readonly _context: ComponentContext) {
+    _context.whenOn(supply => {
 
-  constructor(context: ComponentContext) {
-    this._theme = context.get(Theme);
-
-    const nsAlias = context.get(DefaultNamespaceAliaser);
-
-    this._outSelector = { e: ComponentDef.of(GreetingOutComponent).name };
-
-    const outSelector = stypSelectorText(this._outSelector, { nsAlias });
-
-    context.whenOn(supply => {
-
-      const node = context.get(ComponentNode);
-      const output = node.select(outSelector, { deep: true }).first;
+      const node = _context.get(ComponentNode);
+      const output = node.select(GreetingOutComponent, { deep: true }).first;
       const group = inGroup<GreetData>({ name: '' });
 
       node.select('input', { all: true, deep: true }).first({
@@ -60,20 +49,23 @@ export class GreetingComponent {
   }
 
   @ProduceStyle()
-  style(): StypRules {
+  async style(): Promise<StypRules> {
 
-    const settings = this._theme.ref(ThemeSettings).read.keep;
-    const formSettings = this._theme.ref(FormThemeSettings).read.keep;
+    const bsContext = this._context.get(BootstrapContext);
+    const { elementDef: { name: outName } } = await bsContext.whenDefined(GreetingOutComponent);
+    const theme = this._context.get(Theme);
+    const settings = theme.ref(ThemeSettings).read.keep;
+    const formSettings = theme.ref(FormThemeSettings).read.keep;
     const root = stypRoot();
     const label = root.rules.add({ e: 'label' }, settings.thru(greetLabelStyle));
 
     label.rules.add({ e: 'input' }, settings.thru(greetFieldStyle));
-    label.rules.add(this._outSelector, formSettings.thru(inStyle))
+    label.rules.add({ e: outName }, formSettings.thru(inStyle))
         .add(formSettings.thru(readonlyInStyle))
         .add(settings.thru(greetFieldStyle));
 
     return stypRules(
-        this._theme.style(InputStyle),
+        theme.style(InputStyle),
         root.rules,
     );
   }
