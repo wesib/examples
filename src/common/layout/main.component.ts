@@ -5,9 +5,9 @@ import { BEX__NS } from '../bex.ns';
 import { ThemeSettings } from '../theme';
 
 @Component({
-  name: ['body', BEX__NS],
+  name: ['main', BEX__NS],
 })
-export class NavBodyComponent {
+export class MainComponent {
 
   private readonly _theme: Theme;
 

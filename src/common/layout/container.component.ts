@@ -3,14 +3,14 @@ import { BootstrapContext, Component, ComponentContext } from '@wesib/wesib';
 import { stypRoot, StypRules } from 'style-producer';
 import { BEX__NS } from '../bex.ns';
 import { ThemeSettings } from '../theme';
-import { NavBodyComponent } from './nav-body.component';
+import { MainComponent } from './main.component';
 import { NavComponent, navLinkBackground } from './nav.component';
 
 @Component({
   name: ['container', BEX__NS],
   feature: {
     needs: [
-      NavBodyComponent,
+      MainComponent,
       NavComponent,
     ],
   },
@@ -25,7 +25,7 @@ export class ContainerComponent {
 
     const bsContext = this._context.get(BootstrapContext);
     const { elementDef: { name: navName } } = await bsContext.whenDefined(NavComponent);
-    const { elementDef: { name: navBodyName } } = await bsContext.whenDefined(NavBodyComponent);
+    const { elementDef: { name: mainName } } = await bsContext.whenDefined(MainComponent);
     const theme = this._context.get(Theme);
     const settings = theme.ref(ThemeSettings).read.keep;
 
@@ -46,7 +46,7 @@ export class ContainerComponent {
         })),
     );
     root.rules.add(
-        { e: navBodyName },
+        { e: mainName },
         settings.thru(({ $fontSize }) => ({
           flex: '1 1 auto',
           margin: $fontSize,
