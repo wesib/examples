@@ -560,10 +560,10 @@
     "@babel/helper-create-regexp-features-plugin" "^7.7.4"
     "@babel/helper-plugin-utils" "^7.0.0"
 
-"@babel/preset-env@^7.7.5":
-  version "7.7.5"
-  resolved "https://registry.yarnpkg.com/@babel/preset-env/-/preset-env-7.7.5.tgz#f28573ed493edb4ba763b37fb4fbb85601469370"
-  integrity sha512-wDPbiaZdGzsJuTWlpLHJxmwslwHGLZ8F5v69zX3oAWeTOFWdy4OJHoTKg26oAnFg052v+/LAPY5os9KB0LrOEA==
+"@babel/preset-env@^7.7.6":
+  version "7.7.6"
+  resolved "https://registry.yarnpkg.com/@babel/preset-env/-/preset-env-7.7.6.tgz#39ac600427bbb94eec6b27953f1dfa1d64d457b2"
+  integrity sha512-k5hO17iF/Q7tR9Jv8PdNBZWYW6RofxhnxKjBMc0nG4JTaWvOTiPoO/RLFwAKcA4FpmuBFm6jkoqaRJLGi0zdaQ==
   dependencies:
     "@babel/helper-module-imports" "^7.7.4"
     "@babel/helper-plugin-utils" "^7.0.0"
@@ -672,17 +672,17 @@
   dependencies:
     "@types/node" "*"
 
-"@wesib/generic@^1.0.0-alpha.51":
-  version "1.0.0-alpha.51"
-  resolved "https://registry.yarnpkg.com/@wesib/generic/-/generic-1.0.0-alpha.51.tgz#10177ac541aced337340e0d8688786db375e4945"
-  integrity sha512-H0cMvb4KYPnUQFMnlwQZjZjtsRHbMgI0/zjel1hLzNBn68090Kl94yTA1VBQbMtPXXeiQWyoHdm1XpB6/L+e3w==
+"@wesib/generic@^1.0.0-alpha.52":
+  version "1.0.0-alpha.52"
+  resolved "https://registry.yarnpkg.com/@wesib/generic/-/generic-1.0.0-alpha.52.tgz#6ecf2c7e1442791166ae156800370aa86381153d"
+  integrity sha512-3tXEYWXf2cC3kqeIdKGYKGBvaH0+nIURMGbpX4pGYCPdL0u//ug4y1E3UYgjj0fO9qXWvRMDfVQDHq/47udRCQ==
   dependencies:
     http-header-value "^2.0.1"
 
-"@wesib/wesib@^1.0.0-alpha.47":
-  version "1.0.0-alpha.47"
-  resolved "https://registry.yarnpkg.com/@wesib/wesib/-/wesib-1.0.0-alpha.47.tgz#b7dc9576584a5e9341792d8ea788e4ec7abbf07a"
-  integrity sha512-XV27EL1tocF1lBYITMzjPurqxI8ZDUFbIvMqJM2srhmYQkej3BHGNWod3ZaR/Ym/FAq6Mgj3nk1Q04mItOhJnA==
+"@wesib/wesib@^1.0.0-alpha.52":
+  version "1.0.0-alpha.52"
+  resolved "https://registry.yarnpkg.com/@wesib/wesib/-/wesib-1.0.0-alpha.52.tgz#d467cab6dba03159c594b717f2fd157a5c1fbb70"
+  integrity sha512-CktRlDzlfDJevY6SgL1mXOO/hATha4jTxng/RRTr350DW+dBFPdumPLH+4xTpsJnFYQNJXQw0DGRJiy3F07pEQ==
 
 a-iterable@^2.4.4:
   version "2.4.4"
@@ -1055,10 +1055,10 @@ fs.realpath@^1.0.0:
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
   integrity sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
 
-fun-events@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/fun-events/-/fun-events-7.0.0.tgz#25e91be15993ad8d53b968a025b15d943b5b0cb8"
-  integrity sha512-7QGWqSwdmYt6QqvGtQwDtxyB8JWGs3kWWpnmOOLeFICBwbXTyrOh7OQz6NEOra+6nnkB0azvsXQhOIJkdEWgZg==
+fun-events@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/fun-events/-/fun-events-7.0.1.tgz#516e76733907b2e4d9cdd377edf134bbcb486b98"
+  integrity sha512-NtORHUZCe4VX/kXZUjQHF1yRcC634zNdpgwhdkGxalIFuxCi6Hn0VgLZ+530qZBVflYJ6YtnlpvoAO1AzL9xnQ==
 
 function-bind@^1.0.2, function-bind@^1.1.1:
   version "1.1.1"
@@ -1810,10 +1810,10 @@ rollup-pluginutils@^2.0.1, rollup-pluginutils@^2.8.1:
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@^1.27.8:
-  version "1.27.8"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.27.8.tgz#94288a957af9f4c2380b73a17494d87705997d0f"
-  integrity sha512-EVoEV5rAWl+5clnGznt1KY8PeVkzVQh/R0d2s3gHEkN7gfoyC4JmvIVuCtPbYE8NM5Ep/g+nAmvKXBjzaqTsHA==
+rollup@^1.27.9:
+  version "1.27.9"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.27.9.tgz#742f1234c1fa935f35149a433807da675b10f9a6"
+  integrity sha512-8AfW4cJTPZfG6EXWwT/ujL4owUsDI1Xl8J1t+hvK4wDX81F5I4IbwP9gvGbHzxnV19fnU4rRABZQwZSX9J402Q==
   dependencies:
     "@types/estree" "*"
     "@types/node" "*"
