@@ -1,4 +1,4 @@
-import { RefStypRule, StypColor, StypLengthPt, StypRGB } from 'style-producer';
+import { RefStypRule, StypColor, StypLength, StypLengthPt, StypProperties, StypRGB } from 'style-producer';
 
 export interface ThemeSettings {
   $color: StypColor;
@@ -8,6 +8,7 @@ export interface ThemeSettings {
   $lineHeight: number;
   $fontWeight: string;
   $linkFontWeight: string;
+  $layoutBreakpoint: StypLength;
 }
 
 export const ThemeSettings: RefStypRule<ThemeSettings> = RefStypRule.by(
@@ -20,4 +21,11 @@ export const ThemeSettings: RefStypRule<ThemeSettings> = RefStypRule.by(
       $lineHeight: 1.2,
       $fontWeight: '400',
       $linkFontWeight: '600',
+      $layoutBreakpoint: StypLength.of(576, 'px'),
     });
+
+export function mediaStyle({ $layoutBreakpoint }: ThemeSettings): StypProperties {
+  return {
+    '@media:sm': `(max-width: ${$layoutBreakpoint})`,
+  };
+}
