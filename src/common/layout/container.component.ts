@@ -38,7 +38,12 @@ export class ContainerComponent {
     }).add(
         settings.thru(mediaStyle),
     );
-
+    rules.add(
+        { s: ' ', $: '@media:sm' },
+        {
+          height: 'auto',
+        },
+    );
     rules.add(
         { e: navName },
         settings.thru(sts => ({
