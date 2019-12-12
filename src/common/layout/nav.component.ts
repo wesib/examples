@@ -1,6 +1,6 @@
-import { ComponentNode, Navigation, ProduceStyle, Theme } from '@wesib/generic';
+import { ComponentNode, ElementNode, Navigation, ProduceStyle, Theme } from '@wesib/generic';
 import { Component, ComponentContext, DefaultNamespaceAliaser } from '@wesib/wesib';
-import { afterAll, DomEventDispatcher } from 'fun-events';
+import { afterAll, DomEventDispatcher, EventSupply } from 'fun-events';
 import { css__naming, QualifiedName } from 'namespace-aliaser';
 import { StypColor, StypLengthPt, StypProperties, stypRoot } from 'style-producer';
 import { BEX__NS } from '../bex.ns';
@@ -26,26 +26,34 @@ export class NavComponent {
     context.whenOn(supply => {
 
       const navLinks = node.select('a', { all: true });
+      const linkSupplies = new Map<ElementNode, EventSupply>();
 
-      navLinks.track({
-        supply,
-        receive(_, links) {
-          links.forEach(
-              link => {
+      navLinks.track.tillOff(supply)((added, removed) => {
+        removed.forEach(link => {
 
-                const element: Element = link.element;
+          const linkSupply = linkSupplies.get(link);
 
-                new DomEventDispatcher(element)
-                    .on('click')
-                    .instead(() => {
-                      if (!element.classList.contains(activeClass)) {
-                        navigation.open(element.getAttribute('href') || '');
-                      }
-                    })
-                    .needs(supply);
-              },
-          );
-        },
+          if (linkSupply) {
+            linkSupplies.delete(link);
+            linkSupply.off();
+          }
+        });
+        added.forEach(
+            link => {
+
+              const element: Element = link.element;
+              const linkSupply = new DomEventDispatcher(element)
+                  .on('click')
+                  .instead(() => {
+                    if (!element.classList.contains(activeClass)) {
+                      navigation.open(element.getAttribute('href') || '');
+                    }
+                  })
+                  .needs(supply);
+
+              linkSupplies.set(link, linkSupply);
+            },
+        );
       });
       afterAll({
         links: navLinks,
