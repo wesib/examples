@@ -5,7 +5,6 @@ import sourcemaps from 'rollup-plugin-sourcemaps';
 import nodeResolve from 'rollup-plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 import typescript from 'rollup-plugin-typescript2';
-import { uglify } from 'rollup-plugin-uglify';
 
 import cleanup from './build/rollup-plugin-cleanup';
 import exampleHtml from './build/rollup-plugin-example-html';
@@ -17,48 +16,37 @@ const examples = [
 
 export default [
   exampleConfig('module'),
-  exampleConfig('es5'),
+  exampleConfig('system'),
 ];
 
 function exampleConfig(format) {
 
-  const es5 = format === 'es5';
+  const module = format === 'module';
+  const ext = format[0];
   const plugins = [
     typescript({
       typescript: require('typescript'),
-      tsconfig: es5 ? `tsconfig.es5.json` : "tsconfig.json",
+      tsconfig: module ? 'tsconfig.json' : 'tsconfig.es5.json',
       cacheRoot: 'target/.rts2_cache',
     }),
-    cleanup(`./dist/**/*.${format}.{js,js.map}`),
+    cleanup(`./dist/**/*.${ext}.{js,js.map}`),
     commonjs(),
     sourcemaps(),
     nodeResolve(),
     exampleHtml,
+    terser({
+      ecma: module ? 6 : 5,
+      module,
+      toplevel: true,
+      output: {
+        ascii_only: true,
+        comments: false,
+      },
+    }),
   ];
 
-  if (es5) {
-    // Use esm5 module variants
-    plugins.push(
-        babel(),
-        uglify({
-          output: {
-            ascii_only: true,
-            comments: false,
-          },
-        }),
-    );
-  } else {
-    plugins.push(
-        terser({
-          ecma: 6,
-          module: true,
-          toplevel: true,
-          output: {
-            ascii_only: true,
-            comments: false,
-          },
-        }),
-    );
+  if (!module) {
+    plugins.push(babel());
   }
 
   return {
@@ -71,22 +59,22 @@ function exampleConfig(format) {
         {},
     ),
     manualChunks(id) {
-      if (id.startsWith(`${__dirname}/node_modules/@wesib/`)) {
-        return 'wesib';
-      }
-      if (id.startsWith('\0') || id.startsWith(`${__dirname}/node_modules/`)) {
-        return 'lib';
-      }
       if (id.startsWith(`${__dirname}/src/common/`)) {
         return 'common';
       }
+      if (id.includes('/node_modules/@wesib/')) {
+        return 'wesib';
+      }
+      if (id.startsWith('\0') || id.includes('/node_modules/')) {
+        return 'lib';
+      }
     },
     output: {
-      format: es5 ? 'system' : 'esm',
+      format: module ? 'esm' : 'system',
       dir: './dist',
       sourcemap: true,
-      entryFileNames: `[name]/main.[hash].${format}.js`,
-      chunkFileNames: `js/[name].[hash].${format}.js`
+      entryFileNames: `[name]/main.[hash].${ext}.js`,
+      chunkFileNames: `js/[name].[hash].${ext}.js`
     },
   };
 }

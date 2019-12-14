@@ -22,13 +22,13 @@ class Result {
 
     const isTitle = example === 'title';
     const parts = this._examples[example] || (this._examples[example] = {});
-    const part = format === 'es' || format === 'esm' ? 'module' : 'es5';
+    const part = format === 'es' || format === 'esm' ? 'module' : 'system';
 
     parts[part] = `${example}/${file}`;
 
-    const { module, es5 } = parts;
+    const { module, system } = parts;
 
-    if (module && es5) {
+    if (module && system) {
       await generateExampleHtml(
           example,
           parts,
@@ -37,7 +37,8 @@ class Result {
                 output: `${dist}/index.html`,
                 base: '.',
               }
-              : {});
+              : {},
+      );
     }
   }
 

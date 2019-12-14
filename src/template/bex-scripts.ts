@@ -5,6 +5,6 @@ Handlebars.registerPartial(
     `
 <script src="{{module}}" type="module"></script>
 <script src="js/s.js" nomodule></script>
-<script src="{{es5}}" nomodule></script>
+<script src="{{system}}" nomodule></script>
     `.trim(),
 );
