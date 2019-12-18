@@ -1,5 +1,6 @@
-import { importNodeContent, Navigation, pageLoadParam, ProduceStyle, Theme } from '@wesib/generic';
-import { BootstrapWindow, Component, ComponentContext } from '@wesib/wesib';
+import { importNodeContent, Navigation, pageLoadParam, PageLoadResponse, ProduceStyle, Theme } from '@wesib/generic';
+import { BootstrapWindow, Component, ComponentContext, Render } from '@wesib/wesib';
+import { trackValue } from 'fun-events';
 import { StypProperties, stypRoot } from 'style-producer';
 import { BEX__NS } from '../bex.ns';
 import { ThemeSettings } from '../theme';
@@ -9,48 +10,22 @@ import { ThemeSettings } from '../theme';
 })
 export class MainComponent {
 
-  private readonly _theme: Theme;
+  private readonly _response = trackValue<PageLoadResponse>();
 
-  constructor(context: ComponentContext) {
-    this._theme = context.get(Theme);
+  constructor(private readonly _context: ComponentContext) {
+    this._response.on((n, o) => _context.updateState('response', n, o));
 
-    const document = context.get(BootstrapWindow).document;
-    const navigation = context.get(Navigation);
+    const navigation = _context.get(Navigation);
 
-    context.whenOn(supply => {
-
-      const element: Element = context.element;
-      const range = document.createRange();
-
-      supply.whenOff(() => range.deleteContents());
-      range.selectNodeContents(element);
-
+    _context.whenOn(supply => {
       navigation.read.once(page => {
         page.put(
             pageLoadParam,
             {
-              fragment: { tag: element.tagName },
+              fragment: { tag: _context.element.tagName },
               receiver: {
                 supply,
-                receive(_ctx, response) {
-                  if (response.ok) {
-                    range.deleteContents();
-
-                    const target = document.createDocumentFragment();
-                    const { fragment } = response;
-
-                    if (fragment) {
-                      importNodeContent(fragment, target);
-                      range.insertNode(target);
-                    }
-                  } else if (response.ok === false) {
-                    range.deleteContents();
-                    range.insertNode(document.createTextNode(`Error. ${response.error}`));
-                  } else {
-                    range.deleteContents();
-                    range.insertNode(document.createTextNode('Loading...'));
-                  }
-                },
+                receive: (_ctx, response) => this._response.it = response,
               },
             },
         );
@@ -58,10 +33,42 @@ export class MainComponent {
     });
   }
 
+  @Render()
+  render() {
+
+    const document = this._context.get(BootstrapWindow).document;
+    const range = document.createRange();
+
+    range.selectNodeContents(this._context.element);
+
+    return () => {
+
+      const response = this._response.it;
+
+      if (response) {
+        range.deleteContents();
+        if (response.ok) {
+
+          const target = document.createDocumentFragment();
+          const { fragment } = response;
+
+          if (fragment) {
+            importNodeContent(fragment, target);
+            range.insertNode(target);
+          }
+        } else if (response.ok == null) {
+          range.insertNode(document.createTextNode('Loading...'));
+        } else {
+          range.insertNode(document.createTextNode(`Error. ${response.error}`));
+        }
+      }
+    };
+  }
+
   @ProduceStyle()
   style() {
 
-    const settings = this._theme.ref(ThemeSettings).read.keep;
+    const settings = this._context.get(Theme).ref(ThemeSettings).read.keep;
     const root = stypRoot(settings.thru(bexBodyStyle));
 
     return root.rules;
