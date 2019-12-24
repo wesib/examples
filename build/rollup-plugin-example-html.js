@@ -2,7 +2,7 @@ import handlebars from 'handlebars';
 import fs from 'fs-extra';
 import '../src/template/index.ts';
 
-const namePattern = /([^\/]+)\/([^\/]+\.js)$/;
+const namePattern = /([^\/\\]+)[\/\\]([^\/]+\.js)$/;
 const rev = Date.now().toString(32);
 const dist = './dist';
 
@@ -59,7 +59,8 @@ async function generateExampleHtml(
     {
       output = `${dist}/${example}/index.html`,
       base = '..'
-    } = {}) {
+    } = {},
+) {
 
   const input =`./src/${example}/index.html`;
 
