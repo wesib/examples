@@ -1,6 +1,7 @@
 import 'ts-node/register';
 import commonjs from '@rollup/plugin-commonjs';
 import nodeResolve from '@rollup/plugin-node-resolve';
+import path from 'path';
 import babel from 'rollup-plugin-babel';
 import sourcemaps from 'rollup-plugin-sourcemaps';
 import { terser } from 'rollup-plugin-terser';
@@ -59,13 +60,13 @@ function exampleConfig(format) {
         {},
     ),
     manualChunks(id) {
-      if (id.startsWith(`${__dirname}/src/common/`)) {
+      if (id.startsWith(path.join(__dirname, 'src', 'common') + path.sep)) {
         return 'common';
       }
-      if (id.includes('/node_modules/@wesib/')) {
+      if (id.includes(`${path.sep}node_modules${path.sep}@wesib${path.sep}`)) {
         return 'wesib';
       }
-      if (id.startsWith('\0') || id.includes('/node_modules/')) {
+      if (id.startsWith('\0') || id.includes(`${path.sep}node_modules${path.sep}`)) {
         return 'lib';
       }
     },
