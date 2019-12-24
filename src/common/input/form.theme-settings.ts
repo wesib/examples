@@ -7,6 +7,7 @@ export interface FormThemeSettings {
   $roBgColor: StypColor;
   $fontFace: string;
   $fontSize: StypLengthPt;
+  $errorFontSize: StypLengthPt;
   $lineHeight: number;
   $fontWeight: string;
   $borderColor: StypColor;
@@ -47,6 +48,7 @@ function formMappings(
     $roBgColor: $bgColor.hsl.set(({ l }) => ({ l: l * 0.94 })),
     $fontFace,
     $fontSize,
+    $errorFontSize: $fontSize.mul(0.8),
     $lineHeight,
     $fontWeight,
     $borderColor: $bgColor,

@@ -1,9 +1,18 @@
-import { ComponentNode, ComponentTreeSupport, ProduceStyle, Theme } from '@wesib/generic';
+import { ComponentNode, ElementNode, ProduceStyle, Theme } from '@wesib/generic';
 import { BootstrapContext, Component, ComponentContext } from '@wesib/wesib';
-import { ValueSync } from 'fun-events';
+import { afterThe, ValueSync } from 'fun-events';
 import { InCssClasses, inCssInfo, InGroup, inGroup, inText, InValidation, requirePresent } from 'input-aspects';
 import { StypProperties, stypRoot, stypRules, StypRules } from 'style-producer';
-import { AppFeature, BEX__NS, FormThemeSettings, InputStyle, inStyle, readonlyInStyle, ThemeSettings } from '../common';
+import {
+  AppFeature,
+  BEX__NS,
+  FormThemeSettings,
+  InElementComponent,
+  InputStyle,
+  inStyle,
+  readonlyInStyle,
+  ThemeSettings,
+} from '../common';
 import { GreetingOutComponent } from './greeting-out.component';
 
 @Component({
@@ -11,39 +20,30 @@ import { GreetingOutComponent } from './greeting-out.component';
   feature: {
     needs: [
       GreetingOutComponent,
-      ComponentTreeSupport,
       AppFeature,
     ],
   },
 })
-export class GreetingComponent {
+export class GreetingComponent extends InElementComponent<InGroup<GreetData>> {
 
   constructor(private readonly _context: ComponentContext) {
+    super(_context);
     _context.whenOn(supply => {
 
       const node = _context.get(ComponentNode);
       const output = node.select(GreetingOutComponent, { deep: true }).first;
-      const group = inGroup<GreetData>({ name: '' });
+      const sync = new ValueSync<string | null>('');
 
-      node.select('input', { all: true, deep: true }).first({
-            supply,
-            receive(_ctx, name) {
-              group.controls.set(
-                  'name',
-                  name && inText(name.element)
-                      .setup(InValidation, validation => validation.by(requirePresent))
-                      .setup(InCssClasses, classes => classes.add(inCssInfo())),
-              );
-            },
-          },
+      sync.sync(output, o => o?.attribute('name'));
+      sync.sync(
+          'in',
+          this.control.keep.dig_(
+              group => group ? group.controls.read : afterThe<[InGroup.Snapshot<GreetData>?]>(),
+          ),
+          controls => controls?.get('name'),
       );
 
-      const nameSync = new ValueSync<string | null>('');
-
-      nameSync.sync(output, o => o?.attribute('name'));
-      nameSync.sync('in', group.controls, (controls: InGroup.Snapshot<GreetData>) => controls.get('name'));
-
-      supply.whenOff(() => nameSync.done());
+      supply.whenOff(() => sync.done());
     });
   }
 
@@ -67,6 +67,20 @@ export class GreetingComponent {
         theme.style(InputStyle),
         root.rules,
     );
+  }
+
+  protected nodeControl(node: ElementNode): InGroup<GreetData> {
+
+    const group = inGroup<GreetData>({ name: '' });
+
+    group.controls.set(
+        'name',
+        inText(node.element)
+            .setup(InValidation, validation => validation.by(requirePresent))
+            .setup(InCssClasses, classes => classes.add(inCssInfo())),
+    );
+
+    return group;
   }
 
 }
