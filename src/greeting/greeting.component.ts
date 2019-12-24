@@ -3,8 +3,7 @@ import { BootstrapContext, Component, ComponentContext } from '@wesib/wesib';
 import { ValueSync } from 'fun-events';
 import { InCssClasses, inCssInfo, InGroup, inGroup, inText, InValidation, requirePresent } from 'input-aspects';
 import { StypProperties, stypRoot, stypRules, StypRules } from 'style-producer';
-import { AppFeature, BEX__NS, InputStyle, inStyle, readonlyInStyle, ThemeSettings } from '../common';
-import { FormThemeSettings } from '../common/theme';
+import { AppFeature, BEX__NS, FormThemeSettings, InputStyle, inStyle, readonlyInStyle, ThemeSettings } from '../common';
 import { GreetingOutComponent } from './greeting-out.component';
 
 @Component({

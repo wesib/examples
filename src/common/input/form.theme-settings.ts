@@ -1,5 +1,5 @@
 import { RefStypRule, StypColor, StypLength, StypLengthPt, StypMapper, StypRuleRefs } from 'style-producer';
-import { ThemeSettings } from './theme-settings';
+import { ThemeSettings } from '../theme/theme-settings';
 
 export interface FormThemeSettings {
   $color: StypColor;
