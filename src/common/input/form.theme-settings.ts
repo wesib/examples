@@ -24,7 +24,8 @@ export const FormThemeSettings: RefStypRule<FormThemeSettings> = RefStypRule.by(
           global: ThemeSettings,
         },
         root,
-    ).read.keep.thru(formMappings));
+    ).read.keep.thru(formMappings),
+);
 
 function formMappings(
     {

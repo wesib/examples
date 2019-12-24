@@ -22,7 +22,8 @@ export const ThemeSettings: RefStypRule<ThemeSettings> = RefStypRule.by(
       $fontWeight: '400',
       $linkFontWeight: '600',
       $layoutBreakpoint: StypLength.of(576, 'px'),
-    });
+    },
+);
 
 export function mediaStyle({ $layoutBreakpoint }: ThemeSettings): StypProperties {
   return {
