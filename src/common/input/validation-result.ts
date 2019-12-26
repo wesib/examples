@@ -3,7 +3,7 @@ import { ContextKey, ContextKey__symbol, SingleContextKey } from 'context-values
 import { AfterEvent, EventSupply, trackValue } from 'fun-events';
 import { InValidation, inValidationResult } from 'input-aspects';
 
-const ValidationResult__key = /*#__PURE__*/ new SingleContextKey<ValidationResult>('error-receiver');
+const ValidationResult__key = (/*#__PURE__*/ new SingleContextKey<ValidationResult>('error-receiver'));
 
 export class ValidationResult {
 
