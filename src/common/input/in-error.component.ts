@@ -3,7 +3,7 @@ import { AttributeChanged, Component, ComponentContext, DefaultNamespaceAliaser,
 import { itsEvery } from 'a-iterable';
 import { InValidation, inValidationResult } from 'input-aspects';
 import { css__naming, QualifiedName } from 'namespace-aliaser';
-import { StypLengthPt, StypRules } from 'style-producer';
+import { StypLengthPt, stypRules, StypRules } from 'style-producer';
 import { Examples__NS } from '../examples.ns';
 import { FormThemeSettings } from './form.theme-settings';
 
@@ -78,22 +78,22 @@ function InErrorStyle(theme: Theme): StypRules {
   const { root: { rules } } = theme;
   const borderW = StypLengthPt.of(4, 'px');
 
-  rules.add(
-      { u: [':', 'host'], $: InError__qualifier },
-      settings.thru(({ $color, $errorFontSize }) => ({
-        display: 'none',
-        fontSize: $errorFontSize,
-        padding: $errorFontSize.div(2),
-        borderLeft: `${borderW} dotted ${$color}`,
-        paddingLeft: $errorFontSize.sub(borderW),
-      })),
+  return stypRules(
+      rules.add(
+          { u: [':', 'host'], $: InError__qualifier },
+          settings.thru(({ $color, $errorFontSize }) => ({
+            display: 'none',
+            fontSize: $errorFontSize,
+            padding: $errorFontSize.div(2),
+            borderLeft: `${borderW} dotted ${$color}`,
+            paddingLeft: $errorFontSize.sub(borderW),
+          })),
+      ),
+      rules.add(
+          { u: [':', 'host', { c: hasError__cssClass }], $: InError__qualifier },
+          {
+            display: 'block',
+          },
+      ),
   );
-  rules.add(
-      { u: [':', 'host', { c: hasError__cssClass }], $: InError__qualifier },
-      {
-        display: 'block',
-      },
-  );
-
-  return rules.grab({ $: InError__qualifier });
 }

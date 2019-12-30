@@ -1,6 +1,6 @@
 import { ProduceStyle, Theme } from '@wesib/generic';
 import { Component, ComponentContext } from '@wesib/wesib';
-import { StypRules } from 'style-producer';
+import { stypRules, StypRules } from 'style-producer';
 import { Examples__NS } from '../examples.ns';
 import { mediaStyle, ThemeSettings } from '../theme';
 import { MainComponent } from './main.component';
@@ -34,24 +34,24 @@ function ContainerStyle(theme: Theme): StypRules {
   const settings = theme.ref(ThemeSettings).read.keep;
   const { root: { rules } } = theme;
 
-  rules.add(
-      { u: [':', 'host'], $: Container__qualifier },
-      {
-        height: '100%',
-        display: 'flex',
-        flexFlow: 'row wrap',
-        alignItems: 'stretch',
-        alignContent: 'flex-start',
-      },
-  ).add(
-      settings.thru(mediaStyle),
+  return stypRules(
+      rules.add(
+          { u: [':', 'host'], $: Container__qualifier },
+          {
+            height: '100%',
+            display: 'flex',
+            flexFlow: 'row wrap',
+            alignItems: 'stretch',
+            alignContent: 'flex-start',
+          },
+      ).add(
+          settings.thru(mediaStyle),
+      ),
+      rules.add(
+          { u: [':', 'host'], $: [Container__qualifier, '@media:sm'] },
+          {
+            height: 'auto',
+          },
+      ),
   );
-  rules.add(
-      { u: [':', 'host'], $: [Container__qualifier, '@media:sm'] },
-      {
-        height: 'auto',
-      },
-  );
-
-  return rules.grab({ $: Container__qualifier });
 }

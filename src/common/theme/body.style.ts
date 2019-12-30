@@ -6,23 +6,21 @@ import { ThemeSettings } from './theme-settings';
 export function BodyStyle(theme: Theme): StypRules {
 
   const settings = theme.ref(ThemeSettings).read.keep;
-  const bodySelector = { e: 'body' };
-  const htmlSelector = { e: 'html' };
   const { root: { rules } } = theme;
 
-  rules.add(bodySelector, settings.thru(bodyStyle));
-  rules.add(
-      htmlSelector,
-      {
-        height: '100%',
-        margin: 0,
-        padding: 0,
-      },
-  );
-
   return stypRules(
-      rules.grab(htmlSelector),
-      rules.grab(bodySelector),
+      rules.add(
+          { e: 'html' },
+          {
+            height: '100%',
+            margin: 0,
+            padding: 0,
+          },
+      ),
+      rules.add(
+          { e: 'body' },
+          settings.thru(bodyStyle),
+      ),
       theme.style(DefaultStyle),
   );
 }

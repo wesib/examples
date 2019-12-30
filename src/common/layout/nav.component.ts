@@ -2,7 +2,7 @@ import { ComponentNode, ElementNode, Navigation, ProduceStyle, Theme } from '@we
 import { Component, ComponentContext, DefaultNamespaceAliaser } from '@wesib/wesib';
 import { afterAll, DomEventDispatcher, EventSupply } from 'fun-events';
 import { css__naming, QualifiedName } from 'namespace-aliaser';
-import { StypColor, StypLengthPt, StypProperties, StypRules } from 'style-producer';
+import { StypColor, StypLengthPt, StypProperties, stypRules, StypRules } from 'style-producer';
 import { Examples__NS } from '../examples.ns';
 import { ThemeSettings } from '../theme';
 
@@ -114,34 +114,34 @@ function NavStyle(theme: Theme): StypRules {
   const settings = theme.ref(ThemeSettings).read.keep;
   const { root: { rules } } = theme;
 
-  rules.add(
-      { u: [':', 'host'], $: Nav__qualifier },
-      settings.thru(navStyle),
+  return stypRules(
+      rules.add(
+          { u: [':', 'host'], $: Nav__qualifier },
+          settings.thru(navStyle),
+      ),
+      rules.add(
+          { u: [':', 'host'], $: Nav__qualifier },
+          settings.thru(sts => ({
+            flex: '0 1 200px',
+            height: '100%',
+            background: navLinkBackground(sts),
+          })),
+      ),
+      rules.add(
+          { u: [':', 'host'], $: [Nav__qualifier, '@media:sm'] },
+          {
+            flex: '0 1 100%',
+          },
+      ),
+      rules.add(
+          [{ u: [':', 'host'] }, { e: 'a', $: Nav__qualifier }],
+          settings.thru(navLinkStyle),
+      ),
+      rules.add(
+          [{ u: [':', 'host'] }, { e: 'a', c: activeNavLinkClass, $: Nav__qualifier } ],
+          settings.thru(activeNavLinkStyle),
+      ),
   );
-  rules.add(
-      { u: [':', 'host'], $: Nav__qualifier },
-      settings.thru(sts => ({
-        flex: '0 1 200px',
-        height: '100%',
-        background: navLinkBackground(sts),
-      })),
-  );
-  rules.add(
-      { u: [':', 'host'], $: [Nav__qualifier, '@media:sm'] },
-      {
-        flex: '0 1 100%',
-      },
-  );
-  rules.add(
-      [{ u: [':', 'host'] }, { e: 'a', $: Nav__qualifier }],
-      settings.thru(navLinkStyle),
-  );
-  rules.add(
-      [{ u: [':', 'host'] }, { e: 'a', c: activeNavLinkClass, $: Nav__qualifier } ],
-      settings.thru(activeNavLinkStyle),
-  );
-
-  return rules.grab({ $: Nav__qualifier });
 }
 
 function navStyle(

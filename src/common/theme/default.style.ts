@@ -7,11 +7,10 @@ export function DefaultStyle(theme: Theme): StypRules {
 
   const settings = theme.ref(ThemeSettings).read.keep;
 
-  theme.root.add(settings.thru(defaultStyle));
-  theme.root.add(settings.thru(mediaStyle));
-
   return stypRules(
-      theme.root.rules.self,
+      theme.root
+          .add(settings.thru(defaultStyle))
+          .add(settings.thru(mediaStyle)),
       theme.style(LinkStyle),
   );
 }

@@ -47,15 +47,13 @@ function GreetingOutStyle(theme: Theme): StypRules {
   const formSettings = theme.ref(FormThemeSettings).read.keep;
   const { root: { rules } } = theme;
 
-  rules.add(
-      { u: [':', 'host'], $: GreetingOut__qualifier },
-      formSettings.thru(inStyle),
-  )
-      .add(formSettings.thru(readonlyInStyle))
-      .add(settings.thru(greetFieldStyle));
-
   return stypRules(
-      rules.grab({ $: GreetingOut__qualifier }),
+      rules.add(
+          { u: [':', 'host'], $: GreetingOut__qualifier },
+          formSettings.thru(inStyle),
+      )
+          .add(formSettings.thru(readonlyInStyle))
+          .add(settings.thru(greetFieldStyle)),
       theme.style(DefaultStyle),
   );
 }

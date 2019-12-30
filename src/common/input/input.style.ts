@@ -1,5 +1,5 @@
 import { Theme } from '@wesib/generic';
-import { mixStypColors, StypProperties, StypRules } from 'style-producer';
+import { mixStypColors, StypProperties, stypRules, StypRules } from 'style-producer';
 import { FormThemeSettings } from './form.theme-settings';
 
 export function InputStyle(theme: Theme): StypRules {
@@ -7,15 +7,15 @@ export function InputStyle(theme: Theme): StypRules {
   const formSettings = theme.ref(FormThemeSettings).read.keep;
   const { root: { rules } } = theme;
 
-  rules.add({ e: 'input' }, formSettings.thru(inStyle));
-  rules.add({ e: 'input', s: '[readonly]' }, formSettings.thru(readonlyInStyle));
-  rules.add({ e: 'input', s: '[disabled]' }, formSettings.thru(readonlyInStyle));
-  rules.add({ e: 'input', s: ':focus' }, formSettings.thru(focusedInStyle));
-  rules.add({ e: 'input', c: ['inap-invalid', 'inap-touched'] }, formSettings.thru(invalidInStyle));
-  rules.add({ e: 'input', c: ['inap-missing', 'inap-touched'] }, { outlineStyle: 'dotted' });
-  rules.add({ e: 'input', c: ['inap-incomplete', 'inap-touched'] }, { outlineStyle: 'dotted' });
-
-  return rules.grab({ e: 'input' });
+  return stypRules(
+      rules.add({ e: 'input' }, formSettings.thru(inStyle)),
+      rules.add({ e: 'input', s: '[readonly]' }, formSettings.thru(readonlyInStyle)),
+      rules.add({ e: 'input', s: '[disabled]' }, formSettings.thru(readonlyInStyle)),
+      rules.add({ e: 'input', s: ':focus' }, formSettings.thru(focusedInStyle)),
+      rules.add({ e: 'input', c: ['inap-invalid', 'inap-touched'] }, formSettings.thru(invalidInStyle)),
+      rules.add({ e: 'input', c: ['inap-missing', 'inap-touched'] }, { outlineStyle: 'dotted' }),
+      rules.add({ e: 'input', c: ['inap-incomplete', 'inap-touched'] }, { outlineStyle: 'dotted' }),
+  );
 }
 
 export function inStyle(

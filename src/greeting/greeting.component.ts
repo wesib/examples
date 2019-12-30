@@ -82,20 +82,18 @@ function GreetingStyle(theme: Theme): StypRules {
 
   const settings = theme.ref(ThemeSettings).read.keep;
   const { root: { rules } } = theme;
-
   const label = rules.add(
       [{ u: [':', 'host'] }, { e: 'label', $: Greeting__qualifier }],
       settings.thru(greetLabelStyle),
   );
 
-  label.rules.add(
-      { e: 'input', $: Greeting__qualifier },
-      settings.thru(greetFieldStyle),
-  );
-
   return stypRules(
       theme.style(InputStyle),
-      rules.grab({ $: Greeting__qualifier }),
+      label,
+      label.rules.add(
+          { e: 'input', $: Greeting__qualifier },
+          settings.thru(greetFieldStyle),
+      ),
   );
 }
 

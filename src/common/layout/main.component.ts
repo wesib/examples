@@ -1,7 +1,7 @@
 import { importNodeContent, Navigation, pageLoadParam, PageLoadResponse, ProduceStyle, Theme } from '@wesib/generic';
 import { BootstrapWindow, Component, ComponentContext, Render } from '@wesib/wesib';
 import { trackValue } from 'fun-events';
-import { StypProperties, StypRules } from 'style-producer';
+import { StypProperties, stypRules, StypRules } from 'style-producer';
 import { Examples__NS } from '../examples.ns';
 import { ThemeSettings } from '../theme';
 
@@ -77,19 +77,12 @@ function MainStyle(theme: Theme): StypRules {
   const settings = theme.ref(ThemeSettings).read.keep;
   const { root: { rules } } = theme;
 
-  rules.add(
-      { u: [':', 'host'], $: [Main__qualifier] },
-      settings.thru(({ $fontSize }) => ({
-        flex: '1 1 auto',
-        margin: $fontSize,
-      })),
+  return stypRules(
+      rules.add(
+          { u: [':', 'host'], $: Main__qualifier },
+          settings.thru(mainStyle),
+      ),
   );
-  rules.add(
-      { u: [':', 'host'], $: Main__qualifier },
-      settings.thru(mainStyle),
-  );
-
-  return rules.grab({ $: Main__qualifier });
 }
 
 function mainStyle(
@@ -98,6 +91,7 @@ function mainStyle(
     }: ThemeSettings,
 ): StypProperties {
   return {
+    flex: '1 1 auto',
     padding: 0,
     margin: `0 0 0 ${$fontSize.div(2)}`,
   };
