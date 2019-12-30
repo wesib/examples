@@ -1,9 +1,9 @@
 import { ProduceStyle, Theme } from '@wesib/generic';
 import { AttachShadow, Attribute, BootstrapWindow, Component, ComponentContext, Render } from '@wesib/wesib';
 import { StypProperties, stypRules, StypRules } from 'style-producer';
-import { BEX__NS, DefaultStyle, FormThemeSettings, inStyle, readonlyInStyle, ThemeSettings } from '../common';
+import { DefaultStyle, Examples__NS, FormThemeSettings, inStyle, readonlyInStyle, ThemeSettings } from '../common';
 
-@Component(['greeting-out', BEX__NS])
+@Component(['greeting-out', Examples__NS])
 @AttachShadow()
 export class GreetingOutComponent {
 

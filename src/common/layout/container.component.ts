@@ -1,13 +1,13 @@
 import { ProduceStyle, Theme } from '@wesib/generic';
 import { Component, ComponentContext } from '@wesib/wesib';
 import { StypRules } from 'style-producer';
-import { BEX__NS } from '../bex.ns';
+import { Examples__NS } from '../examples.ns';
 import { mediaStyle, ThemeSettings } from '../theme';
 import { MainComponent } from './main.component';
 import { NavComponent } from './nav.component';
 
 @Component({
-  name: ['container', BEX__NS],
+  name: ['container', Examples__NS],
   feature: {
     needs: [
       MainComponent,

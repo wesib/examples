@@ -3,12 +3,10 @@ import { Component, ComponentContext, DefaultNamespaceAliaser } from '@wesib/wes
 import { afterAll, DomEventDispatcher, EventSupply } from 'fun-events';
 import { css__naming, QualifiedName } from 'namespace-aliaser';
 import { StypColor, StypLengthPt, StypProperties, StypRules } from 'style-producer';
-import { BEX__NS } from '../bex.ns';
+import { Examples__NS } from '../examples.ns';
 import { ThemeSettings } from '../theme';
 
-@Component({
-  name: ['nav', BEX__NS],
-})
+@Component(['nav', Examples__NS])
 export class NavComponent {
 
   private readonly _theme: Theme;
@@ -157,7 +155,7 @@ function navStyle(
   };
 }
 
-const activeNavLinkClass: QualifiedName = ['nav-active', BEX__NS];
+const activeNavLinkClass: QualifiedName = ['nav-active', Examples__NS];
 
 export function navLinkBackground({ $bgColor }: ThemeSettings): StypColor {
   return $bgColor.hsl.set(({ l }) => ({ l: l * 0.8 }));

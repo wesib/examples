@@ -3,7 +3,7 @@ import { Component, ComponentContext } from '@wesib/wesib';
 import { ValueSync } from 'fun-events';
 import { InCssClasses, inCssInfo, InGroup, inGroup, inText, InValidation, requirePresent } from 'input-aspects';
 import { StypProperties, stypRules, StypRules } from 'style-producer';
-import { AppFeature, BEX__NS, InputStyle, ThemeSettings } from '../common';
+import { AppFeature, Examples__NS, InputStyle, ThemeSettings } from '../common';
 import { greetFieldStyle, GreetingOutComponent } from './greeting-out.component';
 
 const greetingInRef = componentInElement({
@@ -14,7 +14,7 @@ const greetingInRef = componentInElement({
 });
 
 @Component(
-    ['greeting', BEX__NS],
+    ['greeting', Examples__NS],
     greetingInRef,
     {
       feature: {

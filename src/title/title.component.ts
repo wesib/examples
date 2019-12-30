@@ -1,8 +1,8 @@
 import { Component } from '@wesib/wesib';
-import { AppFeature, BEX__NS } from '../common';
+import { AppFeature, Examples__NS } from '../common';
 
 @Component({
-  name: ['title', BEX__NS],
+  name: ['title', Examples__NS],
   feature: {
     needs: [AppFeature],
   },

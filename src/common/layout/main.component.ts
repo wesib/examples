@@ -2,12 +2,10 @@ import { importNodeContent, Navigation, pageLoadParam, PageLoadResponse, Produce
 import { BootstrapWindow, Component, ComponentContext, Render } from '@wesib/wesib';
 import { trackValue } from 'fun-events';
 import { StypProperties, StypRules } from 'style-producer';
-import { BEX__NS } from '../bex.ns';
+import { Examples__NS } from '../examples.ns';
 import { ThemeSettings } from '../theme';
 
-@Component({
-  name: ['main', BEX__NS],
-})
+@Component(['main', Examples__NS])
 export class MainComponent {
 
   private readonly _response = trackValue<PageLoadResponse>();

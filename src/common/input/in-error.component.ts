@@ -4,11 +4,11 @@ import { itsEvery } from 'a-iterable';
 import { InValidation, inValidationResult } from 'input-aspects';
 import { css__naming, QualifiedName } from 'namespace-aliaser';
 import { StypLengthPt, StypRules } from 'style-producer';
-import { BEX__NS } from '../bex.ns';
+import { Examples__NS } from '../examples.ns';
 import { FormThemeSettings } from './form.theme-settings';
 
 @Component(
-    ['in-error', BEX__NS],
+    ['in-error', Examples__NS],
     ComponentInValidity,
 )
 export class InErrorComponent {
@@ -70,7 +70,7 @@ export class InErrorComponent {
 }
 
 const InError__qualifier = 'bex:in-error';
-const hasError__cssClass: QualifiedName = ['display-block', BEX__NS];
+const hasError__cssClass: QualifiedName = ['display-block', Examples__NS];
 
 function InErrorStyle(theme: Theme): StypRules {
 
