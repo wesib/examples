@@ -1,18 +1,10 @@
 import { componentInElement, ComponentNode, ElementNode, ProduceStyle, Theme } from '@wesib/generic';
-import { BootstrapContext, Component, ComponentContext } from '@wesib/wesib';
+import { Component, ComponentContext } from '@wesib/wesib';
 import { ValueSync } from 'fun-events';
 import { InCssClasses, inCssInfo, InGroup, inGroup, inText, InValidation, requirePresent } from 'input-aspects';
-import { StypProperties, stypRoot, stypRules, StypRules } from 'style-producer';
-import {
-  AppFeature,
-  BEX__NS,
-  FormThemeSettings,
-  InputStyle,
-  inStyle,
-  readonlyInStyle,
-  ThemeSettings,
-} from '../common';
-import { GreetingOutComponent } from './greeting-out.component';
+import { StypProperties, stypRules, StypRules } from 'style-producer';
+import { AppFeature, BEX__NS, InputStyle, ThemeSettings } from '../common';
+import { greetFieldStyle, GreetingOutComponent } from './greeting-out.component';
 
 const greetingInRef = componentInElement({
   selector: 'input',
@@ -60,25 +52,8 @@ export class GreetingComponent {
   }
 
   @ProduceStyle()
-  async style(): Promise<StypRules> {
-
-    const bsContext = this._context.get(BootstrapContext);
-    const { elementDef: { name: outName } } = await bsContext.whenDefined(GreetingOutComponent);
-    const theme = this._context.get(Theme);
-    const settings = theme.ref(ThemeSettings).read.keep;
-    const formSettings = theme.ref(FormThemeSettings).read.keep;
-    const root = stypRoot();
-    const label = root.rules.add({ e: 'label' }, settings.thru(greetLabelStyle));
-
-    label.rules.add({ e: 'input' }, settings.thru(greetFieldStyle));
-    label.rules.add({ e: outName }, formSettings.thru(inStyle))
-        .add(formSettings.thru(readonlyInStyle))
-        .add(settings.thru(greetFieldStyle));
-
-    return stypRules(
-        theme.style(InputStyle),
-        root.rules,
-    );
+  style(): StypRules {
+    return this._context.get(Theme).style(GreetingStyle);
   }
 
   protected nodeControl(node: ElementNode): InGroup<GreetData> {
@@ -101,6 +76,29 @@ interface GreetData {
   name: string;
 }
 
+const Greeting__qualifier = 'bex:greeting';
+
+function GreetingStyle(theme: Theme): StypRules {
+
+  const settings = theme.ref(ThemeSettings).read.keep;
+  const { root: { rules } } = theme;
+
+  const label = rules.add(
+      [{ u: [':', 'host'] }, { e: 'label', $: Greeting__qualifier }],
+      settings.thru(greetLabelStyle),
+  );
+
+  label.rules.add(
+      { e: 'input', $: Greeting__qualifier },
+      settings.thru(greetFieldStyle),
+  );
+
+  return stypRules(
+      theme.style(InputStyle),
+      rules.grab({ $: Greeting__qualifier }),
+  );
+}
+
 function greetLabelStyle(
     {
       $fontSize,
@@ -110,16 +108,5 @@ function greetLabelStyle(
     display: 'block',
     margin: 0,
     padding: `${$fontSize.div(2)}`,
-  };
-}
-
-function greetFieldStyle(
-    {
-      $fontSize,
-    }: ThemeSettings,
-): StypProperties {
-  return {
-    display: 'block',
-    margin: `${$fontSize.div(2)} 0 0 0`,
   };
 }

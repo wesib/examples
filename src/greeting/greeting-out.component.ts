@@ -1,11 +1,9 @@
 import { ProduceStyle, Theme } from '@wesib/generic';
 import { AttachShadow, Attribute, BootstrapWindow, Component, ComponentContext, Render } from '@wesib/wesib';
-import { StypRules } from 'style-producer';
-import { BEX__NS, DefaultStyle } from '../common';
+import { StypProperties, stypRules, StypRules } from 'style-producer';
+import { BEX__NS, DefaultStyle, FormThemeSettings, inStyle, readonlyInStyle, ThemeSettings } from '../common';
 
-@Component({
-  name: ['greeting-out', BEX__NS],
-})
+@Component(['greeting-out', BEX__NS])
 @AttachShadow()
 export class GreetingOutComponent {
 
@@ -17,7 +15,7 @@ export class GreetingOutComponent {
 
   @ProduceStyle()
   style(): StypRules {
-    return this._context.get(Theme).style(DefaultStyle);
+    return this._context.get(Theme).style(GreetingOutStyle);
   }
 
   @Render()
@@ -39,4 +37,36 @@ export class GreetingOutComponent {
     }
   }
 
+}
+
+const GreetingOut__qualifier = 'bex:greeting-out';
+
+function GreetingOutStyle(theme: Theme): StypRules {
+
+  const settings = theme.ref(ThemeSettings).read.keep;
+  const formSettings = theme.ref(FormThemeSettings).read.keep;
+  const { root: { rules } } = theme;
+
+  rules.add(
+      { u: [':', 'host'], $: GreetingOut__qualifier },
+      formSettings.thru(inStyle),
+  )
+      .add(formSettings.thru(readonlyInStyle))
+      .add(settings.thru(greetFieldStyle));
+
+  return stypRules(
+      rules.grab({ $: GreetingOut__qualifier }),
+      theme.style(DefaultStyle),
+  );
+}
+
+export function greetFieldStyle(
+    {
+      $fontSize,
+    }: ThemeSettings,
+): StypProperties {
+  return {
+    display: 'block',
+    margin: `${$fontSize.div(2)} 0 0 0`,
+  };
 }
