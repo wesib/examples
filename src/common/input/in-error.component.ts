@@ -2,10 +2,9 @@ import { ComponentInValidity, ProduceStyle, Theme } from '@wesib/generic';
 import { AttributeChanged, Component, ComponentContext, DefaultNamespaceAliaser, Render } from '@wesib/wesib';
 import { itsEvery } from 'a-iterable';
 import { InValidation, inValidationResult } from 'input-aspects';
-import { css__naming } from 'namespace-aliaser';
-import { StypLengthPt, stypRoot, StypRules } from 'style-producer';
+import { css__naming, QualifiedName } from 'namespace-aliaser';
+import { StypLengthPt, StypRules } from 'style-producer';
 import { BEX__NS } from '../bex.ns';
-import { displayBlockCssClass } from '../theme';
 import { FormThemeSettings } from './form.theme-settings';
 
 @Component(
@@ -50,7 +49,7 @@ export class InErrorComponent {
 
     const element: Element = this._context.element;
     const hasErrorsClassName = css__naming.name(
-        displayBlockCssClass,
+        hasError__cssClass,
         this._context.get(DefaultNamespaceAliaser),
     );
 
@@ -65,19 +64,36 @@ export class InErrorComponent {
 
   @ProduceStyle()
   style(): StypRules {
-
-    const borderW = StypLengthPt.of(4, 'px');
-    const settings = this._context.get(Theme).ref(FormThemeSettings).read.keep;
-
-    return stypRoot(
-        settings.thru(({ $color, $errorFontSize }) => ({
-          display: 'none',
-          fontSize: $errorFontSize,
-          padding: $errorFontSize.div(2),
-          borderLeft: `${borderW} dotted ${$color}`,
-          paddingLeft: $errorFontSize.sub(borderW),
-        })),
-    ).rules;
+    return this._context.get(Theme).style(InErrorStyle);
   }
 
+}
+
+const InError__qualifier = 'bex:in-error';
+const hasError__cssClass: QualifiedName = ['display-block', BEX__NS];
+
+function InErrorStyle(theme: Theme): StypRules {
+
+  const settings = theme.ref(FormThemeSettings).read.keep;
+  const { root: { rules } } = theme;
+  const borderW = StypLengthPt.of(4, 'px');
+
+  rules.add(
+      { u: [':', 'host'], $: InError__qualifier },
+      settings.thru(({ $color, $errorFontSize }) => ({
+        display: 'none',
+        fontSize: $errorFontSize,
+        padding: $errorFontSize.div(2),
+        borderLeft: `${borderW} dotted ${$color}`,
+        paddingLeft: $errorFontSize.sub(borderW),
+      })),
+  );
+  rules.add(
+      { u: [':', 'host', { c: hasError__cssClass }], $: InError__qualifier },
+      {
+        display: 'block',
+      },
+  );
+
+  return rules.grab({ $: InError__qualifier });
 }
