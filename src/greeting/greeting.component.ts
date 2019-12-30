@@ -1,13 +1,12 @@
-import { ComponentNode, ElementNode, ProduceStyle, Theme } from '@wesib/generic';
+import { componentInElement, ComponentNode, ElementNode, ProduceStyle, Theme } from '@wesib/generic';
 import { BootstrapContext, Component, ComponentContext } from '@wesib/wesib';
-import { afterThe, ValueSync } from 'fun-events';
+import { ValueSync } from 'fun-events';
 import { InCssClasses, inCssInfo, InGroup, inGroup, inText, InValidation, requirePresent } from 'input-aspects';
 import { StypProperties, stypRoot, stypRules, StypRules } from 'style-producer';
 import {
   AppFeature,
   BEX__NS,
   FormThemeSettings,
-  InElementComponent,
   InputStyle,
   inStyle,
   readonlyInStyle,
@@ -15,20 +14,35 @@ import {
 } from '../common';
 import { GreetingOutComponent } from './greeting-out.component';
 
-@Component({
-  name: ['greeting', BEX__NS],
-  feature: {
-    needs: [
-      GreetingOutComponent,
-      AppFeature,
-    ],
-  },
-})
-export class GreetingComponent extends InElementComponent<InGroup<GreetData>> {
+const greetingInRef = componentInElement({
+  selector: 'input',
+  control: node => inText(node.element)
+      .setup(InValidation, validation => validation.by(requirePresent))
+      .setup(InCssClasses, classes => classes.add(inCssInfo())),
+});
+
+@Component(
+    ['greeting', BEX__NS],
+    greetingInRef,
+    {
+      feature: {
+        needs: [
+          GreetingOutComponent,
+          AppFeature,
+        ],
+      },
+    },
+)
+export class GreetingComponent {
 
   constructor(private readonly _context: ComponentContext) {
-    super(_context);
     _context.whenOn(supply => {
+
+      const greetingIn = _context.get(greetingInRef).tillOff(supply);
+      const group = inGroup<GreetData>({ name: '' });
+
+      greetingIn(name => group.controls.set('name', name))
+          .whenOff(() => group.controls.remove('name'));
 
       const node = _context.get(ComponentNode);
       const output = node.select(GreetingOutComponent, { deep: true }).first;
@@ -37,9 +51,7 @@ export class GreetingComponent extends InElementComponent<InGroup<GreetData>> {
       sync.sync(output, o => o?.attribute('name'));
       sync.sync(
           'in',
-          this.control.keep.dig_(
-              group => group ? group.controls.read : afterThe<[InGroup.Snapshot<GreetData>?]>(),
-          ),
+          group.controls.read,
           controls => controls?.get('name'),
       );
 
