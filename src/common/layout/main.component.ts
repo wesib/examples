@@ -1,7 +1,7 @@
 import { importNodeContent, Navigation, pageLoadParam, PageLoadResponse, ProduceStyle, Theme } from '@wesib/generic';
 import { BootstrapWindow, Component, ComponentContext, Render } from '@wesib/wesib';
 import { trackValue } from 'fun-events';
-import { StypProperties, stypRoot } from 'style-producer';
+import { StypProperties, StypRules } from 'style-producer';
 import { BEX__NS } from '../bex.ns';
 import { ThemeSettings } from '../theme';
 
@@ -67,16 +67,34 @@ export class MainComponent {
 
   @ProduceStyle()
   style() {
-
-    const settings = this._context.get(Theme).ref(ThemeSettings).read.keep;
-    const root = stypRoot(settings.thru(bexBodyStyle));
-
-    return root.rules;
+    return this._context.get(Theme).style(MainStyle);
   }
 
 }
 
-function bexBodyStyle(
+const Main__qualifier = 'bex:main';
+
+function MainStyle(theme: Theme): StypRules {
+
+  const settings = theme.ref(ThemeSettings).read.keep;
+  const { root: { rules } } = theme;
+
+  rules.add(
+      { u: [':', 'host'], $: [Main__qualifier] },
+      settings.thru(({ $fontSize }) => ({
+        flex: '1 1 auto',
+        margin: $fontSize,
+      })),
+  );
+  rules.add(
+      { u: [':', 'host'], $: Main__qualifier },
+      settings.thru(mainStyle),
+  );
+
+  return rules.grab({ $: Main__qualifier });
+}
+
+function mainStyle(
     {
       $fontSize,
     }: ThemeSettings,

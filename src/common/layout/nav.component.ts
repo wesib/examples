@@ -2,11 +2,9 @@ import { ComponentNode, ElementNode, Navigation, ProduceStyle, Theme } from '@we
 import { Component, ComponentContext, DefaultNamespaceAliaser } from '@wesib/wesib';
 import { afterAll, DomEventDispatcher, EventSupply } from 'fun-events';
 import { css__naming, QualifiedName } from 'namespace-aliaser';
-import { StypColor, StypLengthPt, StypProperties, stypRoot } from 'style-producer';
+import { StypColor, StypLengthPt, StypProperties, StypRules } from 'style-producer';
 import { BEX__NS } from '../bex.ns';
 import { ThemeSettings } from '../theme';
-
-const activeNavLinkClass: QualifiedName = ['nav-active', BEX__NS];
 
 @Component({
   name: ['nav', BEX__NS],
@@ -95,14 +93,7 @@ export class NavComponent {
 
   @ProduceStyle()
   style() {
-
-    const settings = this._theme.ref(ThemeSettings).read.keep;
-    const root = stypRoot(settings.thru(navStyle));
-
-    root.rules.add({ e: 'a' }, settings.thru(navLinkStyle));
-    root.rules.add({ e: 'a', c: activeNavLinkClass }, settings.thru(activeNavLinkStyle));
-
-    return root.rules;
+    return this._theme.style(NavStyle);
   }
 
 }
@@ -118,6 +109,43 @@ function dirName(url: URL): string {
   return path + '/';
 }
 
+const Nav__qualifier = 'bex:nav';
+
+function NavStyle(theme: Theme): StypRules {
+
+  const settings = theme.ref(ThemeSettings).read.keep;
+  const { root: { rules } } = theme;
+
+  rules.add(
+      { u: [':', 'host'], $: Nav__qualifier },
+      settings.thru(navStyle),
+  );
+  rules.add(
+      { u: [':', 'host'], $: Nav__qualifier },
+      settings.thru(sts => ({
+        flex: '0 1 200px',
+        height: '100%',
+        background: navLinkBackground(sts),
+      })),
+  );
+  rules.add(
+      { u: [':', 'host'], $: [Nav__qualifier, '@media:sm'] },
+      {
+        flex: '0 1 100%',
+      },
+  );
+  rules.add(
+      [{ u: [':', 'host'] }, { e: 'a', $: Nav__qualifier }],
+      settings.thru(navLinkStyle),
+  );
+  rules.add(
+      [{ u: [':', 'host'] }, { e: 'a', c: activeNavLinkClass, $: Nav__qualifier } ],
+      settings.thru(activeNavLinkStyle),
+  );
+
+  return rules.grab({ $: Nav__qualifier });
+}
+
 function navStyle(
     {
       $fontSize,
@@ -128,6 +156,8 @@ function navStyle(
     margin: `0 ${$fontSize.div(2)} 0 0`,
   };
 }
+
+const activeNavLinkClass: QualifiedName = ['nav-active', BEX__NS];
 
 export function navLinkBackground({ $bgColor }: ThemeSettings): StypColor {
   return $bgColor.hsl.set(({ l }) => ({ l: l * 0.8 }));

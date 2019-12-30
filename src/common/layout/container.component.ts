@@ -1,10 +1,10 @@
 import { ProduceStyle, Theme } from '@wesib/generic';
-import { BootstrapContext, Component, ComponentContext } from '@wesib/wesib';
-import { stypRoot, StypRules } from 'style-producer';
+import { Component, ComponentContext } from '@wesib/wesib';
+import { StypRules } from 'style-producer';
 import { BEX__NS } from '../bex.ns';
 import { mediaStyle, ThemeSettings } from '../theme';
 import { MainComponent } from './main.component';
-import { NavComponent, navLinkBackground } from './nav.component';
+import { NavComponent } from './nav.component';
 
 @Component({
   name: ['container', BEX__NS],
@@ -21,52 +21,37 @@ export class ContainerComponent {
   }
 
   @ProduceStyle()
-  async style(): Promise<StypRules> {
-
-    const bsContext = this._context.get(BootstrapContext);
-    const { elementDef: { name: navName } } = await bsContext.whenDefined(NavComponent);
-    const { elementDef: { name: mainName } } = await bsContext.whenDefined(MainComponent);
-    const theme = this._context.get(Theme);
-    const settings = theme.ref(ThemeSettings).read.keep;
-
-    const { rules } = stypRoot({
-      height: '100%',
-      display: 'flex',
-      flexFlow: 'row wrap',
-      alignItems: 'stretch',
-      alignContent: 'flex-start',
-    }).add(
-        settings.thru(mediaStyle),
-    );
-    rules.add(
-        { s: ' ', $: '@media:sm' },
-        {
-          height: 'auto',
-        },
-    );
-    rules.add(
-        { e: navName },
-        settings.thru(sts => ({
-          flex: '0 1 200px',
-          height: '100%',
-          background: navLinkBackground(sts),
-        })),
-    );
-    rules.add(
-        { e: navName, $: '@media:sm' },
-        {
-          flex: '0 1 100%',
-        },
-    );
-    rules.add(
-        { e: mainName },
-        settings.thru(({ $fontSize }) => ({
-          flex: '1 1 auto',
-          margin: $fontSize,
-        })),
-    );
-
-    return rules;
+  style(): StypRules {
+    return this._context.get(Theme).style(ContainerStyle);
   }
 
+}
+
+const Container__qualifier = 'bex:container';
+
+function ContainerStyle(theme: Theme): StypRules {
+
+  const settings = theme.ref(ThemeSettings).read.keep;
+  const { root: { rules } } = theme;
+
+  rules.add(
+      { u: [':', 'host'], $: Container__qualifier },
+      {
+        height: '100%',
+        display: 'flex',
+        flexFlow: 'row wrap',
+        alignItems: 'stretch',
+        alignContent: 'flex-start',
+      },
+  ).add(
+      settings.thru(mediaStyle),
+  );
+  rules.add(
+      { u: [':', 'host'], $: [Container__qualifier, '@media:sm'] },
+      {
+        height: 'auto',
+      },
+  );
+
+  return rules.grab({ $: Container__qualifier });
 }
