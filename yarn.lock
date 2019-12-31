@@ -690,9 +690,9 @@
   integrity sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==
 
 "@types/node@*":
-  version "13.1.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.1.1.tgz#6d11a8c2d58405b3db9388ab740106cbfa64c3c9"
-  integrity sha512-hx6zWtudh3Arsbl3cXay+JnkvVgCKzCWKv42C9J01N2T2np4h8w5X8u6Tpz5mj38kE3M9FM0Pazx8vKFFMnjLQ==
+  version "13.1.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.1.2.tgz#fe94285bf5e0782e1a9e5a8c482b1c34465fa385"
+  integrity sha512-B8emQA1qeKerqd1dmIsQYnXi+mmAzTB7flExjmy5X1aVAKFNNNDubkavwR13kR6JnpeLp3aLoJhwn9trWPAyFQ==
 
 "@types/node@^12.12.22":
   version "12.12.22"
@@ -706,10 +706,10 @@
   dependencies:
     "@types/node" "*"
 
-"@wesib/generic@^1.0.0-alpha.59":
-  version "1.0.0-alpha.59"
-  resolved "https://registry.yarnpkg.com/@wesib/generic/-/generic-1.0.0-alpha.59.tgz#36e58cdac61f107822f180993b572aa6077b9f10"
-  integrity sha512-XSkMmEo8YIz/SBcVQZkqCepVjIH/GEpqPV7ek2Hl58abochipdtQ5TnfQxE5/TsOtm3lonnUJc86aKcR9q7SVA==
+"@wesib/generic@^1.0.0-alpha.60":
+  version "1.0.0-alpha.60"
+  resolved "https://registry.yarnpkg.com/@wesib/generic/-/generic-1.0.0-alpha.60.tgz#5f2897b90533fc66e2e2664dd4de0e1260d64168"
+  integrity sha512-7gXKxzU8EUfNveTvkMvTvpeOmxhHDr0Avz0mdGLJXBNLC/biajBWncQGbSJplwbufMWIf4qy1E7J0O0eX/mgjw==
   dependencies:
     http-header-value "^2.0.2"
 

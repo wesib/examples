@@ -7,8 +7,8 @@ import { AppFeature, Examples__NS, InputStyle, ThemeSettings } from '../common';
 import { greetFieldStyle, GreetingOutComponent } from './greeting-out.component';
 
 const greetingInRef = componentInElement({
-  selector: 'input',
-  control: node => inText(node.element)
+  select: 'input',
+  build: node => inText(node.element)
       .setup(InValidation, validation => validation.by(requirePresent))
       .setup(InCssClasses, classes => classes.add(inCssInfo())),
 });
