@@ -706,17 +706,17 @@
   dependencies:
     "@types/node" "*"
 
-"@wesib/generic@^1.0.0-alpha.60":
-  version "1.0.0-alpha.60"
-  resolved "https://registry.yarnpkg.com/@wesib/generic/-/generic-1.0.0-alpha.60.tgz#5f2897b90533fc66e2e2664dd4de0e1260d64168"
-  integrity sha512-7gXKxzU8EUfNveTvkMvTvpeOmxhHDr0Avz0mdGLJXBNLC/biajBWncQGbSJplwbufMWIf4qy1E7J0O0eX/mgjw==
+"@wesib/generic@^1.0.0-alpha.61":
+  version "1.0.0-alpha.61"
+  resolved "https://registry.yarnpkg.com/@wesib/generic/-/generic-1.0.0-alpha.61.tgz#d8e2745bb3af9601ee41a7701400e98b40204cc4"
+  integrity sha512-Z0yOwA6haoMKgPSmYE0DnGEQULOxwjphO8nb9b4V36shFC4vzo6v5umICoV0CaB5rLEYlG9HQdsRw4XwwqpCFw==
   dependencies:
     http-header-value "^2.0.2"
 
-"@wesib/wesib@^1.0.0-alpha.59":
-  version "1.0.0-alpha.59"
-  resolved "https://registry.yarnpkg.com/@wesib/wesib/-/wesib-1.0.0-alpha.59.tgz#4c0af2ba599ffdea3a9c142256b03a05012d808d"
-  integrity sha512-YT6TWEz0qI7RGiAQVyRgRnU6rVnnk4Vn3fjjmDJjzhZ1GcDc+z4OTbnssvb8pKBPUVNV2CAUn77tQ675/jUR5w==
+"@wesib/wesib@^1.0.0-alpha.61":
+  version "1.0.0-alpha.61"
+  resolved "https://registry.yarnpkg.com/@wesib/wesib/-/wesib-1.0.0-alpha.61.tgz#d1d702432d022594a30e876cadcddd1aac1d470f"
+  integrity sha512-CvOcYhKAi/Y13+fCG84ffiOEHAyrwGIUkI9qYV/IVHVPqUjesGZ3TTUTjngy0+3kNen5pj3c/GbK9/MU0Ghg+A==
 
 a-iterable@^2.4.5:
   version "2.4.5"
