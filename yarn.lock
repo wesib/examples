@@ -673,9 +673,9 @@
     resolve "^1.11.1"
 
 "@rollup/pluginutils@^3.0.0", "@rollup/pluginutils@^3.0.1":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@rollup/pluginutils/-/pluginutils-3.0.2.tgz#78a8b7c614315b40784846ad0c8e67ca52385965"
-  integrity sha512-OOpWfnOaveki8sI5MEY20jCxVuKTPpIYRGa5dkN3RwEHX6LZM3HwAsT4yalds5CZAGzkCnbnOUz8rxXIyTm2yQ==
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@rollup/pluginutils/-/pluginutils-3.0.3.tgz#70666fb7d44e178c25b0d45790191d85889445d2"
+  integrity sha512-lxys3KlfYU8LOGu7+UL2upa3kM9q8ISo4EK+vSqqJCLk6N74HsUZbUFiElolh4BUsv0jeMGtYDzpNrtrShE6Gg==
   dependencies:
     estree-walker "^0.6.1"
 
@@ -701,10 +701,10 @@
   dependencies:
     "@types/node" "*"
 
-"@wesib/generic@^1.0.0-alpha.62":
-  version "1.0.0-alpha.62"
-  resolved "https://registry.yarnpkg.com/@wesib/generic/-/generic-1.0.0-alpha.62.tgz#fc6aa502a3b81175edc8cc7cbff4f148888e6caa"
-  integrity sha512-/LfqGRfcLlYeLob6F5IdH4WWlAV1IHD+mkPnCqHBIWiAgM5YWwm0E0+REimRC0UubLbD8pTQMJMpt1kijABJbg==
+"@wesib/generic@^1.0.0-alpha.64":
+  version "1.0.0-alpha.64"
+  resolved "https://registry.yarnpkg.com/@wesib/generic/-/generic-1.0.0-alpha.64.tgz#e6907233baf95204772d9d4b4a0a893fd013b2ec"
+  integrity sha512-Rj0IS88NOkGnpIdys9sWKX1uJPoB3rfVOf0QIyQVATyEBhy2U2tb+EpQcALjf5/9YaegCvX/E+B4QO2sZMbOWw==
   dependencies:
     http-header-value "^2.0.2"
 

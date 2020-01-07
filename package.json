@@ -1,6 +1,6 @@
 {
   "name": "@wesib/examples",
-  "version": "1.0.0-alpha.62",
+  "version": "1.0.0-alpha.64",
   "description": "Web component building blocks usage examples",
   "keywords": [
     "web-components",
@@ -23,7 +23,7 @@
     "@rollup/plugin-commonjs": "^11.0.1",
     "@rollup/plugin-node-resolve": "^6.1.0",
     "@types/node": "^13.1.4",
-    "@wesib/generic": "^1.0.0-alpha.62",
+    "@wesib/generic": "^1.0.0-alpha.64",
     "@wesib/wesib": "^1.0.0-alpha.62",
     "a-iterable": "^2.4.5",
     "call-thru": "^2.5.4",

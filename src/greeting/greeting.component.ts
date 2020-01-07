@@ -1,21 +1,13 @@
-import { componentInElement, ComponentNode, ElementNode, ProduceStyle, Theme } from '@wesib/generic';
+import { ComponentNode, ElementNode, inputFromControl, ProduceStyle, Theme } from '@wesib/generic';
 import { Component, ComponentContext } from '@wesib/wesib';
-import { ValueSync } from 'fun-events';
+import { eventSupply, ValueSync } from 'fun-events';
 import { InCssClasses, inCssInfo, InGroup, inGroup, inText, InValidation, requirePresent } from 'input-aspects';
 import { StypProperties, stypRules, StypRules } from 'style-producer';
 import { AppFeature, Examples__NS, InputStyle, ThemeSettings } from '../common';
 import { greetFieldStyle, GreetingOutComponent } from './greeting-out.component';
 
-const greetingInRef = componentInElement({
-  select: 'input',
-  build: node => inText(node.element)
-      .setup(InValidation, validation => validation.by(requirePresent))
-      .setup(InCssClasses, classes => classes.add(inCssInfo())),
-});
-
 @Component(
     ['greeting', Examples__NS],
-    greetingInRef,
     {
       feature: {
         needs: [
@@ -30,13 +22,29 @@ export class GreetingComponent {
   constructor(private readonly _context: ComponentContext) {
     _context.whenOn(supply => {
 
-      const greetingIn = _context.get(greetingInRef).tillOff(supply);
+      const node = _context.get(ComponentNode);
       const group = inGroup<GreetData>({ name: '' });
 
-      greetingIn(name => group.controls.set('name', name))
-          .whenOff(() => group.controls.remove('name'));
+      node.select('input', { all: true, deep: true }).first.tillOff(supply).consume(
+          nameNode => {
+            if (!nameNode) {
+              return;
+            }
 
-      const node = _context.get(ComponentNode);
+            const name = inText(nameNode.element)
+                .setup(InValidation, validation => validation.by(requirePresent))
+                .setup(InCssClasses, classes => classes.add(inCssInfo()));
+
+            group.controls.set('name', name);
+
+            return eventSupply();
+          },
+      ).whenOff(() => {
+        group.controls.remove('name');
+      });
+
+      inputFromControl(_context, group).needs(supply);
+
       const output = node.select(GreetingOutComponent, { deep: true }).first;
       const sync = new ValueSync<string | null>('');
 

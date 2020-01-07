@@ -1,4 +1,4 @@
-import { ComponentInValidity, ProduceStyle, Theme } from '@wesib/generic';
+import { inputValidity, ProduceStyle, Theme } from '@wesib/generic';
 import { AttributeChanged, Component, ComponentContext, DefaultNamespaceAliaser, Render } from '@wesib/wesib';
 import { itsEvery } from 'a-iterable';
 import { InValidation, inValidationResult } from 'input-aspects';
@@ -7,24 +7,14 @@ import { StypLengthPt, stypRules, StypRules } from 'style-producer';
 import { Examples__NS } from '../examples.ns';
 import { FormThemeSettings } from './form.theme-settings';
 
-@Component(
-    ['in-error', Examples__NS],
-    ComponentInValidity,
-)
+@Component(['in-error', Examples__NS])
 export class InErrorComponent {
 
   private _validity: InValidation.Result = inValidationResult();
   private _codes = new Set<string>();
 
   constructor(private readonly _context: ComponentContext) {
-
-    const validity = _context.get(ComponentInValidity);
-
-    _context.whenOn(supply => {
-      validity(r => this.validity = r)
-          .needs(supply)
-          .whenOff(() => this.validity = inValidationResult());
-    });
+    inputValidity(_context)(validity => this.validity = validity);
   }
 
   get validity(): InValidation.Result {
@@ -36,7 +26,7 @@ export class InErrorComponent {
     const oldValue = this._validity;
 
     this._validity = value;
-    this._context.updateState('validationResult', value, oldValue);
+    this._context.updateState('validity', value, oldValue);
   }
 
   @AttributeChanged('code')
