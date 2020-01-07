@@ -1,9 +1,10 @@
 import { ProduceStyle, Theme } from '@wesib/generic';
-import { Component, ComponentContext } from '@wesib/wesib';
+import { BootstrapContext, Component, ComponentContext } from '@wesib/wesib';
+import { QualifiedName } from 'namespace-aliaser';
 import { stypRules, StypRules } from 'style-producer';
 import { Examples__NS } from '../examples.ns';
 import { mediaStyle, ThemeSettings } from '../theme';
-import { MainComponent } from './main.component';
+import { MainComponent, mainStyle } from './main.component';
 import { NavComponent } from './nav.component';
 
 @Component({
@@ -21,37 +22,46 @@ export class ContainerComponent {
   }
 
   @ProduceStyle()
-  style(): StypRules {
-    return this._context.get(Theme).style(ContainerStyle);
+  async style(): Promise<StypRules> {
+
+    const { elementDef: { name: mainName } } = await this._context.get(BootstrapContext).whenDefined(MainComponent);
+
+    return this._context.get(Theme).style(ContainerStyle(mainName!));
   }
 
 }
 
 const Container__qualifier = 'bex:container';
 
-function ContainerStyle(theme: Theme): StypRules {
+function ContainerStyle(mainName: QualifiedName): (theme: Theme) => StypRules {
+  return theme => {
 
-  const settings = theme.ref(ThemeSettings).read.keep;
-  const { root: { rules } } = theme;
+    const settings = theme.ref(ThemeSettings).read.keep;
+    const { root: { rules } } = theme;
 
-  return stypRules(
-      rules.add(
-          { u: [':', 'host'], $: Container__qualifier },
-          {
-            height: '100%',
-            display: 'flex',
-            flexFlow: 'row wrap',
-            alignItems: 'stretch',
-            alignContent: 'flex-start',
-          },
-      ).add(
-          settings.thru(mediaStyle),
-      ),
-      rules.add(
-          { u: [':', 'host'], $: [Container__qualifier, '@media:sm'] },
-          {
-            height: 'auto',
-          },
-      ),
-  );
+    return stypRules(
+        rules.add(
+            { u: [':', 'host'], $: Container__qualifier },
+            {
+              height: '100%',
+              display: 'flex',
+              flexFlow: 'row wrap',
+              alignItems: 'stretch',
+              alignContent: 'flex-start',
+            },
+        ).add(
+            settings.thru(mediaStyle),
+        ),
+        rules.add(
+            { u: [':', 'host'], $: [Container__qualifier, '@media:sm'] },
+            {
+              height: 'auto',
+            },
+        ),
+        rules.add(
+            [{ u: [':', 'host'], $: Container__qualifier }, { e: mainName }],
+            settings.thru(mainStyle),
+        ),
+    );
+  };
 }

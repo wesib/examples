@@ -1,7 +1,7 @@
-import { importNodeContent, Navigation, pageLoadParam, PageLoadResponse, ProduceStyle, Theme } from '@wesib/generic';
+import { importNodeContent, Navigation, pageLoadParam, PageLoadResponse } from '@wesib/generic';
 import { BootstrapWindow, Component, ComponentContext, Render } from '@wesib/wesib';
 import { trackValue } from 'fun-events';
-import { StypProperties, stypRules, StypRules } from 'style-producer';
+import { StypProperties } from 'style-producer';
 import { Examples__NS } from '../examples.ns';
 import { ThemeSettings } from '../theme';
 
@@ -63,29 +63,9 @@ export class MainComponent {
     };
   }
 
-  @ProduceStyle()
-  style() {
-    return this._context.get(Theme).style(MainStyle);
-  }
-
 }
 
-const Main__qualifier = 'bex:main';
-
-function MainStyle(theme: Theme): StypRules {
-
-  const settings = theme.ref(ThemeSettings).read.keep;
-  const { root: { rules } } = theme;
-
-  return stypRules(
-      rules.add(
-          { u: [':', 'host'], $: Main__qualifier },
-          settings.thru(mainStyle),
-      ),
-  );
-}
-
-function mainStyle(
+export function mainStyle(
     {
       $fontSize,
     }: ThemeSettings,
