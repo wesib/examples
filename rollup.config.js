@@ -5,7 +5,8 @@ import path from 'path';
 import babel from 'rollup-plugin-babel';
 import sourcemaps from 'rollup-plugin-sourcemaps';
 import { terser } from 'rollup-plugin-terser';
-import typescript from 'rollup-plugin-typescript2';
+import ts from 'rollup-plugin-typescript2';
+import typescript from 'typescript';
 
 import cleanup from './build/rollup-plugin-cleanup';
 import exampleHtml from './build/rollup-plugin-example-html';
@@ -25,10 +26,11 @@ function exampleConfig(format) {
   const module = format === 'module';
   const ext = format[0];
   const plugins = [
-    typescript({
-      typescript: require('typescript'),
+    ts({
+      typescript,
       tsconfig: module ? 'tsconfig.json' : 'tsconfig.es5.json',
       cacheRoot: 'target/.rts2_cache',
+      objectHashIgnoreUnknownHack: true,
     }),
     cleanup(`./dist/**/*.${ext}.{js,js.map}`),
     commonjs(),
