@@ -1,6 +1,6 @@
 import { ComponentNode, ElementNode, inputFromControl, ProduceStyle, Theme } from '@wesib/generic';
 import { Component, ComponentContext } from '@wesib/wesib';
-import { eventSupply, ValueSync } from 'fun-events';
+import { ValueSync } from 'fun-events';
 import { InCssClasses, inCssInfo, InGroup, inGroup, inText, InValidation, requirePresent } from 'input-aspects';
 import { StypProperties, stypRules, StypRules } from 'style-producer';
 import { AppFeature, Examples__NS, InputStyle, ThemeSettings } from '../common';
@@ -25,27 +25,18 @@ export class GreetingComponent {
       const node = _context.get(ComponentNode);
       const group = inGroup<GreetData>({ name: '' });
 
-      node.select('input', { all: true, deep: true }).first.tillOff(supply).consume(
-          nameNode => {
-            if (!nameNode) {
-              return;
-            }
-
-            const name = inText(nameNode.element)
-                .setup(InValidation, validation => validation.by(requirePresent))
-                .setup(InCssClasses, classes => classes.add(inCssInfo()));
-
-            group.controls.set('name', name);
-
-            return eventSupply();
-          },
-      ).whenOff(() => {
-        group.controls.remove('name');
-      });
+      node.select('input', { all: true, deep: true }).first.tillOff(supply)(
+          nameNode => group.controls.set(
+              'name',
+              nameNode && inText(nameNode.element)
+                  .setup(InValidation, validation => validation.by(requirePresent))
+                  .setup(InCssClasses, classes => classes.add(inCssInfo())),
+          ),
+      );
 
       inputFromControl(_context, group).needs(supply);
 
-      const output = node.select(GreetingOutComponent, { deep: true }).first;
+      const output = node.select(GreetingOutComponent, { deep: true }).first.tillOff(supply);
       const sync = new ValueSync<string | null>('');
 
       sync.sync(output, o => o?.attribute('name'));
@@ -55,7 +46,11 @@ export class GreetingComponent {
           controls => controls?.get('name'),
       );
 
-      supply.whenOff(() => sync.done());
+      supply.whenOff(reason => {
+        sync.done(reason);
+        group.done(reason);
+        group.controls.set({});
+      });
     });
   }
 
