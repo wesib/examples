@@ -60,7 +60,7 @@ export class InErrorComponent {
 }
 
 const InError__qualifier = 'bex:in-error';
-const hasError__cssClass: QualifiedName = ['display-block', Examples__NS];
+const hasError__cssClass: QualifiedName = ['has-error', Examples__NS];
 
 function InErrorStyle(theme: Theme): StypRules {
 
