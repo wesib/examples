@@ -49,7 +49,7 @@ export class GreetingComponent {
       supply.whenOff(reason => {
         sync.done(reason);
         group.done(reason);
-        group.controls.set({});
+        group.controls.clear();
       });
     });
   }
