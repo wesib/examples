@@ -25,16 +25,18 @@ export class GreetingComponent {
       const node = _context.get(ComponentNode);
       const group = inGroup<GreetData>({ name: '' });
 
-      node.select('input', { all: true, deep: true }).first.tillOff(supply)(
-          nameNode => group.controls.set(
-              'name',
-              nameNode && inText(nameNode.element)
-                  .setup(InValidation, validation => validation.by(requirePresent))
-                  .setup(InCssClasses, classes => classes.add(inCssInfo())),
-          ),
-      );
+      node.select('input', { all: true, deep: true }).first.tillOff(supply).consume(
+          nameNode => {
 
-      inputFromControl(_context, group).needs(supply);
+            const name = nameNode && inText(nameNode.element)
+                .setup(InValidation, validation => validation.by(requirePresent))
+                .setup(InCssClasses, classes => classes.add(inCssInfo()));
+
+            group.controls.set('name', name);
+
+            return name && inputFromControl(_context, name);
+          },
+      );
 
       const output = node.select(GreetingOutComponent, { deep: true }).first.tillOff(supply);
       const sync = new ValueSync<string | null>('');

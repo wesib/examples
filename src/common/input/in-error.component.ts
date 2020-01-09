@@ -1,7 +1,7 @@
-import { inputValidity, ProduceStyle, Theme } from '@wesib/generic';
+import { HierarchyContext, InputFromControl, inputValidity, ProduceStyle, Theme } from '@wesib/generic';
 import { AttributeChanged, Component, ComponentContext, DefaultNamespaceAliaser, Render } from '@wesib/wesib';
 import { itsEvery } from 'a-iterable';
-import { InValidation, inValidationResult } from 'input-aspects';
+import { InCssClasses, InValidation, inValidationResult } from 'input-aspects';
 import { css__naming, QualifiedName } from 'namespace-aliaser';
 import { StypLengthPt, stypRules, StypRules } from 'style-producer';
 import { Examples__NS } from '../examples.ns';
@@ -42,6 +42,9 @@ export class InErrorComponent {
         hasError__cssClass,
         this._context.get(DefaultNamespaceAliaser),
     );
+    this._context.get(HierarchyContext).get(InputFromControl).consume(
+        ({ control }) => control?.aspect(InCssClasses).applyTo(element),
+    );
 
     return () => {
       if (itsEvery(this._codes, code => !this.validity.has(code))) {
@@ -80,7 +83,34 @@ function InErrorStyle(theme: Theme): StypRules {
           })),
       ),
       rules.add(
-          { u: [':', 'host', { c: hasError__cssClass }], $: InError__qualifier },
+          {
+            u: [
+              ':', 'host',
+              {
+                c: hasError__cssClass,
+                u: [':', 'not', { c: 'inap-has-focus' }],
+              },
+            ],
+            $: InError__qualifier,
+          },
+          {
+            display: 'block',
+          },
+      ),
+      rules.add(
+          {
+            u: [
+              ':', 'host',
+              {
+                c: hasError__cssClass,
+                u: [
+                    [':', 'not', { u: ['code', '~=', 'missing'] }],
+                    [':', 'not', { u: ['code', '~=', 'incomplete'] }],
+                ],
+              },
+            ],
+            $: InError__qualifier,
+          },
           {
             display: 'block',
           },
