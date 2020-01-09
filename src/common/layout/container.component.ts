@@ -59,7 +59,7 @@ function ContainerStyle(mainName: QualifiedName): (theme: Theme) => StypRules {
             },
         ),
         rules.add(
-            [{ u: [':', 'host'], $: Container__qualifier }, { e: mainName }],
+            [{ u: [':', 'host'], $: Container__qualifier }, { e: mainName, $: Container__qualifier }],
             settings.thru(mainStyle),
         ),
     );

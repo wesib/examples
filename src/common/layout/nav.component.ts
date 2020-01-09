@@ -134,11 +134,11 @@ function NavStyle(theme: Theme): StypRules {
           },
       ),
       rules.add(
-          [{ u: [':', 'host'] }, { e: 'a', $: Nav__qualifier }],
+          [{ u: [':', 'host'], $: Nav__qualifier }, { e: 'a', $: Nav__qualifier }],
           settings.thru(navLinkStyle),
       ),
       rules.add(
-          [{ u: [':', 'host'] }, { e: 'a', c: activeNavLinkClass, $: Nav__qualifier } ],
+          [{ u: [':', 'host'], $: Nav__qualifier }, { e: 'a', c: activeNavLinkClass, $: Nav__qualifier }],
           settings.thru(activeNavLinkStyle),
       ),
   );
