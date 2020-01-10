@@ -1,6 +1,6 @@
 import { HierarchyContext, InputFromControl, inputValidity, ProduceStyle, Theme } from '@wesib/generic';
 import { AttributeChanged, Component, ComponentContext, DefaultNamespaceAliaser, Render } from '@wesib/wesib';
-import { filterIt, itsEach, itsEvery, overEntries } from 'a-iterable';
+import { itsEvery } from 'a-iterable';
 import { DeltaSet } from 'delta-set';
 import { InCssClasses, InValidation, inValidationResult } from 'input-aspects';
 import { css__naming, QualifiedName } from 'namespace-aliaser';
@@ -18,17 +18,9 @@ export class InErrorComponent {
   constructor(private readonly _context: ComponentContext) {
     inputValidity(_context)(validity => this.validity = validity);
     this._context.get(HierarchyContext).get(InputFromControl).consume(
-        ({ control }) => control?.aspect(InCssClasses).read(map => {
-          this._cssClasses.clear();
-          itsEach(
-              filterIt(
-                  overEntries(map),
-                  ([, flag]) => !!flag,
-              ),
-              ([name]) => this._cssClasses.add(name),
-          );
-          _context.updateState('cssClasses', this._cssClasses, this._cssClasses);
-        }),
+        ({ control }) => control && control.aspect(InCssClasses).track(
+            (add, remove) => this.updateCssClasses(add, remove),
+        ),
     );
   }
 
@@ -42,6 +34,12 @@ export class InErrorComponent {
 
     this._validity = value;
     this._context.updateState('validity', value, oldValue);
+  }
+
+  updateCssClasses(add: readonly string[], remove: readonly string[]) {
+    this._cssClasses.clear();
+    this._cssClasses.delta(add, remove);
+    this._context.updateState('cssClasses', this._cssClasses, this._cssClasses);
   }
 
   @AttributeChanged('code')
