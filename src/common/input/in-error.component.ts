@@ -1,6 +1,7 @@
 import { HierarchyContext, InputFromControl, inputValidity, ProduceStyle, Theme } from '@wesib/generic';
 import { AttributeChanged, Component, ComponentContext, DefaultNamespaceAliaser, Render } from '@wesib/wesib';
-import { itsEvery } from 'a-iterable';
+import { filterIt, itsEach, itsEvery, overEntries } from 'a-iterable';
+import { DeltaSet } from 'delta-set';
 import { InCssClasses, InValidation, inValidationResult } from 'input-aspects';
 import { css__naming, QualifiedName } from 'namespace-aliaser';
 import { StypLengthPt, stypRules, StypRules } from 'style-producer';
@@ -11,10 +12,24 @@ import { FormThemeSettings } from './form.theme-settings';
 export class InErrorComponent {
 
   private _validity: InValidation.Result = inValidationResult();
+  private readonly _cssClasses = new DeltaSet<string>();
   private _codes = new Set<string>();
 
   constructor(private readonly _context: ComponentContext) {
     inputValidity(_context)(validity => this.validity = validity);
+    this._context.get(HierarchyContext).get(InputFromControl).consume(
+        ({ control }) => control?.aspect(InCssClasses).read(map => {
+          this._cssClasses.clear();
+          itsEach(
+              filterIt(
+                  overEntries(map),
+                  ([, flag]) => !!flag,
+              ),
+              ([name]) => this._cssClasses.add(name),
+          );
+          _context.updateState('cssClasses', this._cssClasses, this._cssClasses);
+        }),
+    );
   }
 
   get validity(): InValidation.Result {
@@ -38,20 +53,23 @@ export class InErrorComponent {
   render() {
 
     const element: Element = this._context.element;
+    const { classList } = element;
     const hasErrorsClassName = css__naming.name(
         hasError__cssClass,
         this._context.get(DefaultNamespaceAliaser),
     );
-    this._context.get(HierarchyContext).get(InputFromControl).consume(
-        ({ control }) => control?.aspect(InCssClasses).applyTo(element),
-    );
+    const cssDeltaReceiver: DeltaSet.DeltaReceiver<string> = {
+      add: name => classList.add(name),
+      delete: name => classList.remove(name),
+    };
 
     return () => {
       if (itsEvery(this._codes, code => !this.validity.has(code))) {
-        element.classList.remove(hasErrorsClassName);
+        classList.remove(hasErrorsClassName);
       } else {
-        element.classList.add(hasErrorsClassName);
+        classList.add(hasErrorsClassName);
       }
+      this._cssClasses.redelta(cssDeltaReceiver).undelta();
     };
   }
 
@@ -104,8 +122,8 @@ function InErrorStyle(theme: Theme): StypRules {
               {
                 c: hasError__cssClass,
                 u: [
-                    [':', 'not', { u: ['code', '~=', 'missing'] }],
-                    [':', 'not', { u: ['code', '~=', 'incomplete'] }],
+                  [':', 'not', { u: ['code', '~=', 'missing'] }],
+                  [':', 'not', { u: ['code', '~=', 'incomplete'] }],
                 ],
               },
             ],
