@@ -56,9 +56,9 @@ export class InErrorComponent {
         hasError__cssClass,
         this._context.get(DefaultNamespaceAliaser),
     );
-    const cssDeltaReceiver: DeltaSet.DeltaReceiver<string> = {
-      add: name => classList.add(name),
-      delete: name => classList.remove(name),
+    const cssDeltaReceiver: DeltaSet.DeltaReceiver<string> = (add, remove) => {
+      classList.remove(...remove);
+      classList.add(...add);
     };
 
     return () => {
