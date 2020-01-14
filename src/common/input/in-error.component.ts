@@ -37,7 +37,6 @@ export class InErrorComponent {
   }
 
   updateCssClasses(add: readonly string[], remove: readonly string[]) {
-    this._cssClasses.clear();
     this._cssClasses.delta(add, remove);
     this._context.updateState('cssClasses', this._cssClasses, this._cssClasses);
   }
@@ -56,10 +55,10 @@ export class InErrorComponent {
         hasError__cssClass,
         this._context.get(DefaultNamespaceAliaser),
     );
-    const cssDeltaReceiver: DeltaSet.DeltaReceiver<string> = (add, remove) => {
+    const updateClasses = () => this._cssClasses.redelta((add, remove) => {
       classList.remove(...remove);
       classList.add(...add);
-    };
+    }).undelta();
 
     return () => {
       if (itsEvery(this._codes, code => !this.validity.has(code))) {
@@ -67,7 +66,7 @@ export class InErrorComponent {
       } else {
         classList.add(hasErrorsClassName);
       }
-      this._cssClasses.redelta(cssDeltaReceiver).undelta();
+      updateClasses();
     };
   }
 
