@@ -1,5 +1,5 @@
 import { ComponentTreeSupport, PageLoadSupport, StyleProducerSupport, ThemeSupport } from '@wesib/generic';
-import { Feature, RenderSupport } from '@wesib/wesib';
+import { Feature } from '@wesib/wesib';
 import { ContainerComponent } from './container.component';
 
 @Feature({
@@ -7,7 +7,6 @@ import { ContainerComponent } from './container.component';
     ContainerComponent,
     ComponentTreeSupport,
     PageLoadSupport,
-    RenderSupport,
     StyleProducerSupport,
     ThemeSupport,
   ],

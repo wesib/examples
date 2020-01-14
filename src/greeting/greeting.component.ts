@@ -1,7 +1,7 @@
-import { ComponentNode, ElementNode, inputFromControl, ProduceStyle, Theme } from '@wesib/generic';
-import { Component, ComponentContext } from '@wesib/wesib';
+import { ComponentNode, inputFromControl, ProduceStyle, Theme } from '@wesib/generic';
+import { Component, ComponentContext, DefaultRenderScheduler } from '@wesib/wesib';
 import { ValueSync } from 'fun-events';
-import { InCssClasses, inCssInfo, InGroup, inGroup, inText, InValidation, requirePresent } from 'input-aspects';
+import { InCssClasses, inCssInfo, inGroup, inText, intoWrapper, InValidation, requirePresent } from 'input-aspects';
 import { StypProperties, stypRules, StypRules } from 'style-producer';
 import { AppFeature, Examples__NS, InputStyle, ThemeSettings } from '../common';
 import { greetFieldStyle, GreetingOutComponent } from './greeting-out.component';
@@ -20,6 +20,9 @@ import { greetFieldStyle, GreetingOutComponent } from './greeting-out.component'
 export class GreetingComponent {
 
   constructor(private readonly _context: ComponentContext) {
+
+    const scheduler = _context.get(DefaultRenderScheduler);
+
     _context.whenOn(supply => {
 
       const node = _context.get(ComponentNode);
@@ -29,6 +32,7 @@ export class GreetingComponent {
           nameNode => {
 
             const name = nameNode && inText(nameNode.element)
+                .convert(intoWrapper(nameNode.element, { scheduler }))
                 .setup(InValidation, validation => validation.by(requirePresent))
                 .setup(InCssClasses, classes => classes.add(inCssInfo()));
 
@@ -59,20 +63,6 @@ export class GreetingComponent {
   @ProduceStyle()
   style(): StypRules {
     return this._context.get(Theme).style(GreetingStyle);
-  }
-
-  protected nodeControl(node: ElementNode): InGroup<GreetData> {
-
-    const group = inGroup<GreetData>({ name: '' });
-
-    group.controls.set(
-        'name',
-        inText(node.element)
-            .setup(InValidation, validation => validation.by(requirePresent))
-            .setup(InCssClasses, classes => classes.add(inCssInfo())),
-    );
-
-    return group;
   }
 
 }
