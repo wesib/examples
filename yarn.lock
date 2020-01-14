@@ -1298,10 +1298,10 @@ inherits@2:
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
   integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
 
-input-aspects@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/input-aspects/-/input-aspects-1.2.1.tgz#6390128f790795f8209a36a1aeb88456a03b64e3"
-  integrity sha512-iD8V3m7RTyUU8GFSWXaNxjEmvqLbQEA8We2XcmWuP5feWXf8vO8qrgsqfCgb4HFnC08QF1A+IDJr3gaZAqj5FQ==
+input-aspects@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/input-aspects/-/input-aspects-1.2.2.tgz#8affeb31d4609f10e66e84eb8b07e13c8ee27a18"
+  integrity sha512-sVj/DU+vlkr0k8GvJDHQG9fZzqUpxxeWdFlM8GROwugjGwz+KLg8iB3kEojyz4aPOS0sesjdpKVItT5fz0jPHg==
   dependencies:
     delta-set "^1.0.0"
 
