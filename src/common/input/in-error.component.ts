@@ -1,7 +1,13 @@
 import { HierarchyContext, InputFromControl, inputValidity, ProduceStyle, Theme } from '@wesib/generic';
-import { AttributeChanged, Component, ComponentContext, DefaultNamespaceAliaser, Render } from '@wesib/wesib';
+import {
+  AttributeChanged,
+  Component,
+  ComponentContext,
+  DefaultNamespaceAliaser,
+  DefaultRenderScheduler,
+  Render,
+} from '@wesib/wesib';
 import { itsEvery } from 'a-iterable';
-import { DeltaSet } from 'delta-set';
 import { InCssClasses, InValidation, inValidationResult } from 'input-aspects';
 import { css__naming, QualifiedName } from 'namespace-aliaser';
 import { StypLengthPt, stypRules, StypRules } from 'style-producer';
@@ -12,15 +18,16 @@ import { FormThemeSettings } from './form.theme-settings';
 export class InErrorComponent {
 
   private _validity: InValidation.Result = inValidationResult();
-  private readonly _cssClasses = new DeltaSet<string>();
   private _codes = new Set<string>();
 
   constructor(private readonly _context: ComponentContext) {
     inputValidity(_context)(validity => this.validity = validity);
     this._context.get(HierarchyContext).get(InputFromControl).consume(
-        ({ control }) => control && control.aspect(InCssClasses).track(
-            (add, remove) => this.updateCssClasses(add, remove),
-        ),
+        ({ control }) => control && control.aspect(InCssClasses)
+            .applyTo(
+                _context.element,
+                _context.get(DefaultRenderScheduler)(),
+            ),
     );
   }
 
@@ -34,11 +41,6 @@ export class InErrorComponent {
 
     this._validity = value;
     this._context.updateState('validity', value, oldValue);
-  }
-
-  updateCssClasses(add: readonly string[], remove: readonly string[]) {
-    this._cssClasses.delta(add, remove);
-    this._context.updateState('cssClasses', this._cssClasses, this._cssClasses);
   }
 
   @AttributeChanged('code')
@@ -55,10 +57,6 @@ export class InErrorComponent {
         hasError__cssClass,
         this._context.get(DefaultNamespaceAliaser),
     );
-    const updateClasses = () => this._cssClasses.redelta((add, remove) => {
-      classList.remove(...remove);
-      classList.add(...add);
-    }).undelta();
 
     return () => {
       if (itsEvery(this._codes, code => !this.validity.has(code))) {
@@ -66,7 +64,6 @@ export class InErrorComponent {
       } else {
         classList.add(hasErrorsClassName);
       }
-      updateClasses();
     };
   }
 
