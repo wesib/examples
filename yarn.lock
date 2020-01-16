@@ -748,9 +748,9 @@
   integrity sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==
 
 "@types/node@*":
-  version "13.1.6"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.1.6.tgz#076028d0b0400be8105b89a0a55550c86684ffec"
-  integrity sha512-Jg1F+bmxcpENHP23sVKkNuU3uaxPnsBMW0cLjleiikFKomJQbsn0Cqk2yDvQArqzZN6ABfBkZ0To7pQ8sLdWDg==
+  version "13.1.7"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.1.7.tgz#db51d28b8dfacfe4fb2d0da88f5eb0a2eca00675"
+  integrity sha512-HU0q9GXazqiKwviVxg9SI/+t/nAsGkvLDkIdxz+ObejG2nX6Si00TeLqHMoS+a/1tjH7a8YpKVQwtgHuMQsldg==
 
 "@types/node@^12.12.24":
   version "12.12.24"
@@ -884,9 +884,9 @@ call-thru@^2.5.4:
   integrity sha512-XXooAz6cozDtII6R6xd4vhWJAlnPb5rBoOUoRgEpaV9K6SrloPy8wd6WUrrRBhcJ6kFdyY0ltVTFfzVXB6oIjw==
 
 caniuse-lite@^1.0.30001017:
-  version "1.0.30001020"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001020.tgz#3f04c1737500ffda78be9beb0b5c1e2070e15926"
-  integrity sha512-yWIvwA68wRHKanAVS1GjN8vajAv7MBFshullKCeq/eKpK7pJBVDgFFEqvgWTkcP2+wIDeQGYFRXECjKZnLkUjA==
+  version "1.0.30001021"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001021.tgz#e75ed1ef6dbadd580ac7e7720bb16f07b083f254"
+  integrity sha512-wuMhT7/hwkgd8gldgp2jcrUjOU9RXJ4XxGumQeOsUr91l3WwmM68Cpa/ymCnWEDqakwFXhuDQbaKNHXBPgeE9g==
 
 chalk@^2.0.0, chalk@^2.3.0, chalk@^2.4.1:
   version "2.4.2"
@@ -996,10 +996,10 @@ define-properties@^1.1.2, define-properties@^1.1.3:
   dependencies:
     object-keys "^1.0.12"
 
-delta-set@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/delta-set/-/delta-set-1.0.0.tgz#7b731c2e3adf3205d2c207b1ea964fef9dda9b35"
-  integrity sha512-8t+dqJ6YKfZIVVqWMZY+8Q8AIIGTq4Fwl5wV0P0giEQscNZOSBnVZyG61rojMEE5TBX0erjHq874Yzm2mv1brg==
+delta-set@^1.0.0, delta-set@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/delta-set/-/delta-set-1.1.0.tgz#ee38c2911ab6ca46a016433e9c3c46c9652a323a"
+  integrity sha512-5ibjVolI89ULpOUQzkk3MQlBYuYMnlOWNBbFcAEC5EWzXBaTvd5jXRBcWnjvQoEpShMYApiwjQUjvqBD1ABuwQ==
 
 diff@^4.0.1:
   version "4.0.2"
@@ -1017,9 +1017,9 @@ ecstatic@^3.3.2:
     url-join "^2.0.5"
 
 electron-to-chromium@^1.3.322:
-  version "1.3.333"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.333.tgz#b835de183afbaaf8655a14f542db06d67a00cba1"
-  integrity sha512-7MJfCpa/tmhqYy2lZ1NEbkSxH7q3KiZiepiSs2ayTPAweAjdzGXotij+7OKPPb3OwJD2ZuBKPrA2HIuuSi6ahw==
+  version "1.3.335"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.335.tgz#5fb6084a25cb1e2542df91e62b62e1931a602303"
+  integrity sha512-ngKsDGd/xr2lAZvilxTfdvfEiQKmavyXd6irlswaHnewmXoz6JgbM9FUNwgp3NFIUHHegh1F87H8f5BJ8zABxw==
 
 email-addresses@^3.0.1:
   version "3.1.0"
@@ -1034,9 +1034,9 @@ error-ex@^1.3.1:
     is-arrayish "^0.2.1"
 
 es-abstract@^1.17.0-next.1:
-  version "1.17.0"
-  resolved "https://registry.yarnpkg.com/es-abstract/-/es-abstract-1.17.0.tgz#f42a517d0036a5591dbb2c463591dc8bb50309b1"
-  integrity sha512-yYkE07YF+6SIBmg1MsJ9dlub5L48Ek7X0qz+c/CPCHS9EBXfESorzng4cJQjJW5/pB6vDF41u7F8vUhLVDqIug==
+  version "1.17.2"
+  resolved "https://registry.yarnpkg.com/es-abstract/-/es-abstract-1.17.2.tgz#965b10af56597b631da15872c17a405e86c1fd46"
+  integrity sha512-YoKuru3Lyoy7yVTBSH2j7UxTqe/je3dWAruC0sHvZX1GNd5zX8SSLvQqEgO9b3Ex8IW+goFI9arEEsFIbulhOw==
   dependencies:
     es-to-primitive "^1.2.1"
     function-bind "^1.1.1"
@@ -1796,10 +1796,10 @@ regjsparser@^0.6.0:
   dependencies:
     jsesc "~0.5.0"
 
-render-scheduler@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/render-scheduler/-/render-scheduler-1.0.3.tgz#ce3021ed51e98b551b807af12723af9cdaedba91"
-  integrity sha512-zDiwWb1Warl8JaNRac/0NmopPLmmJPkesKQ0Fqvb8EcFoqkx6DzsWJwHbrPaeCPhrHbWQFugiV6oYgVEGybKCA==
+render-scheduler@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/render-scheduler/-/render-scheduler-1.0.5.tgz#6be509656fc6c5ba3b077fe6fc5c124e668057d2"
+  integrity sha512-IVukddRSA4//LmU4XO0iaesd/S1QhvhdnAn9HEgmmKT48cfjlWEpAMO3cp6bRcVt57G13/IdhNemSHMJSSP3aw==
 
 requires-port@^1.0.0:
   version "1.0.0"

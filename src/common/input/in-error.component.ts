@@ -45,7 +45,7 @@ export class InErrorComponent {
 
   @AttributeChanged('code')
   setCode(code: string) {
-    this._codes = new Set(code.trim().split(/\s+/));
+    this._codes = new Set(code ? code.trim().split(/\s+/) : []);
   }
 
   @Render()
@@ -59,10 +59,10 @@ export class InErrorComponent {
     );
 
     return () => {
-      if (itsEvery(this._codes, code => !this.validity.has(code))) {
-        classList.remove(hasErrorsClassName);
-      } else {
+      if (itsEvery(this._codes, code => this.validity.has(code))) {
         classList.add(hasErrorsClassName);
+      } else {
+        classList.remove(hasErrorsClassName);
       }
     };
   }
