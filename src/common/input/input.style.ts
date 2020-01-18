@@ -1,4 +1,5 @@
 import { Theme } from '@wesib/generic';
+import { InputAspects__NS } from 'input-aspects';
 import { mixStypColors, StypProperties, stypRules, StypRules } from 'style-producer';
 import { FormThemeSettings } from './form.theme-settings';
 
@@ -12,9 +13,40 @@ export function InputStyle(theme: Theme): StypRules {
       rules.add({ e: 'input', s: '[readonly]' }, formSettings.thru(readonlyInStyle)),
       rules.add({ e: 'input', s: '[disabled]' }, formSettings.thru(readonlyInStyle)),
       rules.add({ e: 'input', s: ':focus' }, formSettings.thru(focusedInStyle)),
-      rules.add({ e: 'input', c: ['inap-invalid', 'inap-touched'] }, formSettings.thru(invalidInStyle)),
-      rules.add({ e: 'input', c: ['inap-missing', 'inap-touched'] }, { outlineStyle: 'dotted' }),
-      rules.add({ e: 'input', c: ['inap-incomplete', 'inap-touched'] }, { outlineStyle: 'dotted' }),
+      rules.add(
+          {
+            e: 'input',
+            c: [
+              ['invalid', InputAspects__NS],
+              ['touched', InputAspects__NS],
+            ],
+          },
+          formSettings.thru(invalidInStyle),
+      ),
+      rules.add(
+          {
+            e: 'input',
+            c: [
+              ['missing', InputAspects__NS],
+              ['touched', InputAspects__NS],
+            ],
+          },
+          {
+            outlineStyle: 'dotted',
+          },
+      ),
+      rules.add(
+          {
+            e: 'input',
+            c: [
+              ['incomplete', InputAspects__NS],
+              ['touched', InputAspects__NS],
+            ],
+          },
+          {
+            outlineStyle: 'dotted',
+          },
+      ),
   );
 }
 

@@ -1,7 +1,7 @@
-import { ComponentNode, inputFromControl, ProduceStyle, Theme } from '@wesib/generic';
-import { Component, ComponentContext, DefaultRenderScheduler } from '@wesib/wesib';
-import { ValueSync } from 'fun-events';
-import { InCssClasses, inCssInfo, inGroup, inText, intoWrapper, InValidation, requirePresent } from 'input-aspects';
+import { ComponentNode, DefaultInAspects, inputFromControl, ProduceStyle, Theme } from '@wesib/generic';
+import { Component, ComponentContext } from '@wesib/wesib';
+import { afterAll, ValueSync } from 'fun-events';
+import { InCssClasses, inCssInfo, inGroup, InStyledElement, inText, InValidation, requirePresent } from 'input-aspects';
 import { StypProperties, stypRules, StypRules } from 'style-producer';
 import { AppFeature, Examples__NS, InputStyle, ThemeSettings } from '../common';
 import { greetFieldStyle, GreetingOutComponent } from './greeting-out.component';
@@ -20,19 +20,19 @@ import { greetFieldStyle, GreetingOutComponent } from './greeting-out.component'
 export class GreetingComponent {
 
   constructor(private readonly _context: ComponentContext) {
-
-    const scheduler = _context.get(DefaultRenderScheduler);
-
     _context.whenOn(supply => {
 
       const node = _context.get(ComponentNode);
       const group = inGroup<GreetData>({ name: '' });
 
-      node.select('input', { all: true, deep: true }).first.tillOff(supply).consume(
-          nameNode => {
+      afterAll({
+        name: node.select('input', { all: true, deep: true }).first,
+        aspects: _context.get(DefaultInAspects),
+      }).tillOff(supply).consume(
+          ({ name: [nameNode], aspects: [aspects] }) => {
 
             const name = nameNode && inText(nameNode.element)
-                .convert(intoWrapper(nameNode.element, { scheduler }))
+                .convert(aspects, InStyledElement.to(nameNode.element))
                 .setup(InValidation, validation => validation.by(requirePresent))
                 .setup(InCssClasses, classes => classes.add(inCssInfo()));
 

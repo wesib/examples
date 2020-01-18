@@ -8,7 +8,7 @@ import {
   Render,
 } from '@wesib/wesib';
 import { itsEvery } from 'a-iterable';
-import { InCssClasses, InValidation, inValidationResult } from 'input-aspects';
+import { InCssClasses, InputAspects__NS, InValidation, inValidationResult } from 'input-aspects';
 import { css__naming, QualifiedName } from 'namespace-aliaser';
 import { StypLengthPt, stypRules, StypRules } from 'style-producer';
 import { Examples__NS } from '../examples.ns';
@@ -100,7 +100,7 @@ function InErrorStyle(theme: Theme): StypRules {
               ':', 'host',
               {
                 c: hasError__cssClass,
-                u: [':', 'not', { c: 'inap-has-focus' }],
+                u: [':', 'not', { c: ['has-focus', InputAspects__NS] }],
               },
             ],
             $: InError__qualifier,
