@@ -52,6 +52,7 @@
     "typescript": "^3.7.5"
   },
   "scripts": {
+    "build:all": "run-p rebuild lint",
     "build:bundle": "rollup --config ./rollup.config.js",
     "build:copy-assets": "node ./build/copy-assets.js",
     "build": "run-p build:bundle build:copy-assets",
@@ -59,7 +60,7 @@
     "lint": "tslint -p .",
     "rebuild": "run-s clean build",
     "site:gh-pages": "gh-pages --dist dist --dotfiles",
-    "site:publish": "run-s rebuild \"site:gh-pages {@}\" --",
+    "site:publish": "run-s all \"site:gh-pages {@}\" --",
     "start": "http-server ./dist -d false -p 4200"
   }
 }
