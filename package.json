@@ -52,10 +52,10 @@
     "typescript": "^3.7.5"
   },
   "scripts": {
+    "build": "run-p build:bundle build:copy-assets",
     "build:all": "run-p rebuild lint",
     "build:bundle": "rollup --config ./rollup.config.js",
     "build:copy-assets": "node ./build/copy-assets.js",
-    "build": "run-p build:bundle build:copy-assets",
     "clean": "node ./build/clean",
     "lint": "tslint -p .",
     "rebuild": "run-s clean build",
