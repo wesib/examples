@@ -1,7 +1,7 @@
 {
   "name": "@wesib/examples",
-  "version": "1.0.0-alpha.66",
-  "description": "Web component building blocks usage examples",
+  "version": "1.0.0-alpha.67",
+  "description": "Wesib Examples",
   "keywords": [
     "web-components",
     "examples"
@@ -23,11 +23,11 @@
     "@rollup/plugin-commonjs": "^11.0.1",
     "@rollup/plugin-node-resolve": "^7.0.0",
     "@types/node": "^12.12.24",
-    "@wesib/generic": "^1.0.0-alpha.66",
-    "@wesib/wesib": "^1.0.0-alpha.66",
+    "@wesib/generic": "^1.0.0-alpha.67",
+    "@wesib/wesib": "^1.0.0-alpha.67",
     "a-iterable": "^2.4.5",
     "call-thru": "^2.5.4",
-    "context-values": "^2.1.1",
+    "context-values": "^2.2.1",
     "delta-set": "^1.1.0",
     "fs-extra": "^8.1.0",
     "fun-events": "^7.0.3",
