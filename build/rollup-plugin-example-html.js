@@ -2,7 +2,7 @@ import handlebars from 'handlebars';
 import fs from 'fs-extra';
 import '../src/template/index.ts';
 
-const namePattern = /([^\/\\]+)[\/\\]([^\/]+\.js)$/;
+const namePattern = /([^/\\]+)[/\\]([^/]+\.js)$/;
 const rev = Date.now().toString(32);
 const dist = './dist';
 
@@ -14,7 +14,7 @@ class Result {
 
   async partGenerated(format, name) {
 
-    const [_, example, file] = namePattern.exec(name);
+    const [, example, file] = namePattern.exec(name);
 
     if (example === 'js') {
       return; // Common chunk
@@ -51,18 +51,18 @@ export default {
   generateBundle({ format }, bundle) {
     return Promise.all(Object.keys(bundle).map(name => result.partGenerated(format, name)));
   },
-}
+};
 
 async function generateExampleHtml(
     example,
     parts,
     {
       output = `${dist}/${example}/index.html`,
-      base = '..'
+      base = '..',
     } = {},
 ) {
 
-  const input =`./src/${example}/index.html`;
+  const input = `./src/${example}/index.html`;
 
   console.log('Generating HTML', input, '->', output);
 

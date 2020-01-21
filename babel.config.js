@@ -3,12 +3,12 @@ module.exports = function (api) {
   return {
     presets: [
       [
-        "@babel/preset-env",
+        '@babel/preset-env',
         {
-          "modules": false,
-          "targets": "last 2 versions, ie 11"
-        }
-      ]
+          modules: false,
+          targets: 'last 2 versions, ie 11',
+        },
+      ],
     ],
-  }
+  };
 };

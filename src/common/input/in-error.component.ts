@@ -46,12 +46,12 @@ export class InErrorComponent {
   }
 
   @AttributeChanged('code')
-  setCode(code: string) {
+  setCode(code: string): void {
     this._codes.it = code ? code.trim().split(/\s+/) : [];
   }
 
   @ProduceStyle()
-  style(): StypRules {
+  style(): StypRules.Source {
     return this._context.get(Theme).style(InErrorStyle);
   }
 
@@ -80,7 +80,8 @@ function InErrorStyle(theme: Theme): StypRules {
       rules.add(
           {
             u: [
-              ':', 'host',
+              ':',
+              'host',
               {
                 c: [hasError__cssClass, ['touched', InputAspects__NS]],
                 u: [':', 'not', { c: ['has-focus', InputAspects__NS] }],
@@ -95,7 +96,8 @@ function InErrorStyle(theme: Theme): StypRules {
       rules.add(
           {
             u: [
-              ':', 'host',
+              ':',
+              'host',
               {
                 c: hasError__cssClass,
                 u: [

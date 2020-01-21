@@ -1,5 +1,13 @@
 import { ProduceStyle, Theme } from '@wesib/generic';
-import { AttachShadow, Attribute, BootstrapWindow, Component, ComponentContext, Render } from '@wesib/wesib';
+import {
+  AttachShadow,
+  Attribute,
+  BootstrapWindow,
+  Component,
+  ComponentContext,
+  ElementRender,
+  Render,
+} from '@wesib/wesib';
 import { StypProperties, stypRules, StypRules } from 'style-producer';
 import { DefaultStyle, Examples__NS, FormThemeSettings, inStyle, readonlyInStyle, ThemeSettings } from '../common';
 
@@ -19,22 +27,22 @@ export class GreetingOutComponent {
   }
 
   @Render()
-  render() {
+  render(): ElementRender {
 
-    const self = this;
     const document = this._context.get(BootstrapWindow).document;
     const content = document.createElement('span');
+    const greetings = (): string => {
+
+      const name = this.name?.trim();
+
+      return name ? `Hello, ${name}!` : 'Hello!';
+    };
 
     this._context.contentRoot.append(content);
 
-    return () => content.innerText = greetings();
-
-    function greetings() {
-
-      const name = self.name?.trim();
-
-      return name ? `Hello, ${name}!` : 'Hello!';
-    }
+    return () => {
+      content.innerText = greetings();
+    };
   }
 
 }

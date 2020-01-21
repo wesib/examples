@@ -6,6 +6,8 @@ import { StypColor, StypLengthPt, StypProperties, stypRules, StypRules } from 's
 import { Examples__NS } from '../examples.ns';
 import { ThemeSettings } from '../theme';
 
+const activeNavLinkClass: QualifiedName = ['nav-active', Examples__NS];
+
 @Component(['nav', Examples__NS])
 export class NavComponent {
 
@@ -90,7 +92,7 @@ export class NavComponent {
   }
 
   @ProduceStyle()
-  style() {
+  style(): StypRules.Source {
     return this._theme.style(NavStyle);
   }
 
@@ -154,8 +156,6 @@ function navStyle(
     margin: `0 ${$fontSize.div(2)} 0 0`,
   };
 }
-
-const activeNavLinkClass: QualifiedName = ['nav-active', Examples__NS];
 
 export function navLinkBackground({ $bgColor }: ThemeSettings): StypColor {
   return $bgColor.hsl.set(({ l }) => ({ l: l * 0.8 }));

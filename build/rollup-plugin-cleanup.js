@@ -1,5 +1,5 @@
-import glob from "glob";
-import fs from "fs-extra";
+import glob from 'glob';
+import fs from 'fs-extra';
 
 export default function cleanup(what) {
 

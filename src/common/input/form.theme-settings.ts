@@ -39,7 +39,7 @@ function formMappings(
         $fontWeight,
       },
     }: {
-      global: ThemeSettings,
+      global: ThemeSettings;
     },
 ): StypMapper.Mappings<FormThemeSettings> {
   return {

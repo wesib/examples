@@ -77,7 +77,7 @@ function exampleConfig(format) {
       dir: './dist',
       sourcemap: true,
       entryFileNames: `[name]/main.[hash].${ext}.js`,
-      chunkFileNames: `js/[name].[hash].${ext}.js`
+      chunkFileNames: `js/[name].[hash].${ext}.js`,
     },
   };
 }

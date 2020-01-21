@@ -1,5 +1,5 @@
 import { importNodeContent, Navigation, pageLoadParam, PageLoadResponse } from '@wesib/generic';
-import { BootstrapWindow, Component, ComponentContext, Render } from '@wesib/wesib';
+import { BootstrapWindow, Component, ComponentContext, ElementRender, Render } from '@wesib/wesib';
 import { trackValue } from 'fun-events';
 import { StypProperties } from 'style-producer';
 import { Examples__NS } from '../examples.ns';
@@ -32,7 +32,7 @@ export class MainComponent {
   }
 
   @Render()
-  render() {
+  render(): ElementRender {
 
     const document = this._context.get(BootstrapWindow).document;
     const range = document.createRange();
