@@ -56,6 +56,7 @@
     "typescript": "^3.7.5"
   },
   "scripts": {
+    "all": "run-p build:all",
     "build": "run-p build:bundle build:copy-assets",
     "build:all": "run-p rebuild lint",
     "build:bundle": "rollup --config ./rollup.config.js",
