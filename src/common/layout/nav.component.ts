@@ -1,6 +1,8 @@
-import { ComponentNode, ElementNode, Navigation, ProduceStyle, Theme } from '@wesib/generic';
+import { ComponentNode, ElementNode, Navigation } from '@wesib/generic';
+import { ProduceStyle, Theme } from '@wesib/generic/styp';
 import { Component, ComponentContext, DefaultNamespaceAliaser } from '@wesib/wesib';
-import { afterAll, DomEventDispatcher, EventSupply } from 'fun-events';
+import { afterAll, EventSupply } from 'fun-events';
+import { DomEventDispatcher } from 'fun-events/dom';
 import { css__naming, QualifiedName } from 'namespace-aliaser';
 import { StypColor, StypLengthPt, StypProperties, stypRules, StypRules } from 'style-producer';
 import { Examples__NS } from '../examples.ns';

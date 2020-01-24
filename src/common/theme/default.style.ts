@@ -1,4 +1,4 @@
-import { Theme } from '@wesib/generic';
+import { Theme } from '@wesib/generic/styp';
 import { StypProperties, stypRules, StypRules } from 'style-producer';
 import { LinkStyle } from './link.style';
 import { mediaStyle, ThemeSettings } from './theme-settings';

@@ -1,4 +1,4 @@
-import { ProduceStyle, Theme } from '@wesib/generic';
+import { ProduceStyle, Theme } from '@wesib/generic/styp';
 import { BootstrapContext, Component, ComponentContext } from '@wesib/wesib';
 import { QualifiedName } from 'namespace-aliaser';
 import { stypRules, StypRules } from 'style-producer';

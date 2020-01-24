@@ -1,4 +1,6 @@
-import { ComponentNode, DefaultInAspects, inputFromControl, ProduceStyle, Theme } from '@wesib/generic';
+import { ComponentNode } from '@wesib/generic';
+import { DefaultInAspects, inputFromControl } from '@wesib/generic/input';
+import { ProduceStyle, Theme } from '@wesib/generic/styp';
 import { Component, ComponentContext } from '@wesib/wesib';
 import { afterAll, ValueSync } from 'fun-events';
 import { InCssClasses, inCssInfo, inGroup, InStyledElement, inText, InValidation, requirePresent } from 'input-aspects';

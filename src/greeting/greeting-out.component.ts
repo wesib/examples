@@ -1,4 +1,4 @@
-import { ProduceStyle, Theme } from '@wesib/generic';
+import { ProduceStyle, Theme } from '@wesib/generic/styp';
 import {
   AttachShadow,
   Attribute,

@@ -1,4 +1,5 @@
-import { ComponentTreeSupport, ThemeSupport } from '@wesib/generic';
+import { ComponentTreeSupport } from '@wesib/generic';
+import { ThemeSupport } from '@wesib/generic/styp';
 import { Feature } from '@wesib/wesib';
 import { InErrorComponent } from './in-error.component';
 

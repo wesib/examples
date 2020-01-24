@@ -1,4 +1,4 @@
-import { Theme, ThemeSupport } from '@wesib/generic';
+import { Theme, ThemeSupport } from '@wesib/generic/styp';
 import { Feature } from '@wesib/wesib';
 import { produceBasicStyle } from 'style-producer';
 import { BodyStyle } from './body.style';

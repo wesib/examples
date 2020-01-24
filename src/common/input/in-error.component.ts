@@ -1,4 +1,6 @@
-import { DefaultInAspects, HierarchyContext, InputFromControl, ProduceStyle, Theme } from '@wesib/generic';
+import { HierarchyContext } from '@wesib/generic';
+import { DefaultInAspects, InputFromControl } from '@wesib/generic/input';
+import { ProduceStyle, Theme } from '@wesib/generic/styp';
 import { AttributeChanged, Component, ComponentContext } from '@wesib/wesib';
 import { afterAll, eventSupply, trackValue } from 'fun-events';
 import { InCssClasses, inCssError, inCssInfo, InputAspects__NS, InStyledElement } from 'input-aspects';

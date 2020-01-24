@@ -76,6 +76,7 @@ function exampleConfig(format) {
       format: module ? 'esm' : 'system',
       dir: './dist',
       sourcemap: true,
+      compact: true,
       entryFileNames: `[name]/main.[hash].${ext}.js`,
       chunkFileNames: `js/[name].[hash].${ext}.js`,
     },

@@ -1,4 +1,4 @@
-import { Theme } from '@wesib/generic';
+import { Theme } from '@wesib/generic/styp';
 import { InputAspects__NS } from 'input-aspects';
 import { mixStypColors, StypProperties, stypRules, StypRules } from 'style-producer';
 import { FormThemeSettings } from './form.theme-settings';
