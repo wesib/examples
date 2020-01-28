@@ -79,6 +79,7 @@ function exampleConfig(format) {
       compact: true,
       entryFileNames: `[name]/main.[hash].${ext}.js`,
       chunkFileNames: `js/[name].[hash].${ext}.js`,
+      hoistTransitiveImports: false,
     },
   };
 }
