@@ -20,7 +20,7 @@ class Result {
       return; // Common chunk
     }
 
-    const isTitle = example === 'title';
+    const isHome = example === 'home';
     const parts = this._examples[example] || (this._examples[example] = {});
     const part = format === 'es' || format === 'esm' ? 'module' : 'system';
 
@@ -32,7 +32,7 @@ class Result {
       await generateExampleHtml(
           example,
           parts,
-          isTitle
+          isHome
               ? {
                 output: `${dist}/index.html`,
                 base: '.',

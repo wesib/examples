@@ -13,7 +13,7 @@ import exampleHtml from './build/rollup-plugin-example-html';
 
 const examples = [
   'greeting',
-  'title',
+  'home',
 ];
 
 export default [
