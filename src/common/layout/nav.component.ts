@@ -1,96 +1,21 @@
-import { ComponentNode, ElementNode, Navigation } from '@wesib/generic';
+import { ActivateNavLink, HandleNavLinks } from '@wesib/generic';
 import { ProduceStyle, Theme } from '@wesib/generic/styp';
-import { Component, ComponentContext, DefaultNamespaceAliaser } from '@wesib/wesib';
-import { afterAll, EventSupply } from 'fun-events';
-import { DomEventDispatcher } from 'fun-events/dom';
-import { css__naming, QualifiedName } from 'namespace-aliaser';
+import { Component, ComponentContext, Wesib__NS } from '@wesib/wesib';
 import { StypColor, StypLengthPt, StypProperties, stypRules, StypRules } from 'style-producer';
 import { Examples__NS } from '../examples.ns';
 import { ThemeSettings } from '../theme';
 
-const activeNavLinkClass: QualifiedName = ['nav-active', Examples__NS];
-
-@Component(['nav', Examples__NS])
+@Component(
+    ['nav', Examples__NS],
+    HandleNavLinks(),
+    ActivateNavLink(),
+)
 export class NavComponent {
 
   private readonly _theme: Theme;
 
   constructor(context: ComponentContext) {
     this._theme = context.get(Theme);
-
-    const nsAlias = context.get(DefaultNamespaceAliaser);
-    const activeClass = css__naming.name(activeNavLinkClass, nsAlias);
-    const node = context.get(ComponentNode);
-    const navigation = context.get(Navigation);
-
-    context.whenOn(supply => {
-
-      const navLinks = node.select('a', { all: true });
-      const linkSupplies = new Map<ElementNode, EventSupply>();
-
-      navLinks.track.tillOff(supply)((added, removed) => {
-        removed.forEach(link => {
-
-          const linkSupply = linkSupplies.get(link);
-
-          if (linkSupply) {
-            linkSupplies.delete(link);
-            linkSupply.off();
-          }
-        });
-        added.forEach(
-            link => {
-
-              const element: Element = link.element;
-              const linkSupply = new DomEventDispatcher(element)
-                  .on('click')
-                  .instead(() => {
-                    if (!element.classList.contains(activeClass)) {
-                      navigation.open(element.getAttribute('href') || '');
-                    }
-                  })
-                  .needs(supply);
-
-              linkSupplies.set(link, linkSupply);
-            },
-        );
-      });
-      afterAll({
-        links: navLinks,
-        page: navigation,
-      })({
-        supply,
-        receive(
-            _ctx,
-            {
-              links: [links],
-              page: [page],
-            },
-        ) {
-
-          const pageDir = dirName(page.url);
-          let activeElement: Element | undefined;
-          let activeDir = '';
-
-          links.forEach(link => {
-
-            const element: HTMLAnchorElement = link.element;
-            const linkDir = dirName(new URL(element.href));
-
-            element.classList.remove(activeClass);
-
-            if (pageDir.startsWith(linkDir) && activeDir.length < linkDir.length) {
-              activeElement = element;
-              activeDir = linkDir;
-            }
-          });
-
-          if (activeElement) {
-            activeElement.classList.add(activeClass);
-          }
-        },
-      });
-    });
   }
 
   @ProduceStyle()
@@ -98,17 +23,6 @@ export class NavComponent {
     return this._theme.style(NavStyle);
   }
 
-}
-
-function dirName(url: URL): string {
-
-  const path = url.pathname;
-
-  if (path.endsWith('/')) {
-    return path;
-  }
-
-  return path + '/';
 }
 
 const Nav__qualifier = 'bex:nav';
@@ -142,7 +56,7 @@ function NavStyle(theme: Theme): StypRules {
           settings.thru(navLinkStyle),
       ),
       rules.add(
-          [{ u: [':', 'host'], $: Nav__qualifier }, { e: 'a', c: activeNavLinkClass, $: Nav__qualifier }],
+          [{ u: [':', 'host'], $: Nav__qualifier }, { e: 'a', c: ['active', Wesib__NS], $: Nav__qualifier }],
           settings.thru(activeNavLinkStyle),
       ),
   );
