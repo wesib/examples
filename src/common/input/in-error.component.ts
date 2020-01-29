@@ -1,55 +1,48 @@
-import { HierarchyContext } from '@wesib/generic';
-import { DefaultInAspects, InputFromControl } from '@wesib/generic/input';
+import { ConvertInput } from '@wesib/generic/input';
 import { ProduceStyle, Theme } from '@wesib/generic/styp';
-import { AttributeChanged, Component, ComponentContext } from '@wesib/wesib';
-import { afterAll, eventSupply, trackValue } from 'fun-events';
+import { attributePathTo, Attributes, Component, ComponentContext, ComponentState } from '@wesib/wesib';
+import { AfterEvent, afterSupplied } from 'fun-events';
 import { InCssClasses, inCssError, inCssInfo, InputAspects__NS, InStyledElement } from 'input-aspects';
 import { QualifiedName } from 'namespace-aliaser';
 import { StypLengthPt, stypRules, StypRules } from 'style-producer';
 import { Examples__NS } from '../examples.ns';
 import { FormThemeSettings } from './form.theme-settings';
 
-@Component(['in-error', Examples__NS])
-export class InErrorComponent {
+@Component(
+    ['in-error', Examples__NS],
+    Attributes('code'),
+    ConvertInput(
+        ({ control: { control }, aspects, context }) => {
 
-  private readonly _codes = trackValue<string[]>();
-
-  constructor(private readonly _context: ComponentContext) {
-    afterAll({
-      control: this._context.get(HierarchyContext).get(InputFromControl),
-      aspects: this._context.get(DefaultInAspects),
-      when: this._codes,
-    }).consume(
-        ({
-          control: [{ control }],
-          aspects: [aspects],
-          when: [when],
-        }) => {
-          if (!control) {
-            return;
-          }
-
-          const supply = eventSupply();
-
-          control.convert(
-              InStyledElement.to(_context.element),
-              aspects,
-          ).setup(
-              InCssClasses,
-              cssClasses => {
-                cssClasses.add(inCssInfo()).needs(supply);
-                cssClasses.add(inCssError({ when })).needs(supply);
-              },
+          const { element }: { element: Element } = context;
+          const codes: AfterEvent<[string[]]> = afterSupplied<[string | null]>(
+              context.get(ComponentState)
+                  .track(attributePathTo('code'))
+                  .onUpdate
+                  .thru_((_path, newValue: string) => newValue),
+              () => [element.getAttribute('code')],
+          ).keep.thru_(
+              code => code ? code.trim().split(/\s+/) : [],
           );
 
-          return supply;
+          return codes.keep.thru(
+              when => control.convert(
+                  InStyledElement.to(context.element),
+                  aspects,
+              ).setup(
+                  InCssClasses,
+                  cssClasses => {
+                    cssClasses.add(inCssInfo());
+                    cssClasses.add(inCssError({ when }));
+                  },
+              ),
+          );
         },
-    );
-  }
+    ),
+)
+export class InErrorComponent {
 
-  @AttributeChanged('code')
-  setCode(code: string): void {
-    this._codes.it = code ? code.trim().split(/\s+/) : [];
+  constructor(private readonly _context: ComponentContext) {
   }
 
   @ProduceStyle()
