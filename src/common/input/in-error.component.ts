@@ -1,7 +1,7 @@
 import { ConvertInput } from '@wesib/generic/input';
 import { ProduceStyle, Theme } from '@wesib/generic/styp';
-import { attributePathTo, Attributes, Component, ComponentContext, ComponentState } from '@wesib/wesib';
-import { AfterEvent, afterSupplied } from 'fun-events';
+import { Attributes, Component, ComponentContext, trackAttribute } from '@wesib/wesib';
+import { AfterEvent } from 'fun-events';
 import { InCssClasses, inCssError, inCssInfo, InputAspects__NS, InStyledElement } from 'input-aspects';
 import { QualifiedName } from 'namespace-aliaser';
 import { StypLengthPt, stypRules, StypRules } from 'style-producer';
@@ -14,16 +14,10 @@ import { FormThemeSettings } from './form.theme-settings';
     ConvertInput(
         ({ control: { control }, aspects, context }) => {
 
-          const { element }: { element: Element } = context;
-          const codes: AfterEvent<[string[]]> = afterSupplied<[string | null]>(
-              context.get(ComponentState)
-                  .track(attributePathTo('code'))
-                  .onUpdate
-                  .thru_((_path, newValue: string) => newValue),
-              () => [element.getAttribute('code')],
-          ).keep.thru_(
-              code => code ? code.trim().split(/\s+/) : [],
-          );
+          const codes: AfterEvent<[string[]]> = trackAttribute(context, 'code')
+              .read.keep.thru_(
+                  code => code ? code.trim().split(/\s+/) : [],
+              );
 
           return codes.keep.thru(
               when => control.convert(
