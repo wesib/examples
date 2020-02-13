@@ -9,7 +9,7 @@
   "homepage": "https://github.com/wesib/examples",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wesib/examples.git"
+    "url": "ssh://git@github.com:wesib/examples.git"
   },
   "license": "MIT",
   "private": true,
