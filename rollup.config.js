@@ -30,7 +30,6 @@ function exampleConfig(format) {
       typescript,
       tsconfig: module ? 'tsconfig.json' : 'tsconfig.es5.json',
       cacheRoot: 'target/.rts2_cache',
-      objectHashIgnoreUnknownHack: true,
     }),
     cleanup(`./dist/**/*.${ext}.{js,js.map}`),
     commonjs(),
