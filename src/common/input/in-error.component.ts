@@ -40,7 +40,7 @@ export class InErrorComponent {
   }
 
   @ProduceStyle()
-  style(): StypRules.Source {
+  style(): StypRules {
     return this._context.get(Theme).style(InErrorStyle);
   }
 

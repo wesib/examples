@@ -19,7 +19,7 @@ export class NavComponent {
   }
 
   @ProduceStyle()
-  style(): StypRules.Source {
+  style(): StypRules {
     return this._theme.style(NavStyle);
   }
 
