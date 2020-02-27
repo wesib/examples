@@ -5,7 +5,7 @@ import {
   BootstrapWindow,
   Component,
   ComponentContext,
-  ElementRender,
+  ElementRenderer,
   Render,
 } from '@wesib/wesib';
 import { StypProperties, stypRules, StypRules } from 'style-producer';
@@ -27,7 +27,7 @@ export class GreetingOutComponent {
   }
 
   @Render()
-  render(): ElementRender {
+  render(): ElementRenderer {
 
     const document = this._context.get(BootstrapWindow).document;
     const content = document.createElement('span');
