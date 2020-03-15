@@ -28,7 +28,7 @@ export class GreetingComponent {
       const group = inGroup<GreetData>({ name: '' });
 
       afterAll({
-        name: node.select('input', { all: true, deep: true }).first,
+        name: node.select('input', { all: true, deep: true }).first(),
         aspects: _context.get(DefaultInAspects),
       }).tillOff(supply).consume(
           ({ name: [nameNode], aspects: [aspects] }) => {
@@ -44,13 +44,13 @@ export class GreetingComponent {
           },
       );
 
-      const output = node.select(GreetingOutComponent, { deep: true }).first.tillOff(supply);
+      const output = node.select(GreetingOutComponent, { deep: true }).first().tillOff(supply);
       const sync = new ValueSync<string | null>('');
 
       sync.sync(output, o => o?.attribute('name'));
       sync.sync(
           'in',
-          group.controls.read,
+          group.controls.read(),
           controls => controls?.get('name'),
       );
 
@@ -77,11 +77,11 @@ const Greeting__qualifier = 'bex:greeting';
 
 function GreetingStyle(theme: Theme): StypRules {
 
-  const settings = theme.ref(ThemeSettings).read.keep;
+  const settings = theme.ref(ThemeSettings).read();
   const { root: { rules } } = theme;
   const label = rules.add(
       [{ u: [':', 'host'], $: Greeting__qualifier }, { e: 'label', $: Greeting__qualifier }],
-      settings.thru(greetLabelStyle),
+      settings.keepThru(greetLabelStyle),
   );
 
   return stypRules(
@@ -89,7 +89,7 @@ function GreetingStyle(theme: Theme): StypRules {
       label,
       label.rules.add(
           { e: 'input', $: Greeting__qualifier },
-          settings.thru(greetFieldStyle),
+          settings.keepThru(greetFieldStyle),
       ),
   );
 }

@@ -5,12 +5,12 @@ import { mediaStyle, ThemeSettings } from './theme-settings';
 
 export function DefaultStyle(theme: Theme): StypRules {
 
-  const settings = theme.ref(ThemeSettings).read.keep;
+  const settings = theme.ref(ThemeSettings).read();
 
   return stypRules(
       theme.root
-          .add(settings.thru(defaultStyle))
-          .add(settings.thru(mediaStyle)),
+          .add(settings.keepThru(defaultStyle))
+          .add(settings.keepThru(mediaStyle)),
       theme.style(LinkStyle),
   );
 }

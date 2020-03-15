@@ -5,7 +5,7 @@ import { FormThemeSettings } from './form.theme-settings';
 
 export function InputStyle(theme: Theme): StypRules {
 
-  const formSettings = theme.ref(FormThemeSettings).read.keep;
+  const formSettings = theme.ref(FormThemeSettings).read();
   const { root: { rules } } = theme;
 
   return stypRules(
@@ -21,7 +21,7 @@ export function InputStyle(theme: Theme): StypRules {
               ['touched', InputAspects__NS],
             ],
           },
-          formSettings.thru(invalidInStyle),
+          formSettings.keepThru(invalidInStyle),
       ),
       rules.add(
           {

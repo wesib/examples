@@ -5,7 +5,7 @@ import { ThemeSettings } from './theme-settings';
 
 export function BodyStyle(theme: Theme): StypRules {
 
-  const settings = theme.ref(ThemeSettings).read.keep;
+  const settings = theme.ref(ThemeSettings).read();
   const { root: { rules } } = theme;
 
   return stypRules(
@@ -19,7 +19,7 @@ export function BodyStyle(theme: Theme): StypRules {
       ),
       rules.add(
           { e: 'body' },
-          settings.thru(bodyStyle),
+          settings.keepThru(bodyStyle),
       ),
       theme.style(DefaultStyle),
   );

@@ -36,7 +36,7 @@ const Container__qualifier = 'bex:container';
 function ContainerStyle(mainName: QualifiedName): (theme: Theme) => StypRules {
   return theme => {
 
-    const settings = theme.ref(ThemeSettings).read.keep;
+    const settings = theme.ref(ThemeSettings).read();
     const { root: { rules } } = theme;
 
     return stypRules(
@@ -50,7 +50,7 @@ function ContainerStyle(mainName: QualifiedName): (theme: Theme) => StypRules {
               alignContent: 'flex-start',
             },
         ).add(
-            settings.thru(mediaStyle),
+            settings.keepThru(mediaStyle),
         ),
         rules.add(
             { u: [':', 'host'], $: [Container__qualifier, '@media:sm'] },
@@ -60,7 +60,7 @@ function ContainerStyle(mainName: QualifiedName): (theme: Theme) => StypRules {
         ),
         rules.add(
             [{ u: [':', 'host'], $: Container__qualifier }, { e: mainName, $: Container__qualifier }],
-            settings.thru(mainStyle),
+            settings.keepThru(mainStyle),
         ),
     );
   };

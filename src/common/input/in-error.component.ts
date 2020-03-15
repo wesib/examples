@@ -15,11 +15,12 @@ import { FormThemeSettings } from './form.theme-settings';
         ({ control: { control }, aspects, context }) => {
 
           const codes: AfterEvent<[string[]]> = trackAttribute(context, 'code')
-              .read.keep.thru_(
+              .read()
+              .keepThru_(
                   code => code ? code.trim().split(/\s+/) : [],
               );
 
-          return codes.keep.thru(
+          return codes.keepThru(
               when => control.convert(
                   InStyledElement.to(context.element),
                   aspects,
@@ -51,14 +52,14 @@ const hasError__cssClass: QualifiedName = ['has-error', InputAspects__NS];
 
 function InErrorStyle(theme: Theme): StypRules {
 
-  const settings = theme.ref(FormThemeSettings).read.keep;
+  const settings = theme.ref(FormThemeSettings).read();
   const { root: { rules } } = theme;
   const borderW = StypLengthPt.of(4, 'px');
 
   return stypRules(
       rules.add(
           { u: [':', 'host'], $: InError__qualifier },
-          settings.thru(({ $color, $errorFontSize }) => ({
+          settings.keepThru(({ $color, $errorFontSize }) => ({
             display: 'none',
             fontSize: $errorFontSize,
             padding: $errorFontSize.div(2),

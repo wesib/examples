@@ -29,17 +29,17 @@ const Nav__qualifier = 'bex:nav';
 
 function NavStyle(theme: Theme): StypRules {
 
-  const settings = theme.ref(ThemeSettings).read.keep;
+  const settings = theme.ref(ThemeSettings).read();
   const { root: { rules } } = theme;
 
   return stypRules(
       rules.add(
           { u: [':', 'host'], $: Nav__qualifier },
-          settings.thru(navStyle),
+          settings.keepThru(navStyle),
       ),
       rules.add(
           { u: [':', 'host'], $: Nav__qualifier },
-          settings.thru(sts => ({
+          settings.keepThru(sts => ({
             flex: '0 1 200px',
             height: '100%',
             background: navLinkBackground(sts),
@@ -53,11 +53,11 @@ function NavStyle(theme: Theme): StypRules {
       ),
       rules.add(
           [{ u: [':', 'host'], $: Nav__qualifier }, { e: 'a', $: Nav__qualifier }],
-          settings.thru(navLinkStyle),
+          settings.keepThru(navLinkStyle),
       ),
       rules.add(
           [{ u: [':', 'host'], $: Nav__qualifier }, { e: 'a', c: ['active', Wesib__NS], $: Nav__qualifier }],
-          settings.thru(activeNavLinkStyle),
+          settings.keepThru(activeNavLinkStyle),
       ),
   );
 }

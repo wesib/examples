@@ -51,17 +51,17 @@ const GreetingOut__qualifier = 'bex:greeting-out';
 
 function GreetingOutStyle(theme: Theme): StypRules {
 
-  const settings = theme.ref(ThemeSettings).read.keep;
-  const formSettings = theme.ref(FormThemeSettings).read.keep;
+  const settings = theme.ref(ThemeSettings).read();
+  const formSettings = theme.ref(FormThemeSettings).read();
   const { root: { rules } } = theme;
 
   return stypRules(
       rules.add(
           { u: [':', 'host'], $: GreetingOut__qualifier },
-          formSettings.thru(inStyle),
+          formSettings.keepThru(inStyle),
       )
-          .add(formSettings.thru(readonlyInStyle))
-          .add(settings.thru(greetFieldStyle)),
+          .add(formSettings.keepThru(readonlyInStyle))
+          .add(settings.keepThru(greetFieldStyle)),
       theme.style(DefaultStyle),
   );
 }
