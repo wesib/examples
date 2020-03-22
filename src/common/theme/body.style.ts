@@ -1,5 +1,5 @@
+import { StypProperties, stypRules, StypRules } from '@proc7ts/style-producer';
 import { Theme } from '@wesib/generic/styp';
-import { StypProperties, stypRules, StypRules } from 'style-producer';
 import { DefaultStyle } from './default.style';
 import { ThemeSettings } from './theme-settings';
 

@@ -5,6 +5,12 @@ node_modules
 .idea
 *.iml
 
+# Yarn cache
+/.yarn
+!.yarn/releases
+!.yarn/plugins
+.pnp.*
+
 # Logs
 *.log
 

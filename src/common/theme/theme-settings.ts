@@ -1,4 +1,4 @@
-import { RefStypRule, StypColor, StypLength, StypLengthPt, StypProperties, StypRGB } from 'style-producer';
+import { RefStypRule, StypColor, StypLength, StypLengthPt, StypProperties, StypRGB } from '@proc7ts/style-producer';
 
 export interface ThemeSettings {
   $color: StypColor;

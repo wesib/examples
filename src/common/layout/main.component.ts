@@ -1,6 +1,6 @@
+import { StypProperties } from '@proc7ts/style-producer';
 import { IncludePage } from '@wesib/generic';
 import { Component } from '@wesib/wesib';
-import { StypProperties } from 'style-producer';
 import { Examples__NS } from '../examples.ns';
 import { ThemeSettings } from '../theme';
 

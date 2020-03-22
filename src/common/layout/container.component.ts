@@ -1,7 +1,7 @@
+import { QualifiedName } from '@proc7ts/namespace-aliaser';
+import { stypRules, StypRules } from '@proc7ts/style-producer';
 import { ProduceStyle, Theme } from '@wesib/generic/styp';
 import { BootstrapContext, Component, ComponentContext } from '@wesib/wesib';
-import { QualifiedName } from 'namespace-aliaser';
-import { stypRules, StypRules } from 'style-producer';
 import { Examples__NS } from '../examples.ns';
 import { mediaStyle, ThemeSettings } from '../theme';
 import { MainComponent, mainStyle } from './main.component';

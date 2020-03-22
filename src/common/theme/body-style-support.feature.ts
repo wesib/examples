@@ -1,6 +1,6 @@
+import { produceBasicStyle } from '@proc7ts/style-producer';
 import { Theme, ThemeSupport } from '@wesib/generic/styp';
 import { Feature } from '@wesib/wesib';
-import { produceBasicStyle } from 'style-producer';
 import { BodyStyle } from './body.style';
 
 @Feature({

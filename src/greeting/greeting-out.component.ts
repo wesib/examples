@@ -1,3 +1,4 @@
+import { StypProperties, stypRules, StypRules } from '@proc7ts/style-producer';
 import { ProduceStyle, Theme } from '@wesib/generic/styp';
 import {
   AttachShadow,
@@ -8,7 +9,6 @@ import {
   ElementRenderer,
   Render,
 } from '@wesib/wesib';
-import { StypProperties, stypRules, StypRules } from 'style-producer';
 import { DefaultStyle, Examples__NS, FormThemeSettings, inStyle, readonlyInStyle, ThemeSettings } from '../common';
 
 @Component(['greeting-out', Examples__NS])

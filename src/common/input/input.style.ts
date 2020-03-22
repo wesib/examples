@@ -1,6 +1,6 @@
+import { InputAspects__NS } from '@proc7ts/input-aspects';
+import { mixStypColors, StypProperties, stypRules, StypRules } from '@proc7ts/style-producer';
 import { Theme } from '@wesib/generic/styp';
-import { InputAspects__NS } from 'input-aspects';
-import { mixStypColors, StypProperties, stypRules, StypRules } from 'style-producer';
 import { FormThemeSettings } from './form.theme-settings';
 
 export function InputStyle(theme: Theme): StypRules {

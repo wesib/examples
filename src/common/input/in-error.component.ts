@@ -1,10 +1,10 @@
+import { AfterEvent } from '@proc7ts/fun-events';
+import { InCssClasses, inCssError, inCssInfo, InputAspects__NS, InStyledElement } from '@proc7ts/input-aspects';
+import { QualifiedName } from '@proc7ts/namespace-aliaser';
+import { StypLengthPt, stypRules, StypRules } from '@proc7ts/style-producer';
 import { ConvertInput } from '@wesib/generic/input';
 import { ProduceStyle, Theme } from '@wesib/generic/styp';
 import { Attributes, Component, ComponentContext, trackAttribute } from '@wesib/wesib';
-import { AfterEvent } from 'fun-events';
-import { InCssClasses, inCssError, inCssInfo, InputAspects__NS, InStyledElement } from 'input-aspects';
-import { QualifiedName } from 'namespace-aliaser';
-import { StypLengthPt, stypRules, StypRules } from 'style-producer';
 import { Examples__NS } from '../examples.ns';
 import { FormThemeSettings } from './form.theme-settings';
 
