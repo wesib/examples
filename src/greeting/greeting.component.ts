@@ -1,4 +1,4 @@
-import { afterAll, ValueSync } from '@proc7ts/fun-events';
+import { afterAll, eventSupplyOf, ValueSync } from '@proc7ts/fun-events';
 import {
   InCssClasses,
   inCssInfo,
@@ -30,7 +30,7 @@ import { greetFieldStyle, GreetingOutComponent } from './greeting-out.component'
 export class GreetingComponent {
 
   constructor(private readonly _context: ComponentContext) {
-    _context.whenOn(supply => {
+    _context.whenConnected(() => {
 
       const node = _context.get(ComponentNode);
       const group = inGroup<GreetData>({ name: '' });
@@ -38,7 +38,7 @@ export class GreetingComponent {
       afterAll({
         name: node.select('input', { all: true, deep: true }).first(),
         aspects: _context.get(DefaultInAspects),
-      }).tillOff(supply).consume(
+      }).tillOff(_context).consume(
           ({ name: [nameNode], aspects: [aspects] }) => {
 
             const name = nameNode && inText(nameNode.element)
@@ -52,7 +52,7 @@ export class GreetingComponent {
           },
       );
 
-      const output = node.select(GreetingOutComponent, { deep: true }).first().tillOff(supply);
+      const output = node.select(GreetingOutComponent, { deep: true }).first().tillOff(_context);
       const sync = new ValueSync<string | null>('');
 
       sync.sync(output, o => o?.attribute('name'));
@@ -62,11 +62,7 @@ export class GreetingComponent {
           controls => controls?.get('name'),
       );
 
-      supply.whenOff(reason => {
-        sync.done(reason);
-        group.done(reason);
-        group.controls.clear();
-      });
+      eventSupplyOf(_context).cuts(sync).cuts(group);
     });
   }
 
