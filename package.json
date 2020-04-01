@@ -56,9 +56,9 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "all": "run-p build:all",
-    "build": "run-p build:bundle build:copy-assets",
-    "build:all": "run-p rebuild lint",
+    "all": "run-s build:all",
+    "build": "run-p --aggregate-output build:bundle build:copy-assets",
+    "build:all": "run-p --aggregate-output rebuild lint",
     "build:bundle": "rollup --config ./rollup.config.js",
     "build:copy-assets": "node ./build/copy-assets.js",
     "clean": "node ./build/clean",
