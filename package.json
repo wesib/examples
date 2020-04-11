@@ -22,7 +22,7 @@
     "@babel/preset-env": "^7.9.5",
     "@proc7ts/a-iterable": "^2.5.0",
     "@proc7ts/call-thru": "^3.0.0",
-    "@proc7ts/context-values": "^2.4.0",
+    "@proc7ts/context-values": "^3.0.0",
     "@proc7ts/delta-set": "^1.1.0",
     "@proc7ts/eslint-config": "^1.0.3",
     "@proc7ts/fun-events": "^9.0.0",
