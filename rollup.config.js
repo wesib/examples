@@ -56,7 +56,7 @@ function manualChunks(id) {
 
 function outputConfig(module) {
 
-  const ext = module ? 'm' : 's';
+  const ext = module ? 'js' : 's.js';
   const plugins = [];
 
   if (!module) {
@@ -91,8 +91,8 @@ function outputConfig(module) {
     dir: './dist',
     sourcemap: true,
     compact: true,
-    entryFileNames: `[name]/main.[hash].${ext}.js`,
-    chunkFileNames: `js/[name].[hash].${ext}.js`,
+    entryFileNames: `[name]/main.[hash].${ext}`,
+    chunkFileNames: `js/[name].[hash].${ext}`,
     hoistTransitiveImports: false,
     plugins,
   };
