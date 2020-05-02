@@ -1,11 +1,11 @@
-import 'ts-node/register';
+import babel from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import path from 'path';
-import babel from 'rollup-plugin-babel';
 import sourcemaps from 'rollup-plugin-sourcemaps';
 import { terser } from 'rollup-plugin-terser';
 import ts from 'rollup-plugin-typescript2';
+import 'ts-node/register';
 import typescript from 'typescript';
 
 import cleanup from './build/rollup-plugin-cleanup';
