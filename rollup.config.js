@@ -1,4 +1,4 @@
-import babel from '@rollup/plugin-babel';
+import { getBabelOutputPlugin } from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import path from 'path';
@@ -16,69 +16,84 @@ const examples = [
   'home',
 ];
 
-export default [
-  exampleConfig('module'),
-  exampleConfig('system'),
-];
-
-function exampleConfig(format) {
-
-  const module = format === 'module';
-  const ext = format[0];
-  const plugins = [
+export default {
+  input: examples.reduce(
+      (prev, example) => ({
+        ...prev,
+        [example]: `./src/${example}/index.ts`,
+      }),
+      {},
+  ),
+  plugins: [
     ts({
       typescript,
-      tsconfig: module ? 'tsconfig.json' : 'tsconfig.es5.json',
+      tsconfig: 'tsconfig.json',
       cacheRoot: 'target/.rts2_cache',
     }),
-    cleanup(`./dist/**/*.${ext}.{js,js.map}`),
+    cleanup(`./dist/**/*.{js,js.map}`),
     commonjs(),
     sourcemaps(),
     nodeResolve(),
-    exampleHtml,
-    terser({
-      ecma: module ? 6 : 5,
-      module,
-      toplevel: true,
-      output: {
-        ascii_only: true,
-        comments: false,
-      },
-    }),
-  ];
+  ],
+  manualChunks,
+  output: [
+    outputConfig(true),
+    outputConfig(false),
+  ],
+};
+
+function manualChunks(id) {
+  if (id.startsWith(path.join(__dirname, 'src', 'common') + path.sep)) {
+    return 'common';
+  }
+  if (id.includes(`${path.sep}node_modules${path.sep}@wesib${path.sep}`)) {
+    return 'wesib';
+  }
+  if (id.startsWith('\0') || id.includes(`${path.sep}node_modules${path.sep}`)) {
+    return 'lib';
+  }
+}
+
+function outputConfig(module) {
+
+  const ext = module ? 'm' : 's';
+  const plugins = [];
 
   if (!module) {
-    plugins.push(babel());
+    plugins.push(getBabelOutputPlugin({
+      presets: [
+        [
+          '@babel/preset-env',
+          {
+            modules: 'systemjs',
+            targets: 'last 2 versions, ie 11',
+          },
+        ],
+      ],
+    }));
   }
 
+  plugins.push(
+      terser({
+        ecma: module ? 6 : 5,
+        module,
+        toplevel: true,
+        output: {
+          ascii_only: true,
+          comments: false,
+        },
+      }),
+      exampleHtml,
+  );
+
   return {
+    format: 'esm',
+    dir: './dist',
+    sourcemap: true,
+    compact: true,
+    entryFileNames: `[name]/main.[hash].${ext}.js`,
+    chunkFileNames: `js/[name].[hash].${ext}.js`,
+    hoistTransitiveImports: false,
     plugins,
-    input: examples.reduce(
-        (prev, example) => ({
-          ...prev,
-          [example]: `./src/${example}/index.ts`,
-        }),
-        {},
-    ),
-    manualChunks(id) {
-      if (id.startsWith(path.join(__dirname, 'src', 'common') + path.sep)) {
-        return 'common';
-      }
-      if (id.includes(`${path.sep}node_modules${path.sep}@wesib${path.sep}`)) {
-        return 'wesib';
-      }
-      if (id.startsWith('\0') || id.includes(`${path.sep}node_modules${path.sep}`)) {
-        return 'lib';
-      }
-    },
-    output: {
-      format: module ? 'esm' : 'system',
-      dir: './dist',
-      sourcemap: true,
-      compact: true,
-      entryFileNames: `[name]/main.[hash].${ext}.js`,
-      chunkFileNames: `js/[name].[hash].${ext}.js`,
-      hoistTransitiveImports: false,
-    },
   };
 }

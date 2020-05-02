@@ -1,5 +1,5 @@
-import handlebars from 'handlebars';
 import fs from 'fs-extra';
+import handlebars from 'handlebars';
 import '../src/template/index.ts';
 
 const namePattern = /([^/\\]+)[/\\]([^/]+\.js)$/;
@@ -12,7 +12,7 @@ class Result {
     this._examples = {};
   }
 
-  async partGenerated(format, name) {
+  async partGenerated(name) {
 
     const [, example, file] = namePattern.exec(name);
 
@@ -22,7 +22,7 @@ class Result {
 
     const isHome = example === 'home';
     const parts = this._examples[example] || (this._examples[example] = {});
-    const part = format === 'es' || format === 'esm' ? 'module' : 'system';
+    const part = name.endsWith('.s.js') ? 'system' : 'module';
 
     parts[part] = `${example}/${file}`;
 
@@ -48,8 +48,8 @@ const result = new Result();
 
 export default {
   name: 'generate-example-html',
-  generateBundle({ format }, bundle) {
-    return Promise.all(Object.keys(bundle).map(name => result.partGenerated(format, name)));
+  generateBundle(_, bundle) {
+    return Promise.all(Object.keys(bundle).map(name => result.partGenerated(name)));
   },
 };
 
