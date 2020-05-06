@@ -5,14 +5,18 @@ node_modules
 .idea
 *.iml
 
+# Logs
+*.log
+
 # Yarn cache
 /.yarn
 !.yarn/releases
 !.yarn/plugins
 .pnp.*
 
-# Logs
-*.log
+# Lock files as this is part of Yarn worktree
+yarn.lock
+package-lock.json
 
 # Package archive
 *.tgz
