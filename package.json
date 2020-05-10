@@ -1,6 +1,6 @@
 {
   "name": "@wesib/examples",
-  "version": "1.0.0-beta.6",
+  "version": "1.0.0-beta.7",
   "description": "Wesib Examples",
   "keywords": [
     "web-components",
@@ -22,7 +22,7 @@
     "@babel/preset-env": "^7.9.6",
     "@proc7ts/a-iterable": "^2.5.0",
     "@proc7ts/call-thru": "^3.0.2",
-    "@proc7ts/context-values": "^3.1.0",
+    "@proc7ts/context-values": "^4.0.0",
     "@proc7ts/delta-set": "^1.1.0",
     "@proc7ts/eslint-config": "^1.0.4",
     "@proc7ts/fun-events": "^9.0.0",
@@ -36,8 +36,8 @@
     "@types/node": "^12.12.31",
     "@typescript-eslint/eslint-plugin": "^2.31.0",
     "@typescript-eslint/parser": "^2.31.0",
-    "@wesib/generic": "^1.0.0-beta.3",
-    "@wesib/wesib": "^1.0.0-beta.6",
+    "@wesib/generic": "^1.0.0-beta.7",
+    "@wesib/wesib": "^1.0.0-beta.7",
     "eslint": "^7.0.0",
     "eslint-plugin-jest": "^23.10.0",
     "fs-extra": "^9.0.0",
