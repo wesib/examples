@@ -75,7 +75,7 @@ function outputConfig(module) {
 
   plugins.push(
       terser({
-        ecma: module ? 6 : 5,
+        ecma: module ? 2018 : 5,
         module,
         toplevel: true,
         output: {
