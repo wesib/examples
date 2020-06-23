@@ -21,7 +21,6 @@
     "@babel/core": "^7.10.3",
     "@babel/preset-env": "^7.10.3",
     "@hatsy/hatsy": "^1.0.0-dev.3",
-    "@hatsy/route-match": "^1.0.0-dev.5",
     "@hatsy/router": "^1.0.0-dev.0",
     "@hatsy/serve-static": "^1.0.0-dev.0",
     "@proc7ts/a-iterable": "^2.7.0",
