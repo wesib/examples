@@ -48,11 +48,11 @@
     "gh-pages": "^3.1.0",
     "glob": "^7.1.6",
     "handlebars": "^4.7.6",
-    "npm-run-all": "^4.1.5",
     "rollup": "^2.26.6",
     "rollup-plugin-sourcemaps": "^0.6.2",
     "rollup-plugin-terser": "^7.0.0",
     "rollup-plugin-typescript2": "^0.27.2",
+    "run-z": "^1.0.0-dev.9",
     "shx": "^0.3.2",
     "systemjs": "^6.5.0",
     "ts-node": "^9.0.0",
@@ -60,16 +60,13 @@
     "typescript": "^4.0.2"
   },
   "scripts": {
-    "all": "run-s build:all",
-    "build": "run-p --aggregate-output build:bundle build:copy-assets",
-    "build:all": "run-p --aggregate-output rebuild lint",
-    "build:bundle": "rollup --config ./rollup.config.js",
-    "build:copy-assets": "node ./build/copy-assets.js",
-    "clean": "shx rm -rf dist target",
-    "lint": "eslint . --ext .js,.ts",
-    "rebuild": "run-s clean build",
-    "site:gh-pages": "gh-pages --dist dist --dotfiles",
-    "site:publish": "run-s all \"site:gh-pages {@}\" --",
-    "start": "node -r esm ./build/server.js"
+    "all": "run-z +z build,lint",
+    "build": "run-z +z build:copy-assets --and rollup --config ./rollup.config.js",
+    "build:copy-assets": "run-z +z --then node ./build/copy-assets.js",
+    "clean": "run-z +z --then shx rm -rf dist target",
+    "lint": "run-z +z --then eslint . --ext .js,.ts",
+    "site:publish": "run-z +z all --then gh-pages --dist dist --dotfiles",
+    "start": "run-z +z build --then node -r esm ./build/server.js",
+    "z": "run-z +build,+lint"
   }
 }
