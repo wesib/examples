@@ -1,4 +1,3 @@
-import { getBabelOutputPlugin } from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import path from 'path';
@@ -36,10 +35,26 @@ export default {
     nodeResolve(),
   ],
   manualChunks,
-  output: [
-    outputConfig(true),
-    outputConfig(false),
-  ],
+  output: {
+    plugins: [
+      terser({
+        ecma: 2018,
+        module: true,
+        toplevel: true,
+        output: {
+          ascii_only: true,
+          comments: false,
+        },
+      }),
+      exampleHtml,
+    ],
+    format: 'esm',
+    dir: './dist',
+    sourcemap: true,
+    compact: true,
+    entryFileNames: `[name]/main.[hash].js`,
+    chunkFileNames: `js/[name].[hash].js`,
+  },
 };
 
 function manualChunks(id) {
@@ -52,48 +67,4 @@ function manualChunks(id) {
   if (id.startsWith('\0') || id.includes(`${path.sep}node_modules${path.sep}`)) {
     return 'lib';
   }
-}
-
-function outputConfig(module) {
-
-  const ext = module ? 'js' : 's.js';
-  const plugins = [];
-
-  if (!module) {
-    plugins.push(getBabelOutputPlugin({
-      presets: [
-        [
-          '@babel/preset-env',
-          {
-            modules: 'systemjs',
-            targets: 'last 2 versions, ie 11',
-          },
-        ],
-      ],
-    }));
-  }
-
-  plugins.push(
-      terser({
-        ecma: module ? 2018 : 5,
-        module,
-        toplevel: true,
-        output: {
-          ascii_only: true,
-          comments: false,
-        },
-      }),
-      exampleHtml,
-  );
-
-  return {
-    format: 'esm',
-    dir: './dist',
-    sourcemap: true,
-    compact: true,
-    entryFileNames: `[name]/main.[hash].${ext}`,
-    chunkFileNames: `js/[name].[hash].${ext}`,
-    hoistTransitiveImports: false,
-    plugins,
-  };
 }
