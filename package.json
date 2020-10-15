@@ -18,7 +18,7 @@
     "url": "https://github.com/wesib/wesib/issues"
   },
   "devDependencies": {
-    "@hatsy/hatsy": "^1.6.1",
+    "@hatsy/hatsy": "^1.6.3",
     "@hatsy/router": "^1.6.1",
     "@hatsy/serve-static": "^1.6.0",
     "@proc7ts/call-thru": "^4.1.0",
