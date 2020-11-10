@@ -18,10 +18,10 @@
     "url": "https://github.com/wesib/wesib/issues"
   },
   "devDependencies": {
-    "@hatsy/hatsy": "^2.0.0",
-    "@hatsy/log-z-request": "^2.0.0",
-    "@hatsy/router": "^2.0.0",
-    "@hatsy/serve-static": "^2.0.0",
+    "@hatsy/hatsy": "^2.0.1",
+    "@hatsy/log-z-request": "^2.0.1",
+    "@hatsy/router": "^2.0.1",
+    "@hatsy/serve-static": "^2.0.1",
     "@proc7ts/call-thru": "^4.2.0",
     "@proc7ts/context-values": "^4.7.0",
     "@proc7ts/delta-set": "^1.4.0",
