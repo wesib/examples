@@ -1,4 +1,3 @@
-import { afterAll, eventSupplyOf, ValueSync } from '@proc7ts/fun-events';
 import {
   InCssClasses,
   inCssInfo,
@@ -7,8 +6,9 @@ import {
   inText,
   InValidation,
   requirePresent,
-} from '@proc7ts/input-aspects';
-import { StypProperties, stypRules, StypRules } from '@proc7ts/style-producer';
+} from '@frontmeans/input-aspects';
+import { StypProperties, stypRules, StypRules } from '@frontmeans/style-producer';
+import { afterAll, eventSupplyOf, ValueSync } from '@proc7ts/fun-events';
 import { ComponentNode } from '@wesib/generic';
 import { DefaultInAspects, inputFromControl } from '@wesib/generic/input';
 import { ProduceStyle, Theme } from '@wesib/generic/styp';

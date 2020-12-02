@@ -1,4 +1,4 @@
-import { produceBasicStyle, stypDomFormat } from '@proc7ts/style-producer';
+import { produceBasicStyle, stypDomFormat } from '@frontmeans/style-producer';
 import { ComponentStypDomFormat, ComponentStypFormat, Theme } from '@wesib/generic/styp';
 import { Feature } from '@wesib/wesib';
 import { BodyStyle } from './body.style';

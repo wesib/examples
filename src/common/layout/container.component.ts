@@ -1,5 +1,5 @@
-import { QualifiedName } from '@proc7ts/namespace-aliaser';
-import { stypRules, StypRules } from '@proc7ts/style-producer';
+import { QualifiedName } from '@frontmeans/namespace-aliaser';
+import { stypRules, StypRules } from '@frontmeans/style-producer';
 import { ProduceStyle, Theme } from '@wesib/generic/styp';
 import { BootstrapContext, Component, ComponentContext } from '@wesib/wesib';
 import { Examples__NS } from '../examples.ns';

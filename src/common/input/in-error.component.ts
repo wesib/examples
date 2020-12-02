@@ -1,7 +1,7 @@
+import { InCssClasses, inCssError, inCssInfo, InputAspects__NS, InStyledElement } from '@frontmeans/input-aspects';
+import { QualifiedName } from '@frontmeans/namespace-aliaser';
+import { StypLengthPt, stypRules, StypRules } from '@frontmeans/style-producer';
 import { AfterEvent } from '@proc7ts/fun-events';
-import { InCssClasses, inCssError, inCssInfo, InputAspects__NS, InStyledElement } from '@proc7ts/input-aspects';
-import { QualifiedName } from '@proc7ts/namespace-aliaser';
-import { StypLengthPt, stypRules, StypRules } from '@proc7ts/style-producer';
 import { ConvertInput } from '@wesib/generic/input';
 import { ProduceStyle, Theme } from '@wesib/generic/styp';
 import { Attributes, Component, ComponentContext, trackAttribute } from '@wesib/wesib';

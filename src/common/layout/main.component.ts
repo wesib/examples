@@ -1,4 +1,4 @@
-import { StypProperties } from '@proc7ts/style-producer';
+import { StypProperties } from '@frontmeans/style-producer';
 import { IncludePage } from '@wesib/generic';
 import { Component } from '@wesib/wesib';
 import { Examples__NS } from '../examples.ns';

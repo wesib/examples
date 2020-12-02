@@ -1,4 +1,4 @@
-import { StypColor, StypLengthPt, StypProperties, stypRules, StypRules } from '@proc7ts/style-producer';
+import { StypColor, StypLengthPt, StypProperties, stypRules, StypRules } from '@frontmeans/style-producer';
 import { ActivateNavLink, HandleNavLinks } from '@wesib/generic';
 import { ProduceStyle, Theme } from '@wesib/generic/styp';
 import { Component, ComponentContext, Wesib__NS } from '@wesib/wesib';

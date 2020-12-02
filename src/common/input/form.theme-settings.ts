@@ -1,4 +1,4 @@
-import { RefStypRule, StypColor, StypLength, StypLengthPt, StypMapper, StypRuleRefs } from '@proc7ts/style-producer';
+import { RefStypRule, StypColor, StypLength, StypLengthPt, StypMapper, StypRuleRefs } from '@frontmeans/style-producer';
 import { ThemeSettings } from '../theme';
 
 export interface FormThemeSettings {

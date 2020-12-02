@@ -1,4 +1,4 @@
-import { StypProperties, stypRules, StypRules } from '@proc7ts/style-producer';
+import { StypProperties, stypRules, StypRules } from '@frontmeans/style-producer';
 import { Theme } from '@wesib/generic/styp';
 import { LinkStyle } from './link.style';
 import { mediaStyle, ThemeSettings } from './theme-settings';

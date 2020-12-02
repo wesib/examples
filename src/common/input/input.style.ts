@@ -1,5 +1,5 @@
-import { InputAspects__NS } from '@proc7ts/input-aspects';
-import { mixStypColors, StypProperties, stypRules, StypRules } from '@proc7ts/style-producer';
+import { InputAspects__NS } from '@frontmeans/input-aspects';
+import { mixStypColors, StypProperties, stypRules, StypRules } from '@frontmeans/style-producer';
 import { Theme } from '@wesib/generic/styp';
 import { FormThemeSettings } from './form.theme-settings';
 
