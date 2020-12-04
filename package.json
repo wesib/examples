@@ -22,7 +22,7 @@
     "@frontmeans/input-aspects": "^3.6.0",
     "@frontmeans/namespace-aliaser": "^2.3.0",
     "@frontmeans/render-scheduler": "^1.5.0",
-    "@frontmeans/style-producer": "^5.6.1",
+    "@frontmeans/style-producer": "^5.6.2",
     "@hatsy/hatsy": "^2.1.0",
     "@hatsy/log-z-request": "^2.0.3",
     "@hatsy/router": "^2.0.4",
