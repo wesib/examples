@@ -48,7 +48,7 @@
     "gh-pages": "^3.1.0",
     "glob": "^7.1.6",
     "handlebars": "^4.7.6",
-    "rollup": "^2.34.2",
+    "rollup": "^2.35.0",
     "rollup-plugin-sourcemaps": "^0.6.3",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.29.0",
@@ -56,7 +56,7 @@
     "shx": "^0.3.3",
     "ts-node": "^9.1.1",
     "tslib": "^2.0.3",
-    "typescript": "^4.1.2"
+    "typescript": "^4.1.3"
   },
   "scripts": {
     "all": "run-z +z build,lint",
