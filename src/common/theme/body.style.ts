@@ -1,11 +1,12 @@
 import { StypProperties, stypRules, StypRules } from '@frontmeans/style-producer';
+import { mapAfter } from '@proc7ts/fun-events';
 import { Theme } from '@wesib/generic/styp';
 import { DefaultStyle } from './default.style';
 import { ThemeSettings } from './theme-settings';
 
 export function BodyStyle(theme: Theme): StypRules {
 
-  const settings = theme.ref(ThemeSettings).read();
+  const settings = theme.ref(ThemeSettings).read;
   const { root: { rules } } = theme;
 
   return stypRules(
@@ -19,7 +20,7 @@ export function BodyStyle(theme: Theme): StypRules {
       ),
       rules.add(
           { e: 'body' },
-          settings.keepThru(bodyStyle),
+          settings.do(mapAfter(bodyStyle)),
       ),
       theme.style(DefaultStyle),
   );

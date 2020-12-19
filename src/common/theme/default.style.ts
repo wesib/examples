@@ -1,16 +1,17 @@
 import { StypProperties, stypRules, StypRules } from '@frontmeans/style-producer';
+import { mapAfter } from '@proc7ts/fun-events';
 import { Theme } from '@wesib/generic/styp';
 import { LinkStyle } from './link.style';
 import { mediaStyle, ThemeSettings } from './theme-settings';
 
 export function DefaultStyle(theme: Theme): StypRules {
 
-  const settings = theme.ref(ThemeSettings).read();
+  const settings = theme.ref(ThemeSettings).read;
 
   return stypRules(
       theme.root
-          .add(settings.keepThru(defaultStyle))
-          .add(settings.keepThru(mediaStyle)),
+          .add(settings.do(mapAfter(defaultStyle)))
+          .add(settings.do(mapAfter(mediaStyle))),
       theme.style(LinkStyle),
   );
 }

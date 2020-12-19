@@ -8,7 +8,7 @@ import {
   requirePresent,
 } from '@frontmeans/input-aspects';
 import { StypProperties, stypRules, StypRules } from '@frontmeans/style-producer';
-import { afterAll, eventSupplyOf, ValueSync } from '@proc7ts/fun-events';
+import { afterAll, consumeEvents, mapAfter, supplyAfter, ValueSync } from '@proc7ts/fun-events';
 import { ComponentNode } from '@wesib/generic';
 import { DefaultInAspects, inputFromControl } from '@wesib/generic/input';
 import { ProduceStyle, Theme } from '@wesib/generic/styp';
@@ -36,10 +36,11 @@ export class GreetingComponent {
       const group = inGroup<GreetData>({ name: '' });
 
       afterAll({
-        name: node.select('input', { all: true, deep: true }).first(),
+        name: node.select('input', { all: true, deep: true }).first,
         aspects: _context.get(DefaultInAspects),
-      }).tillOff(_context).consume(
-          ({ name: [nameNode], aspects: [aspects] }) => {
+      }).do(
+          supplyAfter(_context),
+          consumeEvents(({ name: [nameNode], aspects: [aspects] }) => {
 
             const name = nameNode && inText(nameNode.element)
                 .convert(aspects, InStyledElement.to(nameNode.element))
@@ -49,20 +50,20 @@ export class GreetingComponent {
             group.controls.set('name', name);
 
             return name && inputFromControl(_context, name);
-          },
+          }),
       );
 
-      const output = node.select(GreetingOutComponent, { deep: true }).first().tillOff(_context);
+      const output = node.select(GreetingOutComponent, { deep: true }).first.do(supplyAfter(_context));
       const sync = new ValueSync<string | null>('');
 
       sync.sync(output, o => o?.attribute('name'));
       sync.sync(
           'in',
-          group.controls.read(),
+          group.controls.read,
           controls => controls?.get('name'),
       );
 
-      eventSupplyOf(_context).cuts(sync).cuts(group);
+      _context.supply.cuts(sync).cuts(group);
     });
   }
 
@@ -81,11 +82,11 @@ const Greeting__qualifier = 'bex:greeting';
 
 function GreetingStyle(theme: Theme): StypRules {
 
-  const settings = theme.ref(ThemeSettings).read();
+  const settings = theme.ref(ThemeSettings).read;
   const { root: { rules } } = theme;
   const label = rules.add(
       [{ u: [':', 'host'], $: Greeting__qualifier }, { e: 'label', $: Greeting__qualifier }],
-      settings.keepThru(greetLabelStyle),
+      settings.do(mapAfter(greetLabelStyle)),
   );
 
   return stypRules(
@@ -93,7 +94,7 @@ function GreetingStyle(theme: Theme): StypRules {
       label,
       label.rules.add(
           { e: 'input', $: Greeting__qualifier },
-          settings.keepThru(greetFieldStyle),
+          settings.do(mapAfter(greetFieldStyle)),
       ),
   );
 }

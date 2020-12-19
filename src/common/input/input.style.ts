@@ -1,18 +1,19 @@
 import { InputAspects__NS } from '@frontmeans/input-aspects';
 import { mixStypColors, StypProperties, stypRules, StypRules } from '@frontmeans/style-producer';
+import { mapAfter } from '@proc7ts/fun-events';
 import { Theme } from '@wesib/generic/styp';
 import { FormThemeSettings } from './form.theme-settings';
 
 export function InputStyle(theme: Theme): StypRules {
 
-  const formSettings = theme.ref(FormThemeSettings).read();
+  const formSettings = theme.ref(FormThemeSettings).read;
   const { root: { rules } } = theme;
 
   return stypRules(
-      rules.add({ e: 'input' }, formSettings.thru(inStyle)),
-      rules.add({ e: 'input', s: '[readonly]' }, formSettings.thru(readonlyInStyle)),
-      rules.add({ e: 'input', s: '[disabled]' }, formSettings.thru(readonlyInStyle)),
-      rules.add({ e: 'input', s: ':focus' }, formSettings.thru(focusedInStyle)),
+      rules.add({ e: 'input' }, formSettings.do(mapAfter(inStyle))),
+      rules.add({ e: 'input', s: '[readonly]' }, formSettings.do(mapAfter(readonlyInStyle))),
+      rules.add({ e: 'input', s: '[disabled]' }, formSettings.do(mapAfter(readonlyInStyle))),
+      rules.add({ e: 'input', s: ':focus' }, formSettings.do(mapAfter(focusedInStyle))),
       rules.add(
           {
             e: 'input',
@@ -21,7 +22,7 @@ export function InputStyle(theme: Theme): StypRules {
               ['touched', InputAspects__NS],
             ],
           },
-          formSettings.keepThru(invalidInStyle),
+          formSettings.do(mapAfter(invalidInStyle)),
       ),
       rules.add(
           {
