@@ -34,7 +34,7 @@
     "@proc7ts/push-iterator": "^2.5.0",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
-    "@run-z/eslint-config": "^1.1.0",
+    "@run-z/eslint-config": "^1.2.0",
     "@run-z/log-z": "^1.2.1",
     "@types/node": "^12.19.8",
     "@typescript-eslint/eslint-plugin": "^4.9.1",
