@@ -1,4 +1,5 @@
 import { StypColor, StypLengthPt, StypProperties, stypRules, StypRules } from '@frontmeans/style-producer';
+import { mapAfter } from '@proc7ts/fun-events';
 import { ActivateNavLink, HandleNavLinks } from '@wesib/generic';
 import { ProduceStyle, Theme } from '@wesib/generic/styp';
 import { Component, ComponentContext, Wesib__NS } from '@wesib/wesib';
@@ -29,21 +30,21 @@ const Nav__qualifier = 'bex:nav';
 
 function NavStyle(theme: Theme): StypRules {
 
-  const settings = theme.ref(ThemeSettings).read();
+  const settings = theme.ref(ThemeSettings).read;
   const { root: { rules } } = theme;
 
   return stypRules(
       rules.add(
           { u: [':', 'host'], $: Nav__qualifier },
-          settings.keepThru(navStyle),
+          settings.do(mapAfter(navStyle)),
       ),
       rules.add(
           { u: [':', 'host'], $: Nav__qualifier },
-          settings.keepThru(sts => ({
+          settings.do(mapAfter(sts => ({
             flex: '0 1 200px',
             height: '100%',
             background: navLinkBackground(sts),
-          })),
+          }))),
       ),
       rules.add(
           { u: [':', 'host'], $: [Nav__qualifier, '@media:sm'] },
@@ -53,11 +54,11 @@ function NavStyle(theme: Theme): StypRules {
       ),
       rules.add(
           [{ u: [':', 'host'], $: Nav__qualifier }, { e: 'a', $: Nav__qualifier }],
-          settings.keepThru(navLinkStyle),
+          settings.do(mapAfter(navLinkStyle)),
       ),
       rules.add(
           [{ u: [':', 'host'], $: Nav__qualifier }, { e: 'a', c: ['active', Wesib__NS], $: Nav__qualifier }],
-          settings.keepThru(activeNavLinkStyle),
+          settings.do(mapAfter(activeNavLinkStyle)),
       ),
   );
 }

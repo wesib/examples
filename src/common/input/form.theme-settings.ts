@@ -1,4 +1,5 @@
 import { RefStypRule, StypColor, StypLength, StypLengthPt, StypMapper, StypRuleRefs } from '@frontmeans/style-producer';
+import { mapAfter } from '@proc7ts/fun-events';
 import { ThemeSettings } from '../theme';
 
 export interface FormThemeSettings {
@@ -25,7 +26,7 @@ export const FormThemeSettings: RefStypRule<FormThemeSettings> = RefStypRule.by(
           global: ThemeSettings,
         },
         root,
-    ).read().keepThru(formMappings),
+    ).read.do(mapAfter(formMappings)),
 );
 
 function formMappings(

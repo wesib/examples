@@ -1,7 +1,7 @@
 import { InCssClasses, inCssError, inCssInfo, InputAspects__NS, InStyledElement } from '@frontmeans/input-aspects';
 import { QualifiedName } from '@frontmeans/namespace-aliaser';
 import { StypLengthPt, stypRules, StypRules } from '@frontmeans/style-producer';
-import { AfterEvent } from '@proc7ts/fun-events';
+import { AfterEvent, mapAfter, mapAfter_ } from '@proc7ts/fun-events';
 import { ConvertInput } from '@wesib/generic/input';
 import { ProduceStyle, Theme } from '@wesib/generic/styp';
 import { Attributes, Component, ComponentContext, trackAttribute } from '@wesib/wesib';
@@ -15,13 +15,13 @@ import { FormThemeSettings } from './form.theme-settings';
         ({ control: { control }, aspects, context }) => {
 
           const codes: AfterEvent<[string[]]> = trackAttribute(context, 'code')
-              .read()
-              .keepThru_(
-                  code => code ? code.trim().split(/\s+/) : [],
+              .read
+              .do(
+                  mapAfter_(code => code ? code.trim().split(/\s+/) : []),
               );
 
-          return codes.keepThru(
-              when => control.convert(
+          return codes.do(
+              mapAfter(when => control.convert(
                   InStyledElement.to(context.element),
                   aspects,
               ).setup(
@@ -30,7 +30,7 @@ import { FormThemeSettings } from './form.theme-settings';
                     cssClasses.add(inCssInfo());
                     cssClasses.add(inCssError({ when }));
                   },
-              ),
+              )),
           );
         },
     ),
@@ -52,20 +52,20 @@ const hasError__cssClass: QualifiedName = ['has-error', InputAspects__NS];
 
 function InErrorStyle(theme: Theme): StypRules {
 
-  const settings = theme.ref(FormThemeSettings).read();
+  const settings = theme.ref(FormThemeSettings).read;
   const { root: { rules } } = theme;
   const borderW = StypLengthPt.of(4, 'px');
 
   return stypRules(
       rules.add(
           { u: [':', 'host'], $: InError__qualifier },
-          settings.keepThru(({ $color, $errorFontSize }) => ({
+          settings.do(mapAfter(({ $color, $errorFontSize }) => ({
             display: 'none',
             fontSize: $errorFontSize,
             padding: $errorFontSize.div(2),
             borderLeft: `${borderW} dotted ${$color}`,
             paddingLeft: $errorFontSize.sub(borderW),
-          })),
+          }))),
       ),
       rules.add(
           {

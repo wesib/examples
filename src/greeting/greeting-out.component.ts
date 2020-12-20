@@ -1,4 +1,5 @@
 import { StypProperties, stypRules, StypRules } from '@frontmeans/style-producer';
+import { mapAfter } from '@proc7ts/fun-events';
 import { ProduceStyle, Theme } from '@wesib/generic/styp';
 import {
   AttachShadow,
@@ -51,17 +52,17 @@ const GreetingOut__qualifier = 'bex:greeting-out';
 
 function GreetingOutStyle(theme: Theme): StypRules {
 
-  const settings = theme.ref(ThemeSettings).read();
-  const formSettings = theme.ref(FormThemeSettings).read();
+  const settings = theme.ref(ThemeSettings).read;
+  const formSettings = theme.ref(FormThemeSettings).read;
   const { root: { rules } } = theme;
 
   return stypRules(
       rules.add(
           { u: [':', 'host'], $: GreetingOut__qualifier },
-          formSettings.keepThru(inStyle),
+          formSettings.do(mapAfter(inStyle)),
       )
-          .add(formSettings.keepThru(readonlyInStyle))
-          .add(settings.keepThru(greetFieldStyle)),
+          .add(formSettings.do(mapAfter(readonlyInStyle)))
+          .add(settings.do(mapAfter(greetFieldStyle))),
       theme.style(DefaultStyle),
   );
 }

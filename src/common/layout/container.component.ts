@@ -1,5 +1,6 @@
 import { QualifiedName } from '@frontmeans/namespace-aliaser';
 import { stypRules, StypRules } from '@frontmeans/style-producer';
+import { mapAfter } from '@proc7ts/fun-events';
 import { ProduceStyle, Theme } from '@wesib/generic/styp';
 import { BootstrapContext, Component, ComponentContext } from '@wesib/wesib';
 import { Examples__NS } from '../examples.ns';
@@ -36,7 +37,7 @@ const Container__qualifier = 'bex:container';
 function ContainerStyle(mainName: QualifiedName): (theme: Theme) => StypRules {
   return theme => {
 
-    const settings = theme.ref(ThemeSettings).read();
+    const settings = theme.ref(ThemeSettings).read;
     const { root: { rules } } = theme;
 
     return stypRules(
@@ -50,7 +51,7 @@ function ContainerStyle(mainName: QualifiedName): (theme: Theme) => StypRules {
               alignContent: 'flex-start',
             },
         ).add(
-            settings.keepThru(mediaStyle),
+            settings.do(mapAfter(mediaStyle)),
         ),
         rules.add(
             { u: [':', 'host'], $: [Container__qualifier, '@media:sm'] },
@@ -60,7 +61,7 @@ function ContainerStyle(mainName: QualifiedName): (theme: Theme) => StypRules {
         ),
         rules.add(
             [{ u: [':', 'host'], $: Container__qualifier }, { e: mainName, $: Container__qualifier }],
-            settings.keepThru(mainStyle),
+            settings.do(mapAfter(mainStyle)),
         ),
     );
   };
