@@ -39,7 +39,7 @@
     "@types/node": "^12.19.16",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
-    "@wesib/generic": "^1.0.0-beta.28",
+    "@wesib/generic": "^1.0.0-beta.30",
     "@wesib/wesib": "^1.0.0-beta.30",
     "eslint": "^7.19.0",
     "eslint-plugin-jest": "^24.1.3",
