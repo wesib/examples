@@ -50,23 +50,25 @@ export class GreetingComponent {
       _context.supply.cuts(this.name);
 
       bsContext.whenDefined(GreetingOutComponent)(({ elementDef: { name: outName } }) => {
-        ComponentSlot.of(element.querySelector(html__naming.name(outName!, nsAlias))!)
-            .whenReady(outCtx => {
 
-              const sync = new ValueSync<string | null>('');
-              const nameAttr = trackAttribute(outCtx, 'name');
+        const outElement = element.querySelector(html__naming.name(outName!, nsAlias))!;
 
-              sync.sync(nameAttr);
-              sync.sync('in', this.name, name => name && name.control);
+        ComponentSlot.of(outElement).whenReady(outCtx => {
 
-              console.debug('initial', sync.it);
+          const sync = new ValueSync<string | null>('');
+          const nameAttr = trackAttribute(outCtx, 'name');
 
-              sync.read(val => console.debug(val));
+          sync.sync(nameAttr);
+          sync.sync('in', this.name, name => name && name.control);
 
-              _context.supply
-                  .cuts(sync)
-                  .cuts(nameAttr);
-            }).whenOff(console.error);
+          console.debug('initial', sync.it);
+
+          sync.read(val => console.debug(val));
+
+          _context.supply
+              .cuts(sync)
+              .cuts(nameAttr);
+        }).whenOff(console.error);
       });
     });
   }
