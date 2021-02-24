@@ -4,7 +4,7 @@ import { mapAfter } from '@proc7ts/fun-events';
 import { Theme } from '@wesib/generic/styp';
 import { FormThemeSettings } from './form.theme-settings';
 
-export function InputStyle(theme: Theme): StypRules {
+export function FormStyle(theme: Theme): StypRules {
 
   const formSettings = theme.ref(FormThemeSettings).read;
   const { root: { rules } } = theme;
