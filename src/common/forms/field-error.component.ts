@@ -1,4 +1,4 @@
-import { InCssClasses, inCssError, InputAspects__NS, InStyledElement } from '@frontmeans/input-aspects';
+import { InCssClasses, inCssError, inCssInfo, InputAspects__NS, InStyledElement } from '@frontmeans/input-aspects';
 import { QualifiedName } from '@frontmeans/namespace-aliaser';
 import { StypLengthPt, stypRules, StypRules } from '@frontmeans/style-producer';
 import {
@@ -48,6 +48,7 @@ export class FieldErrorComponent {
         mapAfter(({ field: [field], when }) => field && new Field({
           control: field.control
               .convert(InStyledElement.to(_context.element))
+              .setup(InCssClasses, css => css.add(inCssInfo()))
               .setup(InCssClasses, css => css.add(inCssError({ when }))),
         })),
     );

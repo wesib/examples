@@ -1,17 +1,9 @@
-import { InCssClasses, inCssInfo, inText, InValidation, requirePresent } from '@frontmeans/input-aspects';
-import { html__naming } from '@frontmeans/namespace-aliaser';
+import { inText, InValidation, requirePresent } from '@frontmeans/input-aspects';
 import { StypProperties, stypRules, StypRules } from '@frontmeans/style-producer';
-import { mapAfter, trackValue, ValueSync } from '@proc7ts/fun-events';
+import { mapAfter, ValueSync } from '@proc7ts/fun-events';
 import { Field, SharedField } from '@wesib/generic/forms';
 import { ProduceStyle, Theme } from '@wesib/generic/styp';
-import {
-  BootstrapContext,
-  Component,
-  ComponentContext,
-  ComponentSlot,
-  DefaultNamespaceAliaser,
-  trackAttribute,
-} from '@wesib/wesib';
+import { BootstrapContext, Component, ComponentContext, ComponentSlot, trackAttribute } from '@wesib/wesib';
 import { AppFeature, Examples__NS, FormStyle, ThemeSettings } from '../common';
 import { greetFieldStyle, GreetingOutComponent } from './greeting-out.component';
 
@@ -29,29 +21,25 @@ import { greetFieldStyle, GreetingOutComponent } from './greeting-out.component'
 export class GreetingComponent {
 
   @SharedField()
-  name = trackValue<Field<string>>();
+  name!: Field<string>;
 
   constructor(private readonly _context: ComponentContext) {
 
     const bsContext = _context.get(BootstrapContext);
-    const nsAlias = bsContext.get(DefaultNamespaceAliaser);
 
     _context.whenConnected(() => {
 
       const element: Element = _context.element;
       const nameElement = element.querySelector('input')!;
 
-      console.debug(nameElement);
-      this.name.it = Field.by(
+      this.name = Field.by(
           opts => inText(nameElement, opts)
-              .setup(InValidation, validation => validation.by(requirePresent))
-              .setup(InCssClasses, classes => classes.add(inCssInfo())),
+              .setup(InValidation, validation => validation.by(requirePresent)),
       );
-      _context.supply.cuts(this.name);
 
-      bsContext.whenDefined(GreetingOutComponent)(({ elementDef: { name: outName } }) => {
+      bsContext.whenDefined(GreetingOutComponent)(({ elementDef: { tagName: outName } }) => {
 
-        const outElement = element.querySelector(html__naming.name(outName!, nsAlias))!;
+        const outElement = element.querySelector(outName!)!;
 
         ComponentSlot.of(outElement).whenReady(outCtx => {
 
@@ -61,14 +49,10 @@ export class GreetingComponent {
           sync.sync(nameAttr);
           sync.sync('in', this.name, name => name && name.control);
 
-          console.debug('initial', sync.it);
-
-          sync.read(val => console.debug(val));
-
           _context.supply
               .cuts(sync)
               .cuts(nameAttr);
-        }).whenOff(console.error);
+        });
       });
     });
   }
