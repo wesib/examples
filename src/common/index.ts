@@ -3,7 +3,7 @@ import { AppFeature } from './app.feature';
 
 export * from './app.feature';
 export * from './examples.ns';
-export * from './input';
+export * from './forms';
 export * from './theme';
 
 export const examplesContext = bootstrapComponents(AppFeature);

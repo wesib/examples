@@ -1,43 +1,66 @@
 import { InCssClasses, inCssError, inCssInfo, InputAspects__NS, InStyledElement } from '@frontmeans/input-aspects';
 import { QualifiedName } from '@frontmeans/namespace-aliaser';
 import { StypLengthPt, stypRules, StypRules } from '@frontmeans/style-producer';
-import { AfterEvent, mapAfter, mapAfter_ } from '@proc7ts/fun-events';
-import { ConvertInput } from '@wesib/generic/input';
+import {
+  afterAll,
+  AfterEvent,
+  afterThe,
+  digAfter_,
+  EventKeeper,
+  mapAfter,
+  trackValue,
+  translateAfter_,
+} from '@proc7ts/fun-events';
+import { ComponentShare__symbol } from '@wesib/generic';
+import { Field, FieldShare, SharedField } from '@wesib/generic/forms';
 import { ProduceStyle, Theme } from '@wesib/generic/styp';
-import { Attributes, Component, ComponentContext, trackAttribute } from '@wesib/wesib';
+import { Attribute, Component, ComponentContext } from '@wesib/wesib';
 import { Examples__NS } from '../examples.ns';
 import { FormThemeSettings } from './form.theme-settings';
 
-@Component(
-    ['in-error', Examples__NS],
-    Attributes('code'),
-    ConvertInput(
-        ({ control: { control }, aspects, context }) => {
+@Component(['field-error', Examples__NS])
+export class FieldErrorComponent {
 
-          const codes: AfterEvent<[string[]]> = trackAttribute(context, 'code')
-              .read
-              .do(
-                  mapAfter_(code => code ? code.trim().split(/\s+/) : []),
-              );
+  private readonly _code = trackValue<string | null>();
 
-          return codes.do(
-              mapAfter(when => control.convert(
-                  InStyledElement.to(context.element),
-                  aspects,
-              ).setup(
-                  InCssClasses,
-                  cssClasses => {
-                    cssClasses.add(inCssInfo());
-                    cssClasses.add(inCssError({ when }));
-                  },
-              )),
-          );
-        },
-    ),
-)
-export class InErrorComponent {
+  @SharedField({
+    share: {
+      share: FieldShare,
+      local: true,
+    },
+    name: '',
+  })
+  readonly indicator: AfterEvent<[Field<void>?]>;
 
   constructor(private readonly _context: ComponentContext) {
+
+    const field: AfterEvent<[Field.Controls<any>?]> = FieldShare[ComponentShare__symbol]
+        .valueFor(_context)
+        .do(
+            digAfter_((field?, _sharer?): EventKeeper<[Field.Controls<any>?]> => field || afterThe()),
+        );
+    const when: AfterEvent<string[]> = this._code.read
+        .do(
+            translateAfter_((send, code) => code ? send(...code.trim().split(/\s+/)) : send()),
+        );
+
+    this.indicator = afterAll({ field, when }).do(
+        mapAfter(({ field: [field], when }) => field && new Field({
+          control: field.control
+              .convert(InStyledElement.to(_context.element))
+              .setup(InCssClasses, css => css.add(inCssInfo()))
+              .setup(InCssClasses, css => css.add(inCssError({ when }))),
+        })),
+    );
+  }
+
+  @Attribute({ updateState: false })
+  get code(): string | null {
+    return this._code.it || null;
+  }
+
+  set code(code: string | null) {
+    this._code.it = code;
   }
 
   @ProduceStyle()

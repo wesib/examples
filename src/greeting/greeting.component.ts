@@ -1,19 +1,10 @@
-import {
-  InCssClasses,
-  inCssInfo,
-  inGroup,
-  InStyledElement,
-  inText,
-  InValidation,
-  requirePresent,
-} from '@frontmeans/input-aspects';
+import { inText, InValidation, requirePresent } from '@frontmeans/input-aspects';
 import { StypProperties, stypRules, StypRules } from '@frontmeans/style-producer';
-import { afterAll, consumeEvents, mapAfter, supplyAfter, ValueSync } from '@proc7ts/fun-events';
-import { ComponentNode } from '@wesib/generic';
-import { DefaultInAspects, inputFromControl } from '@wesib/generic/input';
+import { mapAfter, ValueSync } from '@proc7ts/fun-events';
+import { Field, SharedField } from '@wesib/generic/forms';
 import { ProduceStyle, Theme } from '@wesib/generic/styp';
-import { Component, ComponentContext } from '@wesib/wesib';
-import { AppFeature, Examples__NS, InputStyle, ThemeSettings } from '../common';
+import { BootstrapContext, Component, ComponentContext, ComponentSlot, trackAttribute } from '@wesib/wesib';
+import { AppFeature, Examples__NS, FormStyle, ThemeSettings } from '../common';
 import { greetFieldStyle, GreetingOutComponent } from './greeting-out.component';
 
 @Component(
@@ -29,41 +20,40 @@ import { greetFieldStyle, GreetingOutComponent } from './greeting-out.component'
 )
 export class GreetingComponent {
 
+  @SharedField()
+  name!: Field<string>;
+
   constructor(private readonly _context: ComponentContext) {
+
+    const bsContext = _context.get(BootstrapContext);
+
     _context.whenConnected(() => {
 
-      const node = _context.get(ComponentNode);
-      const group = inGroup<GreetData>({ name: '' });
+      const element: Element = _context.element;
+      const nameElement = element.querySelector('input')!;
 
-      afterAll({
-        name: node.select('input', { all: true, deep: true }).first,
-        aspects: _context.get(DefaultInAspects),
-      }).do(
-          supplyAfter(_context),
-          consumeEvents(({ name: [nameNode], aspects: [aspects] }) => {
-
-            const name = nameNode && inText(nameNode.element)
-                .convert(aspects, InStyledElement.to(nameNode.element))
-                .setup(InValidation, validation => validation.by(requirePresent))
-                .setup(InCssClasses, classes => classes.add(inCssInfo()));
-
-            group.controls.set('name', name);
-
-            return name && inputFromControl(_context, name);
-          }),
+      this.name = Field.by(
+          opts => inText(nameElement, opts)
+              .setup(InValidation, validation => validation.by(requirePresent)),
       );
 
-      const output = node.select(GreetingOutComponent, { deep: true }).first.do(supplyAfter(_context));
-      const sync = new ValueSync<string | null>('');
+      bsContext.whenDefined(GreetingOutComponent)(({ elementDef: { tagName: outName } }) => {
 
-      sync.sync(output, o => o?.attribute('name'));
-      sync.sync(
-          'in',
-          group.controls.read,
-          controls => controls?.get('name'),
-      );
+        const outElement = element.querySelector(outName!)!;
 
-      _context.supply.cuts(sync).cuts(group);
+        ComponentSlot.of(outElement).whenReady(outCtx => {
+
+          const sync = new ValueSync<string | null>('');
+          const nameAttr = trackAttribute(outCtx, 'name');
+
+          sync.sync(nameAttr);
+          sync.sync('in', this.name, name => name && name.control);
+
+          _context.supply
+              .cuts(sync)
+              .cuts(nameAttr);
+        });
+      });
     });
   }
 
@@ -72,10 +62,6 @@ export class GreetingComponent {
     return this._context.get(Theme).style(GreetingStyle);
   }
 
-}
-
-interface GreetData {
-  name: string;
 }
 
 const Greeting__qualifier = 'bex:greeting';
@@ -90,7 +76,7 @@ function GreetingStyle(theme: Theme): StypRules {
   );
 
   return stypRules(
-      theme.style(InputStyle),
+      theme.style(FormStyle),
       label,
       label.rules.add(
           { e: 'input', $: Greeting__qualifier },
