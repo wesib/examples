@@ -11,7 +11,7 @@ import {
   trackValue,
   translateAfter_,
 } from '@proc7ts/fun-events';
-import { ComponentShare__symbol } from '@wesib/generic';
+import { Share__symbol } from '@wesib/generic';
 import { Field, FieldShare, SharedField } from '@wesib/generic/forms';
 import { ProduceStyle, Theme } from '@wesib/generic/styp';
 import { Attribute, Component, ComponentContext } from '@wesib/wesib';
@@ -34,7 +34,7 @@ export class FieldErrorComponent {
 
   constructor(private readonly _context: ComponentContext) {
 
-    const field: AfterEvent<[Field.Controls<any>?]> = FieldShare[ComponentShare__symbol]
+    const field: AfterEvent<[Field.Controls<any>?]> = FieldShare[Share__symbol]
         .valueFor(_context)
         .do(
             digAfter_((field?, _sharer?): EventKeeper<[Field.Controls<any>?]> => field || afterThe()),

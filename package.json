@@ -1,6 +1,6 @@
 {
   "name": "@wesib/examples",
-  "version": "1.0.0-beta.30",
+  "version": "1.0.0-beta.33",
   "description": "Wesib Examples",
   "keywords": [
     "web-components",
@@ -39,8 +39,8 @@
     "@types/node": "^12.20.4",
     "@typescript-eslint/eslint-plugin": "^4.15.2",
     "@typescript-eslint/parser": "^4.15.2",
-    "@wesib/generic": "^1.0.0-beta.30",
-    "@wesib/wesib": "^1.0.0-beta.30",
+    "@wesib/generic": "^1.0.0-beta.33",
+    "@wesib/wesib": "^1.0.0-beta.33",
     "eslint": "^7.20.0",
     "eslint-plugin-jest": "^24.1.5",
     "fs-extra": "^9.1.0",
