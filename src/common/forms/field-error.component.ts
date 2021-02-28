@@ -18,6 +18,14 @@ import { Attribute, Component, ComponentContext } from '@wesib/wesib';
 import { Examples__NS } from '../examples.ns';
 import { FormThemeSettings } from './form.theme-settings';
 
+class FieldErrorShare extends FieldShare {
+
+  constructor() {
+    super('field-error');
+  }
+
+}
+
 @Component(['field-error', Examples__NS])
 export class FieldErrorComponent {
 
@@ -25,7 +33,7 @@ export class FieldErrorComponent {
 
   @SharedField({
     share: {
-      share: FieldShare,
+      share: FieldErrorShare,
       local: true,
     },
     name: '',
