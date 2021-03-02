@@ -1,18 +1,9 @@
 import { InCssClasses, inCssError, inCssInfo, InputAspects__NS, InStyledElement } from '@frontmeans/input-aspects';
 import { QualifiedName } from '@frontmeans/namespace-aliaser';
 import { StypLengthPt, stypRules, StypRules } from '@frontmeans/style-producer';
-import {
-  afterAll,
-  AfterEvent,
-  afterThe,
-  digAfter_,
-  EventKeeper,
-  mapAfter,
-  trackValue,
-  translateAfter_,
-} from '@proc7ts/fun-events';
-import { Share__symbol } from '@wesib/generic';
-import { Field, FieldShare, SharedField } from '@wesib/generic/forms';
+import { AfterEvent, mapAfter, mapAfter_, trackValue, translateAfter_ } from '@proc7ts/fun-events';
+import { noop } from '@proc7ts/primitives';
+import { AdjacentField, Field, FieldShare, SharedField } from '@wesib/generic/forms';
 import { ProduceStyle, Theme } from '@wesib/generic/styp';
 import { Attribute, Component, ComponentContext } from '@wesib/wesib';
 import { Examples__NS } from '../examples.ns';
@@ -38,36 +29,33 @@ export class FieldErrorComponent {
     },
     name: '',
   })
-  readonly indicator: AfterEvent<[Field<void>?]>;
+  readonly indicator: Field<void>;
 
   constructor(private readonly _context: ComponentContext) {
 
-    const field: AfterEvent<[Field.Controls<any>?]> = FieldShare[Share__symbol]
-        .valueFor(_context)
-        .do(
-            digAfter_((field?, _sharer?): EventKeeper<[Field.Controls<any>?]> => field || afterThe()),
-        );
     const when: AfterEvent<string[]> = this._code.read
         .do(
             translateAfter_((send, code) => code ? send(...code.trim().split(/\s+/)) : send()),
         );
 
-    this.indicator = afterAll({ field, when }).do(
-        mapAfter(({ field: [field], when }) => field && new Field({
-          control: field.control
-              .convert(InStyledElement.to(_context.element))
+    this.indicator = AdjacentField.toField<void>(builder => when.do(
+        mapAfter_((...when) => ({
+          control: builder.adjusted.control
+              .convert<void>(InStyledElement.to(_context.element))
               .setup(InCssClasses, css => css.add(inCssInfo()))
               .setup(InCssClasses, css => css.add(inCssError({ when }))),
         })),
-    );
+    ));
+
+    this.indicator.readControls(noop);
   }
 
   @Attribute({ updateState: false })
-  get code(): string | null {
-    return this._code.it || null;
+  get code(): string | null | undefined {
+    return this._code.it;
   }
 
-  set code(code: string | null) {
+  set code(code: string | null | undefined) {
     this._code.it = code;
   }
 
