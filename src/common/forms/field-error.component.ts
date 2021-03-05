@@ -2,7 +2,6 @@ import { InCssClasses, inCssError, inCssInfo, InputAspects__NS, InStyledElement 
 import { QualifiedName } from '@frontmeans/namespace-aliaser';
 import { StypLengthPt, stypRules, StypRules } from '@frontmeans/style-producer';
 import { AfterEvent, mapAfter, mapAfter_, trackValue, translateAfter_ } from '@proc7ts/fun-events';
-import { noop } from '@proc7ts/primitives';
 import { AdjacentField, Field, FieldShare, SharedField } from '@wesib/generic/forms';
 import { ProduceStyle, Theme } from '@wesib/generic/styp';
 import { Attribute, Component, ComponentContext } from '@wesib/wesib';
@@ -46,8 +45,6 @@ export class FieldErrorComponent {
               .setup(InCssClasses, css => css.add(inCssError({ when }))),
         })),
     ));
-
-    this.indicator.readControls(noop);
   }
 
   @Attribute({ updateState: false })
