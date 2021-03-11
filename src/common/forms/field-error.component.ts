@@ -2,7 +2,7 @@ import { InCssClasses, inCssError, inCssInfo, InputAspects__NS, InStyledElement 
 import { QualifiedName } from '@frontmeans/namespace-aliaser';
 import { StypLengthPt, stypRules, StypRules } from '@frontmeans/style-producer';
 import { AfterEvent, mapAfter, mapAfter_, trackValue, translateAfter_ } from '@proc7ts/fun-events';
-import { AdjacentField, Field, FieldShare, SharedField } from '@wesib/generic/forms';
+import { adjacentToField, Field, FieldShare, SharedField } from '@wesib/generic/forms';
 import { ProduceStyle, Theme } from '@wesib/generic/styp';
 import { Attribute, Component, ComponentContext } from '@wesib/wesib';
 import { Examples__NS } from '../examples.ns';
@@ -37,7 +37,7 @@ export class FieldErrorComponent {
             translateAfter_((send, code) => code ? send(...code.trim().split(/\s+/)) : send()),
         );
 
-    this.indicator = AdjacentField.toField<void>(builder => when.do(
+    this.indicator = adjacentToField<void>(builder => when.do(
         mapAfter_((...when) => ({
           control: builder.adjusted.control
               .convert<void>(InStyledElement.to(_context.element))
