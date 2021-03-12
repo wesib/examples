@@ -21,37 +21,37 @@ import { greetFieldStyle, GreetingOutComponent } from './greeting-out.component'
 export class GreetingComponent {
 
   @SharedField()
-  name!: Field<string>;
+  name?: Field<string>;
 
   constructor(private readonly _context: ComponentContext) {
 
     const bsContext = _context.get(BootstrapContext);
 
     _context.whenConnected(() => {
+      _context.whenSettled(({ element }: { element: Element }) => {
 
-      const element: Element = _context.element;
-      const nameElement = element.querySelector('input')!;
+        const nameElement = element.querySelector('input')!;
+        const name = this.name = Field.by(
+            opts => inText(nameElement, opts)
+                .setup(InValidation, validation => validation.by(requirePresent)),
+        );
 
-      this.name = Field.by(
-          opts => inText(nameElement, opts)
-              .setup(InValidation, validation => validation.by(requirePresent)),
-      );
+        bsContext.whenDefined(GreetingOutComponent)(({ elementDef: { tagName: outName } }) => {
 
-      bsContext.whenDefined(GreetingOutComponent)(({ elementDef: { tagName: outName } }) => {
+          const outElement = element.querySelector(outName!)!;
 
-        const outElement = element.querySelector(outName!)!;
+          ComponentSlot.of(outElement).whenReady(outCtx => {
 
-        ComponentSlot.of(outElement).whenReady(outCtx => {
+            const sync = new ValueSync<string | null>('');
+            const nameAttr = trackAttribute(outCtx, 'name');
 
-          const sync = new ValueSync<string | null>('');
-          const nameAttr = trackAttribute(outCtx, 'name');
+            sync.sync(nameAttr);
+            sync.sync('in', name, name => name && name.control);
 
-          sync.sync(nameAttr);
-          sync.sync('in', this.name, name => name && name.control);
-
-          _context.supply
-              .cuts(sync)
-              .cuts(nameAttr);
+            _context.supply
+                .cuts(sync)
+                .cuts(nameAttr);
+          });
         });
       });
     });
