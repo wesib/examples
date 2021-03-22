@@ -14,15 +14,10 @@ export class NavComponent {
 
   constructor(context: ComponentContext) {
     this._theme = context.get(Theme);
-    context.whenConnected(({ element }: { element: Element }) => {
-      new NavMenu(
-          context,
-          mapIndexed(
-              element.querySelectorAll('a'),
-              el => navAnchor(el),
-          ),
-      );
-    });
+    new NavMenu(({ element }: { element: Element }) => mapIndexed(
+        element.querySelectorAll('a'),
+        el => navAnchor(el),
+    )).bindTo(context);
   }
 
   @ProduceStyle()
