@@ -1,22 +1,28 @@
 import { StypColor, StypLengthPt, StypProperties, stypRules, StypRules } from '@frontmeans/style-producer';
 import { mapAfter } from '@proc7ts/fun-events';
-import { ActivateNavLink, HandleNavLinks } from '@wesib/generic';
+import { mapIndexed } from '@proc7ts/push-iterator';
+import { navAnchor, NavMenu } from '@wesib/generic';
 import { ProduceStyle, Theme } from '@wesib/generic/styp';
 import { Component, ComponentContext, Wesib__NS } from '@wesib/wesib';
 import { Examples__NS } from '../examples.ns';
 import { ThemeSettings } from '../theme';
 
-@Component(
-    ['nav', Examples__NS],
-    HandleNavLinks(),
-    ActivateNavLink(),
-)
+@Component(['nav', Examples__NS])
 export class NavComponent {
 
   private readonly _theme: Theme;
 
   constructor(context: ComponentContext) {
     this._theme = context.get(Theme);
+    context.whenConnected(({ element }: { element: Element }) => {
+      new NavMenu(
+          context,
+          mapIndexed(
+              element.querySelectorAll('a'),
+              el => navAnchor(el),
+          ),
+      );
+    });
   }
 
   @ProduceStyle()
