@@ -7,7 +7,7 @@ import {
   BootstrapWindow,
   Component,
   ComponentContext,
-  ElementRenderer,
+  ComponentRenderer,
   Render,
 } from '@wesib/wesib';
 import { DefaultStyle, Examples__NS, FormThemeSettings, inStyle, readonlyInStyle, ThemeSettings } from '../common';
@@ -28,7 +28,7 @@ export class GreetingOutComponent {
   }
 
   @Render()
-  render(): ElementRenderer {
+  render(): ComponentRenderer {
 
     const document = this._context.get(BootstrapWindow).document;
     const content = document.createElement('span');
