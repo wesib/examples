@@ -1,15 +1,9 @@
+import { nodeDocument } from '@frontmeans/dom-primitives';
 import { StypProperties, stypRules, StypRules } from '@frontmeans/style-producer';
 import { mapAfter } from '@proc7ts/fun-events';
+import { FragmentRendererExecution, RenderFragment } from '@wesib/generic';
 import { ProduceStyle, Theme } from '@wesib/generic/styp';
-import {
-  AttachShadow,
-  Attribute,
-  BootstrapWindow,
-  Component,
-  ComponentContext,
-  ComponentRenderer,
-  Render,
-} from '@wesib/wesib';
+import { AttachShadow, Attribute, Component, ComponentContext } from '@wesib/wesib';
 import { DefaultStyle, Examples__NS, FormThemeSettings, inStyle, readonlyInStyle, ThemeSettings } from '../common';
 
 @Component(['greeting-out', Examples__NS])
@@ -27,23 +21,19 @@ export class GreetingOutComponent {
     return this._context.get(Theme).style(GreetingOutStyle);
   }
 
-  @Render()
-  render(): ComponentRenderer {
+  @RenderFragment()
+  render({ content }: FragmentRendererExecution): void {
 
-    const document = this._context.get(BootstrapWindow).document;
-    const content = document.createElement('span');
-    const greetings = (): string => {
+    const doc = nodeDocument(content);
 
-      const name = this.name?.trim();
+    content.appendChild(doc.createTextNode(this._greeting()));
+  }
 
-      return name ? `Hello, ${name}!` : 'Hello!';
-    };
+  private _greeting(): string {
 
-    this._context.contentRoot.append(content);
+    const name = this.name?.trim();
 
-    return () => {
-      content.innerText = greetings();
-    };
+    return name ? `Hello, ${name}!` : 'Hello!';
   }
 
 }
