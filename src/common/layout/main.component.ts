@@ -9,9 +9,9 @@ import { ThemeSettings } from '../theme';
 @Component(['main', Examples__NS])
 export class MainComponent {
 
-  @RenderPage(({ contentRoot }) => ({
-    target: drekReplacer(contentRoot),
-  }))
+  @RenderPage({
+    target: ({ contentRoot }) => drekReplacer(contentRoot),
+  })
   renderPage({ content, response }: PageRendererExecution): void {
     if (!response.ok) {
 
