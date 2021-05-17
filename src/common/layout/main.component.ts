@@ -1,25 +1,30 @@
+import { nodeDocument } from '@frontmeans/dom-primitives';
+import { drekReplacer } from '@frontmeans/drek';
 import { StypProperties } from '@frontmeans/style-producer';
-import { IncludePage } from '@wesib/generic';
+import { PageRendererExecution, RenderPage } from '@wesib/generic';
 import { Component } from '@wesib/wesib';
 import { Examples__NS } from '../examples.ns';
 import { ThemeSettings } from '../theme';
 
-@Component(
-    ['main', Examples__NS],
-    IncludePage({
-      onResponse({ response, range }) {
-        if (!response.ok) {
-          range.deleteContents();
-          if (response.ok == null) {
-            range.insertNode(document.createTextNode('Loading...'));
-          } else {
-            range.insertNode(document.createTextNode(`Error. ${response.error}`));
-          }
-        }
-      },
-    }),
-)
+@Component(['main', Examples__NS])
 export class MainComponent {
+
+  @RenderPage({
+    target: ({ contentRoot }) => drekReplacer(contentRoot),
+  })
+  renderPage({ content, response }: PageRendererExecution): void {
+    if (!response.ok) {
+
+      const doc = nodeDocument(content);
+
+      if (response.ok == null) {
+        content.appendChild(doc.createTextNode('Loading...'));
+      } else {
+        content.appendChild(doc.createTextNode(`Error. ${response.error}`));
+      }
+    }
+  }
+
 }
 
 export function mainStyle(
