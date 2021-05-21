@@ -1,7 +1,7 @@
 import { InputAspects__NS } from '@frontmeans/input-aspects';
 import { mixStypColors, StypProperties, stypRules, StypRules } from '@frontmeans/style-producer';
 import { mapAfter } from '@proc7ts/fun-events';
-import { Theme } from '@wesib/generic/styp';
+import { Theme } from '@wesib/css';
 import { FormThemeSettings } from './form.theme-settings';
 
 export function FormStyle(theme: Theme): StypRules {

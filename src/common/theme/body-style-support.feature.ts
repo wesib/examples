@@ -1,5 +1,5 @@
 import { produceBasicStyle, stypDomFormat } from '@frontmeans/style-producer';
-import { ComponentStypDomFormat, ComponentStypFormat, Theme } from '@wesib/generic/styp';
+import { ComponentStypDomFormat, ComponentStypFormat, Theme } from '@wesib/css';
 import { Feature } from '@wesib/wesib';
 import { BodyStyle } from './body.style';
 

@@ -1,5 +1,5 @@
-import { PageLoadSupport } from '@wesib/generic';
-import { StyleProducerSupport } from '@wesib/generic/styp';
+import { StyleProducerSupport } from '@wesib/css';
+import { PageLoadSupport } from '@wesib/navigation';
 import { Feature } from '@wesib/wesib';
 import { ContainerComponent } from './container.component';
 

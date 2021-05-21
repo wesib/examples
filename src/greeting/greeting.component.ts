@@ -1,8 +1,8 @@
 import { inText, InValidation, requirePresent } from '@frontmeans/input-aspects';
 import { StypProperties, stypRules, StypRules } from '@frontmeans/style-producer';
 import { mapAfter, ValueSync } from '@proc7ts/fun-events';
-import { Field, SharedField } from '@wesib/generic/forms';
-import { ProduceStyle, Theme } from '@wesib/generic/styp';
+import { ProduceStyle, Theme } from '@wesib/css';
+import { Field, SharedField } from '@wesib/forms';
 import { BootstrapContext, Component, ComponentContext, ComponentSlot, trackAttribute } from '@wesib/wesib';
 import { AppFeature, Examples__NS, FormStyle, ThemeSettings } from '../common';
 import { greetFieldStyle, GreetingOutComponent } from './greeting-out.component';

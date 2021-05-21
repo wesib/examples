@@ -1,7 +1,7 @@
 import { QualifiedName } from '@frontmeans/namespace-aliaser';
 import { stypRules, StypRules } from '@frontmeans/style-producer';
 import { mapAfter } from '@proc7ts/fun-events';
-import { ProduceStyle, Theme } from '@wesib/generic/styp';
+import { ProduceStyle, Theme } from '@wesib/css';
 import { BootstrapContext, Component, ComponentContext } from '@wesib/wesib';
 import { Examples__NS } from '../examples.ns';
 import { mediaStyle, ThemeSettings } from '../theme';

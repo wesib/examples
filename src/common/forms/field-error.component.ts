@@ -2,8 +2,8 @@ import { InCssClasses, inCssError, inCssInfo, InputAspects__NS, InStyledElement 
 import { QualifiedName } from '@frontmeans/namespace-aliaser';
 import { StypLengthPt, stypRules, StypRules } from '@frontmeans/style-producer';
 import { AfterEvent, mapAfter, mapAfter_, trackValue, translateAfter_ } from '@proc7ts/fun-events';
-import { adjacentToField, Field, FieldShare, SharedField } from '@wesib/generic/forms';
-import { ProduceStyle, Theme } from '@wesib/generic/styp';
+import { ProduceStyle, Theme } from '@wesib/css';
+import { adjacentToField, Field, FieldShare, SharedField } from '@wesib/forms';
 import { Attribute, Component, ComponentContext } from '@wesib/wesib';
 import { Examples__NS } from '../examples.ns';
 import { FormThemeSettings } from './form.theme-settings';

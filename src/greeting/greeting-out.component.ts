@@ -1,8 +1,8 @@
 import { nodeDocument } from '@frontmeans/dom-primitives';
 import { StypProperties, stypRules, StypRules } from '@frontmeans/style-producer';
 import { mapAfter } from '@proc7ts/fun-events';
+import { ProduceStyle, Theme } from '@wesib/css';
 import { FragmentRendererExecution, RenderFragment } from '@wesib/generic';
-import { ProduceStyle, Theme } from '@wesib/generic/styp';
 import { AttachShadow, Attribute, Component, ComponentContext } from '@wesib/wesib';
 import { DefaultStyle, Examples__NS, FormThemeSettings, inStyle, readonlyInStyle, ThemeSettings } from '../common';
 

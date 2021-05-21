@@ -1,8 +1,8 @@
 import { StypColor, StypLengthPt, StypProperties, stypRules, StypRules } from '@frontmeans/style-producer';
 import { mapAfter } from '@proc7ts/fun-events';
 import { mapIndexed } from '@proc7ts/push-iterator';
-import { navAnchor, NavMenu } from '@wesib/generic';
-import { ProduceStyle, Theme } from '@wesib/generic/styp';
+import { ProduceStyle, Theme } from '@wesib/css';
+import { navAnchor, NavMenu } from '@wesib/navigation';
 import { Component, ComponentContext, Wesib__NS } from '@wesib/wesib';
 import { Examples__NS } from '../examples.ns';
 import { ThemeSettings } from '../theme';

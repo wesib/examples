@@ -1,4 +1,4 @@
-import { FormCssPreset, FormModePreset } from '@wesib/generic/forms';
+import { FormCssPreset, FormModePreset } from '@wesib/forms';
 import { Feature } from '@wesib/wesib';
 import { FieldErrorComponent } from './field-error.component';
 

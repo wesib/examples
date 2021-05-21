@@ -1,6 +1,6 @@
 import { StypProperties, stypRules, StypRules } from '@frontmeans/style-producer';
 import { mapAfter } from '@proc7ts/fun-events';
-import { Theme } from '@wesib/generic/styp';
+import { Theme } from '@wesib/css';
 import { LinkStyle } from './link.style';
 import { mediaStyle, ThemeSettings } from './theme-settings';
 

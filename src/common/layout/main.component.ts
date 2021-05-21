@@ -1,7 +1,7 @@
 import { nodeDocument } from '@frontmeans/dom-primitives';
 import { drekReplacer } from '@frontmeans/drek';
 import { StypProperties } from '@frontmeans/style-producer';
-import { PageRendererExecution, RenderPage } from '@wesib/generic';
+import { PageRendererExecution, RenderPage } from '@wesib/navigation';
 import { Component } from '@wesib/wesib';
 import { Examples__NS } from '../examples.ns';
 import { ThemeSettings } from '../theme';
