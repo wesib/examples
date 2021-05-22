@@ -2,32 +2,39 @@ import typescript2 from '@rollup/plugin-typescript';
 import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 import { defineConfig } from 'vite';
-import handlebars from 'vite-plugin-handlebars';
+import { injectHtml, minifyHtml } from 'vite-plugin-html';
 
 export default defineConfig(({ command }) => {
 
   const configDir = dirname(fileURLToPath(import.meta.url));
   const srcDir = resolve(configDir, 'src');
   const rev = command === 'build' ? Date.now().toString(32) : '';
+  const scriptPath = command === 'build'
+      ? function (path) {
+        return `${this.base}${path}`;
+      }
+      : function (path) {
+        return `${path}`;
+      };
 
   return ({
     root: './src',
     base: './',
     plugins: [
-      handlebars({
-        partialDirectory: resolve(srcDir, 'template'),
-        context: {
-          rev,
-          common: {},
-        },
-        runtimeOptions: {
-          helpers: {
-            'set-base'(base) {
-              this.common.base = base;
+      minifyHtml({
+        removeAttributeQuotes: false,
+        removeEmptyAttributes: false,
+      }),
+      injectHtml({
+        injectData: { rev },
+        injectOptions: {
+          root: resolve(srcDir, 'template'),
+          context: {
+            base: null,
+            setBase(base) {
+              this.base = base;
             },
-            'script-path'(path) {
-              return `${this.common.base}${path}`;
-            },
+            scriptPath,
           },
         },
       }),

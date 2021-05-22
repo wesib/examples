@@ -1,9 +1,8 @@
-{{~ set-base base ~}}
 <meta charset="utf-8"/>
-<base href="{{base}}"/>
+<base href="<%= this.base %>"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>{{title}}</title>
-{{#if rev ~}}
-  <meta name="wesib-app-rev" content="{{rev}}">
-{{~/if}}
+<title><%= title %></title>
+<% if (rev) { %>
+  <meta name="wesib-app-rev" content="<%= rev %>">
+<% } %>
 <link href="https://fonts.googleapis.com/css?family=Exo+2:400,600&display=swap" rel="stylesheet">
