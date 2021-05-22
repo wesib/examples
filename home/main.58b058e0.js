@@ -1,1 +1,0 @@
-import{C as s,E as a,g as m,j as o}from"../js/common.85171376.js";import{_ as e}from"../js/lib.fa155c56.js";let j=class{};j=e([s({name:["home",a],feature:{needs:[m]}})],j),o.load(j);//# sourceMappingURL=main.58b058e0.js.map
