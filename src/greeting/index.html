@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+<% this.setBase('../'); -%>
 <html lang="en">
 <head>
-  {{>bex-head base="../" title="Greeting ~ Wesib Example"}}
+  <%- include('/bex-head.ejs', { title: 'Greeting ~ Wesib Example' }) -%>
 </head>
 <body>
 <bex-container>
-  {{>bex-nav}}
+  <%- include('/bex-nav.ejs') -%>
   <bex-main>
     <bex-greeting>
       <label>
@@ -20,6 +21,6 @@
     </bex-greeting>
   </bex-main>
 </bex-container>
-<script type="module" src="{{ script-path 'greeting/index.ts' }}"></script>
+<script type="module" src="<%= this.scriptPath('greeting/index.ts') %>"></script>
 </body>
 </html>
