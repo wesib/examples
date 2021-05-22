@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  {{>bex-head title="Wesib Examples"}}<meta charset="utf-8"/>
+  {{>bex-head base="./" title="Wesib Examples"}}<meta charset="utf-8"/>
 </head>
 <body>
 <bex-container>
@@ -10,6 +10,6 @@
     <bex-home></bex-home>
   </bex-main>
 </bex-container>
-{{>bex-scripts}}
+<script type="module" src="{{ script-path 'home.component.ts' }}"></script>
 </body>
 </html>
