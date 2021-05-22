@@ -2,7 +2,7 @@
   "compilerOptions": {
     "moduleResolution": "node",
     "module": "es2015",
-    "target": "es2018",
+    "target": "es2019",
     "strict": true,
     "experimentalDecorators": true,
     "noFallthroughCasesInSwitch": true,
@@ -14,12 +14,12 @@
     "noEmitHelpers": true,
     "lib": [
       "dom",
-      "es2018"
+      "es2019"
     ],
     "types": [
-      "node"
+      "node",
+      "vite/client"
     ],
-    "outDir": "target/js",
     "sourceMap": true,
     "newLine": "LF"
   },

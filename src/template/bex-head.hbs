@@ -1,13 +1,9 @@
-import * as Handlebars from 'handlebars';
-
-Handlebars.registerPartial(
-    'bex-head',
-    `
+{{~ set-base base ~}}
 <meta charset="utf-8"/>
+<base href="{{base}}"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>{{title}}</title>
-<meta name="wesib-app-rev" content="{{{rev}}}">
-<base href="{{{base}}}"/>
+{{#if rev ~}}
+  <meta name="wesib-app-rev" content="{{rev}}">
+{{~/if}}
 <link href="https://fonts.googleapis.com/css?family=Exo+2:400,600&display=swap" rel="stylesheet">
-    `.trim(),
-);

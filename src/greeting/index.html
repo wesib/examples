@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  {{>bex-head title="Greeting ~ Wesib Example"}}
+  {{>bex-head base="../" title="Greeting ~ Wesib Example"}}
 </head>
 <body>
 <bex-container>
@@ -20,6 +20,6 @@
     </bex-greeting>
   </bex-main>
 </bex-container>
-{{>bex-scripts}}
+<script type="module" src="{{ script-path 'greeting/index.ts' }}"></script>
 </body>
 </html>
