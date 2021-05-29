@@ -63,6 +63,6 @@
     "lint": "run-z +z --then eslint . --ext .js,.ts",
     "site:publish": "run-z +z all --then gh-pages --dist dist --dotfiles",
     "start": "run-z +z build --then node ./build/server.js",
-    "z": "run-z +build,+lint"
+    "z": "run-z +cmd:vite,+cmd:eslint"
   }
 }
