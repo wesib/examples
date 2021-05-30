@@ -22,7 +22,7 @@
     "@frontmeans/dom-primitives": "^1.1.0",
     "@frontmeans/drek": "^1.2.0",
     "@frontmeans/input-aspects": "^4.3.0",
-    "@frontmeans/namespace-aliaser": "^2.4.0",
+    "@frontmeans/namespace-aliaser": "^2.5.0",
     "@frontmeans/render-scheduler": "^1.7.0",
     "@frontmeans/style-producer": "^6.2.0",
     "@hatsy/hatsy": "^2.3.0",
