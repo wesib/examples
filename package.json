@@ -47,6 +47,8 @@
     "@wesib/wesib": "^1.0.0-beta.44",
     "eslint": "^7.27.0",
     "gh-pages": "^3.2.0",
+    "remark-cli": "^9.0.0",
+    "remark-preset-lint-recommended": "^5.0.0",
     "rollup": "^2.50.5",
     "run-z": "^1.8.0",
     "shx": "^0.3.3",
@@ -60,9 +62,10 @@
     "build": "run-z +z --then vite build",
     "clean": "run-z +z --then shx rm -rf dist target",
     "dev": "vite",
-    "lint": "run-z +z --then eslint . --ext .js,.ts",
+    "lint": "run-z + lint:md --and eslint .",
+    "lint:md": "run-z +z --then remark .",
     "site:publish": "run-z +z all --then gh-pages --dist dist --dotfiles",
     "start": "run-z +z build --then node ./build/server.js",
-    "z": "run-z +cmd:vite,+cmd:eslint"
+    "z": "run-z +cmd:vite,+cmd:eslint,+cmd:remark"
   }
 }
