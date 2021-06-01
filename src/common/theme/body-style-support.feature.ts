@@ -14,4 +14,3 @@ import { BodyStyle } from './body.style';
   },
 })
 export class BodyStyleSupport {}
-
