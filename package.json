@@ -25,7 +25,7 @@
     "@frontmeans/namespace-aliaser": "^2.5.0",
     "@frontmeans/render-scheduler": "^1.7.0",
     "@frontmeans/style-producer": "^7.0.0",
-    "@hatsy/hatsy": "^2.3.0",
+    "@hatsy/hatsy": "^2.4.0",
     "@hatsy/log-z-request": "^2.2.0",
     "@hatsy/router": "^2.2.0",
     "@hatsy/serve-static": "^2.2.0",
