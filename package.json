@@ -29,7 +29,7 @@
     "@hatsy/log-z-request": "^3.0.0",
     "@hatsy/router": "^2.3.0",
     "@hatsy/serve-static": "^2.3.0",
-    "@proc7ts/context-builder": "^7.0.0",
+    "@proc7ts/context-builder": "^7.0.1",
     "@proc7ts/context-values": "^7.0.0",
     "@proc7ts/delta-set": "^1.5.0",
     "@proc7ts/fun-events": "^10.5.0",
