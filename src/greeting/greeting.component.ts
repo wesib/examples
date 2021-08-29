@@ -21,7 +21,7 @@ import { greetFieldStyle, GreetingOutComponent } from './greeting-out.component'
 export class GreetingComponent {
 
   @SharedField()
-  name?: Field<string>;
+  name?: Field<string> | undefined;
 
   constructor(private readonly _context: ComponentContext) {
 

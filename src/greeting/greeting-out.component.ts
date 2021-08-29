@@ -11,7 +11,7 @@ import { DefaultStyle, Examples__NS, FormThemeSettings, inStyle, readonlyInStyle
 export class GreetingOutComponent {
 
   @Attribute()
-  name?: string;
+  name?: string | undefined;
 
   constructor(private readonly _context: ComponentContext) {
   }
