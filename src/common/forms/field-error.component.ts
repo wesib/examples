@@ -4,7 +4,7 @@ import { StypLengthPt, stypRules, StypRules } from '@frontmeans/style-producer';
 import { AfterEvent, mapAfter, mapAfter_, trackValue, translateAfter_ } from '@proc7ts/fun-events';
 import { ProduceStyle, Theme } from '@wesib/css';
 import { adjacentToField, Field, FieldShare, SharedField } from '@wesib/forms';
-import { Attribute, Component, ComponentContext } from '@wesib/wesib';
+import { Attribute, Component, ComponentContext, ComponentElement } from '@wesib/wesib';
 import { Examples__NS } from '../examples.ns';
 import { FormThemeSettings } from './form.theme-settings';
 
@@ -40,7 +40,7 @@ export class FieldErrorComponent {
     this.indicator = adjacentToField<void>(builder => when.do(
         mapAfter_((...when) => ({
           control: builder.adjusted.control
-              .convert<void>(InStyledElement.to(_context.element))
+              .convert<void>(InStyledElement.to(_context.element as ComponentElement))
               .setup(InCssClasses, css => css.add(inCssInfo()))
               .setup(InCssClasses, css => css.add(inCssError({ when }))),
         })),
