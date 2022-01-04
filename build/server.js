@@ -4,8 +4,8 @@ import { Routing } from '@hatsy/router';
 import { serveStatic } from '@hatsy/serve-static';
 import { logZAtopOf, logZTimestamp, logZWithDetails } from '@run-z/log-z';
 import { logZToStream } from '@run-z/log-z/node';
-import { createServer } from 'http';
-import path from 'path';
+import { createServer } from 'node:http';
+import path from 'node:path';
 
 const server = createServer(httpListener(
     {
