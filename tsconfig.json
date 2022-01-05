@@ -13,18 +13,10 @@
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
     "noEmitHelpers": true,
-    "lib": [
-      "DOM",
-      "ES2019"
-    ],
-    "types": [
-      "node",
-      "vite/client"
-    ],
+    "lib": ["DOM", "ES2019"],
+    "types": ["vite/client"],
     "sourceMap": true,
     "newLine": "LF"
   },
-  "include": [
-    "src/**/*.ts"
-  ]
+  "include": ["src/**/*.ts"]
 }
