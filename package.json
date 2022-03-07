@@ -52,12 +52,12 @@
     "remark-lint-list-item-indent": "^3.1.1",
     "remark-lint-no-shortcut-reference-link": "^3.1.1",
     "remark-preset-lint-recommended": "^6.1.2",
-    "rollup": "^2.68.0",
+    "rollup": "^2.69.2",
     "run-z": "^1.10.0",
     "shx": "^0.3.4",
     "tslib": "^2.3.1",
     "typescript": "^4.6.2",
-    "vite": "^2.8.5",
+    "vite": "^2.8.6",
     "vite-plugin-html": "^2.1.2"
   },
   "scripts": {
