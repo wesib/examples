@@ -1,5 +1,4 @@
-Wesib Examples
-==============
+# Wesib Examples
 
 Published at [demo site].
 
