@@ -54,6 +54,7 @@ export default defineConfig(({ command }) => {
         },
       },
       sourcemap: true,
+      minify: 'terser',
       terserOptions: {
         ecma: 2019,
         module: true,
