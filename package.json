@@ -37,7 +37,7 @@
     "@proc7ts/primitives": "^3.0.2",
     "@proc7ts/push-iterator": "^3.1.0",
     "@rollup/plugin-typescript": "^8.3.3",
-    "@run-z/eslint-config": "^3.1.0",
+    "@run-z/eslint-config": "^3.1.1",
     "@run-z/log-z": "^2.1.0",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",
