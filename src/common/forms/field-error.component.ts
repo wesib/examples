@@ -1,4 +1,10 @@
-import { InCssClasses, inCssError, inCssInfo, InputAspects__NS, InStyledElement } from '@frontmeans/input-aspects';
+import {
+  InCssClasses,
+  inCssError,
+  inCssInfo,
+  InputAspects__NS,
+  InStyledElement,
+} from '@frontmeans/input-aspects';
 import { QualifiedName } from '@frontmeans/namespace-aliaser';
 import { StypLengthPt, stypRules, StypRules } from '@frontmeans/style-producer';
 import { AfterEvent, mapAfter, mapAfter_, trackValue, translateAfter_ } from '@proc7ts/fun-events';
@@ -31,20 +37,18 @@ export class FieldErrorComponent {
   readonly indicator: Field<void>;
 
   constructor(private readonly _context: ComponentContext) {
-
-    const when: AfterEvent<string[]> = this._code.read
-        .do(
-            translateAfter_((send, code) => code ? send(...code.trim().split(/\s+/)) : send()),
-        );
+    const when: AfterEvent<string[]> = this._code.read.do(
+      translateAfter_((send, code) => (code ? send(...code.trim().split(/\s+/)) : send())),
+    );
 
     this.indicator = adjacentToField<void>(builder => when.do(
         mapAfter_((...when) => ({
           control: builder.adjusted.control
-              .convert<void>(InStyledElement.to(_context.element as ComponentElement))
-              .setup(InCssClasses, css => css.add(inCssInfo()))
-              .setup(InCssClasses, css => css.add(inCssError({ when }))),
+            .convert<void>(InStyledElement.to(_context.element as ComponentElement))
+            .setup(InCssClasses, css => css.add(inCssInfo()))
+            .setup(InCssClasses, css => css.add(inCssError({ when }))),
         })),
-    ));
+      ));
   }
 
   @Attribute({ updateState: false })
@@ -67,56 +71,59 @@ const InError__qualifier = 'bex:in-error';
 const hasError__cssClass: QualifiedName = ['has-error', InputAspects__NS];
 
 function InErrorStyle(theme: Theme): StypRules {
-
   const settings = theme.ref(FormThemeSettings).read;
-  const { root: { rules } } = theme;
+  const {
+    root: { rules },
+  } = theme;
   const borderW = StypLengthPt.of(4, 'px');
 
   return stypRules(
-      rules.add(
-          { u: [':', 'host'], $: InError__qualifier },
-          settings.do(mapAfter(({ $color, $errorFontSize }) => ({
-            display: 'none',
-            fontSize: $errorFontSize,
-            padding: $errorFontSize.div(2),
-            borderLeft: `${borderW} dotted ${$color}`,
-            paddingLeft: $errorFontSize.sub(borderW),
-          }))),
+    rules.add(
+      { u: [':', 'host'], $: InError__qualifier },
+      settings.do(
+        mapAfter(({ $color, $errorFontSize }) => ({
+          display: 'none',
+          fontSize: $errorFontSize,
+          padding: $errorFontSize.div(2),
+          borderLeft: `${borderW} dotted ${$color}`,
+          paddingLeft: $errorFontSize.sub(borderW),
+        })),
       ),
-      rules.add(
+    ),
+    rules.add(
+      {
+        u: [
+          ':',
+          'host',
           {
+            c: [hasError__cssClass, ['touched', InputAspects__NS]],
+            u: [':', 'not', { c: ['has-focus', InputAspects__NS] }],
+          },
+        ],
+        $: InError__qualifier,
+      },
+      {
+        display: 'block',
+      },
+    ),
+    rules.add(
+      {
+        u: [
+          ':',
+          'host',
+          {
+            c: hasError__cssClass,
             u: [
-              ':',
-              'host',
-              {
-                c: [hasError__cssClass, ['touched', InputAspects__NS]],
-                u: [':', 'not', { c: ['has-focus', InputAspects__NS] }],
-              },
+              [':', 'not', { u: ['code', '~=', 'missing'] }],
+              [':', 'not', { u: ['code', '~=', 'incomplete'] }],
             ],
-            $: InError__qualifier,
           },
-          {
-            display: 'block',
-          },
-      ),
-      rules.add(
-          {
-            u: [
-              ':',
-              'host',
-              {
-                c: hasError__cssClass,
-                u: [
-                  [':', 'not', { u: ['code', '~=', 'missing'] }],
-                  [':', 'not', { u: ['code', '~=', 'incomplete'] }],
-                ],
-              },
-            ],
-            $: InError__qualifier,
-          },
-          {
-            display: 'block',
-          },
-      ),
+        ],
+        $: InError__qualifier,
+      },
+      {
+        display: 'block',
+      },
+    ),
   );
 }

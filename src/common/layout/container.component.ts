@@ -11,21 +11,18 @@ import { NavComponent } from './nav.component';
 @Component({
   name: ['container', Examples__NS],
   feature: {
-    needs: [
-      MainComponent,
-      NavComponent,
-    ],
+    needs: [MainComponent, NavComponent],
   },
 })
 export class ContainerComponent {
 
-  constructor(private readonly _context: ComponentContext) {
-  }
+  constructor(private readonly _context: ComponentContext) {}
 
   @ProduceStyle()
   async style(): Promise<StypRules> {
-
-    const { elementDef: { name: mainName } } = await this._context.get(BootstrapContext).whenDefined(MainComponent);
+    const {
+      elementDef: { name: mainName },
+    } = await this._context.get(BootstrapContext).whenDefined(MainComponent);
 
     return this._context.get(Theme).style(ContainerStyle(mainName!));
   }
@@ -36,33 +33,37 @@ const Container__qualifier = 'bex:container';
 
 function ContainerStyle(mainName: QualifiedName): (theme: Theme) => StypRules {
   return theme => {
-
     const settings = theme.ref(ThemeSettings).read;
-    const { root: { rules } } = theme;
+    const {
+      root: { rules },
+    } = theme;
 
     return stypRules(
-        rules.add(
-            { u: [':', 'host'], $: Container__qualifier },
-            {
-              height: '100%',
-              display: 'flex',
-              flexFlow: 'row wrap',
-              alignItems: 'stretch',
-              alignContent: 'flex-start',
-            },
-        ).add(
-            settings.do(mapAfter(mediaStyle)),
-        ),
-        rules.add(
-            { u: [':', 'host'], $: [Container__qualifier, '@media:sm'] },
-            {
-              height: 'auto',
-            },
-        ),
-        rules.add(
-            [{ u: [':', 'host'], $: Container__qualifier }, { e: mainName, $: Container__qualifier }],
-            settings.do(mapAfter(mainStyle)),
-        ),
+      rules
+        .add(
+          { u: [':', 'host'], $: Container__qualifier },
+          {
+            height: '100%',
+            display: 'flex',
+            flexFlow: 'row wrap',
+            alignItems: 'stretch',
+            alignContent: 'flex-start',
+          },
+        )
+        .add(settings.do(mapAfter(mediaStyle))),
+      rules.add(
+        { u: [':', 'host'], $: [Container__qualifier, '@media:sm'] },
+        {
+          height: 'auto',
+        },
+      ),
+      rules.add(
+        [
+          { u: [':', 'host'], $: Container__qualifier },
+          { e: mainName, $: Container__qualifier },
+        ],
+        settings.do(mapAfter(mainStyle)),
+      ),
     );
   };
 }

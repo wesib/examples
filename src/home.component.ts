@@ -7,5 +7,4 @@ import { AppFeature, Examples__NS } from './common';
     needs: [AppFeature],
   },
 })
-export class HomeComponent {
-}
+export class HomeComponent {}

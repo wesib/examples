@@ -5,19 +5,19 @@ import { defineConfig } from 'vite';
 import { injectHtml, minifyHtml } from 'vite-plugin-html';
 
 export default defineConfig(({ command }) => {
-
   const configDir = dirname(fileURLToPath(import.meta.url));
   const srcDir = resolve(configDir, 'src');
   const rev = command === 'build' ? Date.now().toString(32) : '';
-  const scriptPath = command === 'build'
+  const scriptPath =
+    command === 'build'
       ? function (path) {
-        return `${this.base}${path}`;
-      }
+          return `${this.base}${path}`;
+        }
       : function (path) {
-        return `${path}`;
-      };
+          return `${path}`;
+        };
 
-  return ({
+  return {
     root: './src',
     base: './',
     plugins: [
@@ -68,5 +68,5 @@ export default defineConfig(({ command }) => {
     server: {
       port: 4200,
     },
-  });
+  };
 });

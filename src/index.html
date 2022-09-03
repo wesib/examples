@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <% this.setBase('./'); -%>
 <html lang="en">
-<head>
-  <%- include('/bex-head.ejs', { title: 'Wesib Examples' }) -%>
-</head>
-<body>
-<bex-container>
-  <%- include('/bex-nav.ejs') -%>
-  <bex-main>
-    <bex-home></bex-home>
-  </bex-main>
-</bex-container>
-<script type="module" src="<%= this.scriptPath('home.component.ts') %>"></script>
-</body>
+  <head>
+    <%- include('/bex-head.ejs', { title: 'Wesib Examples' }) -%>
+  </head>
+  <body>
+    <bex-container>
+      <%- include('/bex-nav.ejs') -%>
+      <bex-main>
+        <bex-home></bex-home>
+      </bex-main>
+    </bex-container>
+    <script
+      type="module"
+      src="<%= this.scriptPath('home.component.ts') %>"
+    ></script>
+  </body>
 </html>

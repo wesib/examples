@@ -14,7 +14,6 @@ export class MainComponent {
   })
   renderPage({ content, response }: PageRendererExecution): void {
     if (!response.ok) {
-
       const doc = nodeDocument(content);
 
       if (response.ok == null) {
@@ -27,11 +26,7 @@ export class MainComponent {
 
 }
 
-export function mainStyle(
-    {
-      $fontSize,
-    }: ThemeSettings,
-): StypProperties {
+export function mainStyle({ $fontSize }: ThemeSettings): StypProperties {
   return {
     flex: '1 1 auto',
     padding: 0,

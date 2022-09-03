@@ -4,7 +4,14 @@ import { mapAfter } from '@proc7ts/fun-events';
 import { ProduceStyle, Theme } from '@wesib/css';
 import { FragmentRendererExecution, RenderFragment } from '@wesib/generic';
 import { AttachShadow, Attribute, Component, ComponentContext } from '@wesib/wesib';
-import { DefaultStyle, Examples__NS, FormThemeSettings, inStyle, readonlyInStyle, ThemeSettings } from '../common';
+import {
+  DefaultStyle,
+  Examples__NS,
+  FormThemeSettings,
+  inStyle,
+  readonlyInStyle,
+  ThemeSettings,
+} from '../common';
 
 @Component(['greeting-out', Examples__NS])
 @AttachShadow()
@@ -13,8 +20,7 @@ export class GreetingOutComponent {
   @Attribute()
   name?: string | undefined;
 
-  constructor(private readonly _context: ComponentContext) {
-  }
+  constructor(private readonly _context: ComponentContext) {}
 
   @ProduceStyle()
   style(): StypRules {
@@ -23,14 +29,12 @@ export class GreetingOutComponent {
 
   @RenderFragment()
   render({ content }: FragmentRendererExecution): void {
-
     const doc = nodeDocument(content);
 
     content.appendChild(doc.createTextNode(this._greeting()));
   }
 
   private _greeting(): string {
-
     const name = this.name?.trim();
 
     return name ? `Hello, ${name}!` : 'Hello!';
@@ -41,27 +45,22 @@ export class GreetingOutComponent {
 const GreetingOut__qualifier = 'bex:greeting-out';
 
 function GreetingOutStyle(theme: Theme): StypRules {
-
   const settings = theme.ref(ThemeSettings).read;
   const formSettings = theme.ref(FormThemeSettings).read;
-  const { root: { rules } } = theme;
+  const {
+    root: { rules },
+  } = theme;
 
   return stypRules(
-      rules.add(
-          { u: [':', 'host'], $: GreetingOut__qualifier },
-          formSettings.do(mapAfter(inStyle)),
-      )
-          .add(formSettings.do(mapAfter(readonlyInStyle)))
-          .add(settings.do(mapAfter(greetFieldStyle))),
-      theme.style(DefaultStyle),
+    rules
+      .add({ u: [':', 'host'], $: GreetingOut__qualifier }, formSettings.do(mapAfter(inStyle)))
+      .add(formSettings.do(mapAfter(readonlyInStyle)))
+      .add(settings.do(mapAfter(greetFieldStyle))),
+    theme.style(DefaultStyle),
   );
 }
 
-export function greetFieldStyle(
-    {
-      $fontSize,
-    }: ThemeSettings,
-): StypProperties {
+export function greetFieldStyle({ $fontSize }: ThemeSettings): StypProperties {
   return {
     display: 'block',
     margin: `${$fontSize.div(2)} 0 0 0`,

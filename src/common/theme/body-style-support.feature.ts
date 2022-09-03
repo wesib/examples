@@ -6,10 +6,12 @@ import { BodyStyle } from './body.style';
 
 @Feature({
   setup(setup) {
-    setup.perComponent(cxBuildAsset(
+    setup.perComponent(
+      cxBuildAsset(
         ComponentStypFormat,
         target => new ComponentStypDomFormat(target.get(ComponentContext)),
-    ));
+      ),
+    );
   },
   init(context) {
     context.whenReady(() => {

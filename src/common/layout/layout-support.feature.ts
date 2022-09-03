@@ -4,11 +4,6 @@ import { Feature } from '@wesib/wesib';
 import { ContainerComponent } from './container.component';
 
 @Feature({
-  needs: [
-    ContainerComponent,
-    PageLoadSupport,
-    StyleProducerSupport,
-  ],
+  needs: [ContainerComponent, PageLoadSupport, StyleProducerSupport],
 })
-export class LayoutSupportFeature {
-}
+export class LayoutSupportFeature {}

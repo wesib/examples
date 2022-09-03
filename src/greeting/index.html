@@ -1,26 +1,32 @@
 <!DOCTYPE html>
 <% this.setBase('../'); -%>
 <html lang="en">
-<head>
-  <%- include('/bex-head.ejs', { title: 'Greeting ~ Wesib Example' }) -%>
-</head>
-<body>
-<bex-container>
-  <%- include('/bex-nav.ejs') -%>
-  <bex-main>
-    <bex-greeting>
-      <label>
-        Whom to greet
-        <input value="World" autofocus/>
-        <bex-field-error code="missing">This is required</bex-field-error>
-      </label>
-      <label>
-        Greeting
-        <bex-greeting-out></bex-greeting-out>
-      </label>
-    </bex-greeting>
-  </bex-main>
-</bex-container>
-<script type="module" src="<%= this.scriptPath('greeting/index.ts') %>"></script>
-</body>
+  <head>
+    <%- include('/bex-head.ejs', { title: 'Greeting ~ Wesib Example' }) -%>
+  </head>
+  <body>
+    <bex-container>
+      <%- include('/bex-nav.ejs') -%>
+      <bex-main>
+        <bex-greeting>
+          <label>
+            Whom to greet
+            <input
+              value="World"
+              autofocus
+            />
+            <bex-field-error code="missing">This is required</bex-field-error>
+          </label>
+          <label>
+            Greeting
+            <bex-greeting-out></bex-greeting-out>
+          </label>
+        </bex-greeting>
+      </bex-main>
+    </bex-container>
+    <script
+      type="module"
+      src="<%= this.scriptPath('greeting/index.ts') %>"
+    ></script>
+  </body>
 </html>

@@ -3,11 +3,6 @@ import { Feature } from '@wesib/wesib';
 import { FieldErrorComponent } from './field-error.component';
 
 @Feature({
-  needs: [
-    FormModePreset,
-    FormCssPreset,
-    FieldErrorComponent,
-  ],
+  needs: [FormModePreset, FormCssPreset, FieldErrorComponent],
 })
-export class FormsSupport {
-}
+export class FormsSupport {}

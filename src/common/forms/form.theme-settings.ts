@@ -1,4 +1,11 @@
-import { RefStypRule, StypColor, StypLength, StypLengthPt, StypMapper, StypRuleRefs } from '@frontmeans/style-producer';
+import {
+  RefStypRule,
+  StypColor,
+  StypLength,
+  StypLengthPt,
+  StypMapper,
+  StypRuleRefs,
+} from '@frontmeans/style-producer';
 import { mapAfter } from '@proc7ts/fun-events';
 import { ThemeSettings } from '../theme';
 
@@ -20,29 +27,20 @@ export interface FormThemeSettings {
 }
 
 export const FormThemeSettings: RefStypRule<FormThemeSettings> = RefStypRule.by(
-    { $: 'settings:form' },
-    root => StypRuleRefs.by<{ global: ThemeSettings }>(
-        {
-          global: ThemeSettings,
-        },
-        root,
+  { $: 'settings:form' },
+  root => StypRuleRefs.by<{ global: ThemeSettings }>(
+      {
+        global: ThemeSettings,
+      },
+      root,
     ).read.do(mapAfter(formMappings)),
 );
 
-function formMappings(
-    {
-      global: {
-        $color,
-        $bgColor,
-        $fontFace,
-        $fontSize,
-        $lineHeight,
-        $fontWeight,
-      },
-    }: {
-      global: ThemeSettings;
-    },
-): StypMapper.Mappings<FormThemeSettings> {
+function formMappings({
+  global: { $color, $bgColor, $fontFace, $fontSize, $lineHeight, $fontWeight },
+}: {
+  global: ThemeSettings;
+}): StypMapper.Mappings<FormThemeSettings> {
   return {
     $color,
     $bgColor: $bgColor.hsl.set(({ l }) => ({ l: l * 0.8 })),
