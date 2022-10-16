@@ -63,7 +63,7 @@
     "build": "run-z +z --then vite build",
     "clean": "run-z +z --then shx rm -rf dist target",
     "dev": "vite",
-    "format": "run-z +z --then prettier-eslint --write --include-dot-files \"src/**/*.*\" \"*.{js,cjs,mjs,json,md}\"",
+    "format": "run-z +z --then prettier-eslint --write --include-dot-files \"src/**/*.*\" \"*.{js,cjs,json,md}\"",
     "lint": "run-z +z --then eslint .",
     "site:publish": "run-z +z all --then gh-pages --dist dist --dotfiles",
     "start": "run-z +z build --then node ./build/server.js",
