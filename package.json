@@ -46,7 +46,7 @@
     "@wesib/generic": "^2.0.1",
     "@wesib/navigation": "^2.0.1",
     "@wesib/wesib": "^2.0.1",
-    "eslint": "^8.26.0",
+    "eslint": "^8.27.0",
     "gh-pages": "^4.0.0",
     "prettier": "^2.7.1",
     "prettier-eslint-cli": "^7.1.0",
