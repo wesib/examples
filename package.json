@@ -48,7 +48,7 @@
     "@wesib/wesib": "^2.0.1",
     "eslint": "^8.31.0",
     "gh-pages": "^4.0.0",
-    "prettier": "^2.8.1",
+    "prettier": "^2.8.2",
     "prettier-eslint-cli": "^7.1.0",
     "rollup": "^3.9.1",
     "run-z": "^1.10.1",
