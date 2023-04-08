@@ -46,7 +46,7 @@
     "@wesib/generic": "^2.0.2",
     "@wesib/navigation": "^2.0.2",
     "@wesib/wesib": "^2.0.2",
-    "eslint": "^8.37.0",
+    "eslint": "^8.38.0",
     "gh-pages": "^5.0.0",
     "prettier": "^2.8.7",
     "prettier-eslint-cli": "^7.1.0",
@@ -54,7 +54,7 @@
     "run-z": "^1.11.0",
     "shx": "^0.3.4",
     "tslib": "^2.5.0",
-    "typescript": "~5.0.3",
+    "typescript": "~5.0.4",
     "vite": "^2.9.15",
     "vite-plugin-html": "^2.1.2"
   },
